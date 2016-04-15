@@ -1,0 +1,28 @@
+{
+  "name": "github-dashboard",
+  "version": "0.1.0",
+  "description": "A Github Dashboard app running on-top of Node",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thescientist13/github-dashboard.git"
+  },
+  "keywords": [
+    "Node",
+    "Github"
+  ],
+  "author": "Owen Buckley <owen@analogstudios.net>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thescientist13/github-dashboard/issues"
+  },
+  "homepage": "https://github.com/thescientist13/github-dashboard#readme",
+  "devDependencies": {
+    "gulp-task-list": "0.0.1",
+    "gulp-task-listing": "1.0.1",
+    "pipeline-validate-js": "1.0.0-rc2"
+  }
+}
