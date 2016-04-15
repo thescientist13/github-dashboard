@@ -1,0 +1,25 @@
+{
+  "name": "github-dashboard",
+  "description": "A Github Dashboard app running on-top of Node",
+  "main": "gulpfile.js",
+  "authors": [
+    "Owen Buckley <owen@analogstudios.net>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "Node",
+    "Github"
+  ],
+  "homepage": "https://github.com/thescientist13/github-dashboard",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "3.3.6"
+  }
+}

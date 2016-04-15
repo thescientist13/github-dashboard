@@ -23,6 +23,7 @@
   "devDependencies": {
     "gulp-task-list": "0.0.1",
     "gulp-task-listing": "1.0.1",
+    "gulp-webserver": "0.9.1",
     "pipeline-validate-js": "1.0.0-rc2"
   }
 }
