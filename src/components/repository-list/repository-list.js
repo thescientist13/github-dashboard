@@ -1,14 +1,7 @@
-'use strict';
-
+console.log('ENTER repository list');
+import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-ReactDOM.render(
-  ReactDOM.render(
-    <h1>Hello, world!</h1>,
-    document.getElementById('hello')
-  )
-);
 
 // $(function() {
 //
@@ -52,6 +45,8 @@ ReactDOM.render(
 //     });
 //
 //   }
+//<!--<ul id="repo-list">-->
+//<!--</ul>-->
 //
 //   init();
 //

@@ -28,6 +28,7 @@
   },
   "jspm": {
     "dependencies": {
+      "jquery": "npm:jquery@^2.2.3",
       "react": "npm:react@^15.0.1",
       "react-dom": "npm:react-dom@^15.0.1"
     },
