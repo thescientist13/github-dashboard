@@ -11,20 +11,17 @@ var OwnerDetails = React.createClass({
   },
 
   componentDidMount: function() {
-    // TODO use owner API
     $.ajax({
       method: 'GET',
-      url: 'https://api.github.com/users/thescientist13/repos',
+      url: 'https://api.github.com/user',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': 'token aaaf5d8024e5aeff295067243b9ea0330cedb39a'
       }
     }).done(response => {
-      var owner = response[0].owner;
-
       this.setState({
-        avatar: owner.avatar_url,
-        name: owner.login
+        avatar: response.avatar_url,
+        name: response.login
       });
     });
   },
