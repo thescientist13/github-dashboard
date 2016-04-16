@@ -1,8 +1,9 @@
-import $ from 'jquery';
+import {GithubAPI} from '../github-api/github-api';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 var OwnerDetails = React.createClass({
+
   getInitialState: function() {
     return {
       avatar: '',
@@ -11,14 +12,9 @@ var OwnerDetails = React.createClass({
   },
 
   componentDidMount: function() {
-    $.ajax({
-      method: 'GET',
-      url: 'https://api.github.com/user',
-      headers: {
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': 'token ' +  CREDENTIALS.accessToken
-      }
-    }).done(response => {
+    let api = new GithubAPI();
+
+    api.getUserDetails(response => {
       this.setState({
         avatar: response.avatar_url,
         name: response.login
