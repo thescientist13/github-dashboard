@@ -10,8 +10,8 @@ const Navigation = React.createClass({
     return (
       <navigation>
         <ul role="nav">
-          <li><Link key="1" to="/personal">Personal</Link></li>
-          <li><Link key="2" to="/following">Following</Link></li>
+          <li><Link to="/personal">Personal</Link></li>
+          <li><Link to="/following">Following</Link></li>
         </ul>
       </navigation>
     )
