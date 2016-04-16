@@ -25,5 +25,17 @@
     "gulp-task-listing": "1.0.1",
     "gulp-webserver": "0.9.1",
     "pipeline-validate-js": "1.0.0-rc2"
+  },
+  "jspm": {
+    "dependencies": {
+      "jquery": "npm:jquery@2.2.3",
+      "react": "npm:react@15.0.1",
+      "react-dom": "npm:react-dom@15.0.1"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@5.8.24",
+      "babel-runtime": "npm:babel-runtime@5.8.24",
+      "core-js": "npm:core-js@1.1.4"
+    }
   }
 }

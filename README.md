@@ -5,11 +5,11 @@ This is a concept project to streamline management of Github repos into a dashbo
 
 ## Setup
 1. Install [Node][]
-2. Run `npm install`
-3. Run `bower install`
+2. Run `npm install -g jspm`  (may need Sudo)
+3. Run `npm install && jspm install`
 4. Create an access token and include it app.js
 
 [Node]: https://nodejs.org/en/
 
 ## Running
-1. Run `gulp run`
+1. Run `gulp serve`
