@@ -30,4 +30,8 @@ export class GithubAPI {
     this.makeRequest('GET', 'users/' + CREDENTIALS.username + '/repos', doneCallback);
   }
 
+  getIssuesForRepository(repository, doneCallback) {
+    this.makeRequest('GET', 'repos/' + CREDENTIALS.username + '/' + repository + '/issues', doneCallback)
+  }
+
 }

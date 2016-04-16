@@ -15,19 +15,44 @@ var RepositoryList = React.createClass({
     let api = new GithubAPI();
 
     api.getUserRepositories(response => {
-      this.setState({
-       repositories: response
-      });
+      var repos = response;
+
+      for(let i = 0, l = repos.length; i < l; i += 1){
+        var repo = repos[i];
+
+        api.getIssuesForRepository(repo.name, data => {
+          repos[i].issues = data || [];
+
+          // for(var j = 0, k = data.length; j < k; k += 1){
+          //   console.debug('isPR', data[j].pull_request);
+          // }
+
+          if(i === (repos.length - 1)) {
+            this.setState({
+              repositories: repos
+            });
+          }
+        });
+      }
+
     });
   },
 
   render: function() {
     return (
-      <ul>
-        {this.state.repositories.map(function(repository){
-          return <li><a target="_blank" href={repository.html_url}>{repository.name}</a></li>
-        })}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Repo Name</th>
+            <th>Total Issues</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.state.repositories.map(function(repository){
+            return <tr><td><a target="_blank" href={repository.html_url}>{repository.name}</a></td><td>{repository.issues.length}</td></tr>
+          })}
+        </tbody>
+      </table>
     )
   }
 });
