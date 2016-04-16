@@ -1,3 +1,6 @@
+'use strict';
+
+import './owner-details.css!';
 import {GithubAPI} from '../github-api/github-api';
 import React from 'react';
 import ReactDOM from 'react-dom';

@@ -1,3 +1,6 @@
+'use strict';
+
+import './footer.css!';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

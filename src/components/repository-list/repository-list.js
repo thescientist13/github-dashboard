@@ -1,5 +1,6 @@
 'use strict';
 
+import './repository-list.css!';
 import {GithubAPI} from '../github-api/github-api';
 import React from 'react';
 import ReactDOM from 'react-dom';
