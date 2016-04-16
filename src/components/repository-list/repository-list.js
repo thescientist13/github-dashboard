@@ -1,7 +1,8 @@
-import $ from 'jquery';
+'use strict';
+
+import {GithubAPI} from '../github-api/github-api';
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 
 var RepositoryList = React.createClass({
   getInitialState: function() {
@@ -11,14 +12,9 @@ var RepositoryList = React.createClass({
   },
 
   componentDidMount: function() {
-    $.ajax({
-      method: 'GET',
-      url: 'https://api.github.com/users/' + CREDENTIALS.username + '/repos',
-      headers: {
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': 'token ' + CREDENTIALS.accessToken
-      }
-    }).done(response => {
+    let api = new GithubAPI();
+
+    api.getUserRepositories(response => {
       this.setState({
        repositories: response
       });

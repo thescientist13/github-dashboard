@@ -1,4 +1,4 @@
 .idea
-credentials.js
+src/credentials.js
 jspm_packages
 node_modules
