@@ -7,6 +7,7 @@ export class GithubAPI {
 
   constructor(){
     $.ajaxSetup({
+      async: false,
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': 'token ' +  CREDENTIALS.accessToken
