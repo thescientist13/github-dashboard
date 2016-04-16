@@ -46,7 +46,7 @@ var RepositoryList = React.createClass({
 
   render: function() {
     return (
-      <table>
+      <table className="table table-bordered table-striped table-hover">
         <thead>
           <tr>
             <th>Repo Name</th>
