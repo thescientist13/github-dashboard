@@ -16,7 +16,7 @@ var OwnerDetails = React.createClass({
       url: 'https://api.github.com/user',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
-        'Authorization': 'token XXX'
+        'Authorization': 'token 83f15d2eb6e6029dd9d20a79551c6f701a046c95'
       }
     }).done(response => {
       this.setState({
@@ -30,7 +30,7 @@ var OwnerDetails = React.createClass({
     return (
       <section>
         <img class="owner-avatar" src={this.state.avatar}/>
-        <h1><span class="owner-name">{this.state.name}</span>'s Repositories</h1>
+        <h1><span class="owner-name">{this.state.name}</span>\'s Repositories</h1>
       </section>
     )
   }
