@@ -2,10 +2,10 @@
 
 import React from 'react';
 
-export const Following = React.createClass({
+const Following = React.createClass({
 
   contextTypes: {
-    router: React.PropTypes.func
+    router: React.PropTypes.object.isRequired
   },
 
   render: function() {
@@ -13,4 +13,7 @@ export const Following = React.createClass({
       <p>It Worked!</p>
     )
   }
+
 });
+
+export default Following;

@@ -4,10 +4,10 @@ import './repository-list.css!';
 import {GithubAPI} from '../github-api/github-api';
 import React from 'react';
 
-export const RepositoryList = React.createClass({
+const RepositoryList = React.createClass({
 
   contextTypes: {
-    router: React.PropTypes.func
+    router: React.PropTypes.object.isRequired
   },
 
   getInitialState: function() {
@@ -73,4 +73,7 @@ export const RepositoryList = React.createClass({
       </table>
     )
   }
+
 });
+
+export default RepositoryList;

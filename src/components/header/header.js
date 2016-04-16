@@ -3,7 +3,7 @@
 import './header.css!';
 import React from 'react';
 
-export const Header = React.createClass({
+const Header = React.createClass({
 
   render: function() {
     return (
@@ -13,3 +13,5 @@ export const Header = React.createClass({
     )
   }
 });
+
+export default Header;

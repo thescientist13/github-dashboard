@@ -4,20 +4,18 @@ import './navigation.css!';
 import React from 'react';
 import { Link } from 'react-router';
 
-export const Navigation = React.createClass({
-
-  contextTypes: {
-    router: React.PropTypes.func
-  },
+const Navigation = React.createClass({
 
   render: function() {
     return (
       <navigation>
-        <ul>
-          <li><Link to={'personal'}>Personal</Link></li>
-          <li><Link to={'following'}>Following</Link></li>
+        <ul role="nav">
+          <li><Link key="1" to="/personal">Personal</Link></li>
+          <li><Link key="2" to="/following">Following</Link></li>
         </ul>
       </navigation>
     )
   }
 });
+
+export default Navigation;
