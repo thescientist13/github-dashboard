@@ -26,7 +26,7 @@ var OwnerDetails = React.createClass({
     return (
       <div>
         <img class="owner-avatar" src={this.state.avatar}/>
-        <h1><span class="owner-name">{this.state.name}</span>'s Repositories</h1>
+        <h1><span class="owner-name">{this.state.name}</span></h1>
       </div>
     )
   }

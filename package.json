@@ -15,7 +15,8 @@
   },
   "keywords": [
     "Node",
-    "Github"
+    "Github",
+    "The Greenhouse"
   ],
   "author": "Owen Buckley <owen@analogstudios.net>",
   "license": "ISC",
@@ -31,6 +32,7 @@
   },
   "jspm": {
     "dependencies": {
+      "bootstrap": "github:twbs/bootstrap@3.3.6",
       "jquery": "npm:jquery@2.2.3",
       "react": "npm:react@15.0.1",
       "react-dom": "npm:react-dom@15.0.1"
