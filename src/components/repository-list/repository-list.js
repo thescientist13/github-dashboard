@@ -58,7 +58,7 @@ var RepositoryList = React.createClass({
         </thead>
         <tbody>
           {this.state.repositories.map(function(repository){
-            return <tr>
+            return <tr key={repository.id}>
                      <td><a target="_blank" href={repository.html_url}>{repository.name}</a></td>
                      <td>{repository.issues.length}</td>
                      <td>{repository.pullRequests}</td>
