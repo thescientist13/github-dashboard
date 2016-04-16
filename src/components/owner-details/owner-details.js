@@ -3,9 +3,8 @@
 import './owner-details.css!';
 import {GithubAPI} from '../github-api/github-api';
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-var OwnerDetails = React.createClass({
+export const OwnerDetails = React.createClass({
 
   getInitialState: function() {
     return {
@@ -34,8 +33,3 @@ var OwnerDetails = React.createClass({
     )
   }
 });
-
-ReactDOM.render(
-  <OwnerDetails />,
-  document.getElementById('owner-details')
-);

@@ -2,16 +2,8 @@
 
 import './footer.css!';
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-var Footer = React.createClass({
-
-  getInitialState: function() {
-    return {};
-  },
-
-  componentDidMount: function() {
-  },
+export const Footer = React.createClass({
 
   render: function() {
     return (
@@ -21,8 +13,3 @@ var Footer = React.createClass({
     )
   }
 });
-
-ReactDOM.render(
-  <Footer />,
-  document.getElementById('footer')
-);
