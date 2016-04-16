@@ -11,17 +11,21 @@ var OwnerDetails = React.createClass({
   },
 
   componentDidMount: function() {
+    // TODO use owner API
     $.ajax({
       method: 'GET',
-      url: 'https://api.github.com/user',
+      url: 'https://api.github.com/users/thescientist13/repos',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
-        'Authorization': 'token XXX'
+        'Authorization': 'token aaaf5d8024e5aeff295067243b9ea0330cedb39a'
       }
     }).done(response => {
+      var owner = response[0].owner;
+
+      console.log(owner.avatar_url);
       this.setState({
-        avatar: response.avatar_url,
-        name: response.login
+        avatar: owner.avatar_url,
+        name: owner.login
       });
     });
   },
@@ -30,7 +34,7 @@ var OwnerDetails = React.createClass({
     return (
       <section>
         <img class="owner-avatar" src={this.state.avatar}/>
-        <h1><span class="owner-name">{this.state.name}</span>\'s Repositories</h1>
+        <h1><span class="owner-name">{this.state.name}</span>'s Repositories</h1>
       </section>
     )
   }
