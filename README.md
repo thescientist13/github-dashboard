@@ -7,8 +7,9 @@ This is a concept project to streamline management of Github repos into a dashbo
 1. Install [Node][]
 2. Run `npm install`
 3. Run `bower install`
+4. Create an access token and include it app.js
 
 [Node]: https://nodejs.org/en/
 
 ## Running
-1. Run `gulp serve`
+1. Run `gulp run`

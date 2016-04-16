@@ -13,6 +13,9 @@
 
     <link href="bower_components/bootstrap/dist/css/bootstrap.css"/>
 
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="src/app.js"></script>
+
   </head>
 
   <body>
@@ -20,7 +23,11 @@
     <div class="container">
 
       <div class="col-md-12">
-        <h1>It works!</h1>
+        <img id="owner-avatar" src=""/>
+        <h1><span id="owner-name"></span>'s Repositories</h1>
+
+        <ul id="repo-list">
+        </ul>
       </div>
 
     </div>
