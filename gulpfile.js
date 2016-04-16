@@ -8,16 +8,17 @@ var webserver = require('gulp-webserver');
 var serverOptions = {
   livereload: true,
   open: '/',
-  // proxies: [{
-  //   source: '/api',
-  //   target: 'http://analogstudios.thegreenhouse.io/api'
-  // }],
+  proxies: [{
+    source: 'api.github.com/',
+    target: 'http://api.github.com/'
+  }],
   root: './'
 };
 
 gulp.task('lint', function () {
   gulp.src([
-    './gulpfile.js'
+    './gulpfile.js',
+    'src/**/*.js'
   ]).pipe(validatePipeline.validateJS());
 });
 

@@ -1,7 +1,7 @@
 {
   "name": "github-dashboard",
   "description": "A Github Dashboard app running on-top of Node",
-  "main": "gulpfile.js",
+  "main": "src/app.js",
   "authors": [
     "Owen Buckley <owen@analogstudios.net>"
   ],
@@ -20,6 +20,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "3.3.6"
+    "bootstrap": "3.3.6",
+    "jquery": "2.2.3"
   }
 }
