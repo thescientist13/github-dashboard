@@ -10,11 +10,13 @@ $(function() {
 
   function renderRepoList(list) {
     var repo = {};
+    var i = 0;
+    var l = 0;
 
-    for (var i = 0, l = list.length; i < l; i += 1) {
+    for (i = 0, l = list.length; i < l; i += 1) {
       repo = list[i];
 
-      $list.append('<li><a href="' + repo.url + '">' + list[i].name + '</a></li>');
+      $list.append('<li><a target="_blank" href="' + repo.html_url + '">' + list[i].name + '</a></li>');
     }
   }
 
@@ -31,14 +33,12 @@ $(function() {
       url: 'https://api.github.com/users/thescientist13/repos',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
-        'Authorization': 'token TOKEN-HERE'
+        'Authorization': 'token XXX'
       }
     }).done(function(response) {
       displayRepoDetails(response);
       renderRepoList(response);
-    }).fail(function(response) {
-      console.log('failure');
-      console.debug(response);
+    }).fail(function() {
     });
 
   }

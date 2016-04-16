@@ -31,6 +31,7 @@ gulp.task('serve', function () {
 });
 
 gulp.task('help', taskLister);
-gulp.task('run', ['lint']);
+gulp.task('build', ['lint']);
+gulp.task('run', ['serve']);
 
 gulp.task('default', ['help']);
