@@ -13,8 +13,16 @@
 
     <link href="bower_components/bootstrap/dist/css/bootstrap.css"/>
 
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="src/app.js"></script>
+
+    <!--<script src="bower_components/jquery/dist/jquery.min.js"></script>-->
+    <!--<script src="src/app.js"></script>-->
+
+    <script src="jspm_packages/system.js"></script>
+    <script src="config.js"></script>
+    <script>
+      System.import('src/app.js');
+    </script>
+
 
   </head>
 
@@ -23,11 +31,12 @@
     <div class="container">
 
       <div class="col-md-12">
-        <img id="owner-avatar" src=""/>
-        <h1><span id="owner-name"></span>'s Repositories</h1>
+        <div id="hello"></div>
+        <!--<img id="owner-avatar" src=""/>-->
+        <!--<h1><span id="owner-name"></span>'s Repositories</h1>-->
 
-        <ul id="repo-list">
-        </ul>
+        <!--<ul id="repo-list">-->
+        <!--</ul>-->
       </div>
 
     </div>
