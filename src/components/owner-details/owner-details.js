@@ -16,7 +16,7 @@ var OwnerDetails = React.createClass({
       url: 'https://api.github.com/user',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
-        'Authorization': 'token aaaf5d8024e5aeff295067243b9ea0330cedb39a'
+        'Authorization': 'token XXX'
       }
     }).done(response => {
       this.setState({
