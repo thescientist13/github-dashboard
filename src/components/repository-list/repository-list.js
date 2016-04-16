@@ -15,7 +15,7 @@ var RepositoryList = React.createClass({
       url: 'https://api.github.com/users/thescientist13/repos',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
-        'Authorization': 'token XXX'
+        'Authorization': 'token ' + CREDENTIALS.accessToken
       }
     }).done(response => {
       this.setState({
