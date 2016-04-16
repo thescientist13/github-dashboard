@@ -11,6 +11,7 @@ var RepositoryList = React.createClass({
     };
   },
 
+  // TOOD really need to clean this up
   componentDidMount: function() {
     let api = new GithubAPI();
 
@@ -22,10 +23,15 @@ var RepositoryList = React.createClass({
 
         api.getIssuesForRepository(repo.name, data => {
           repos[i].issues = data || [];
+          repos[i].pullRequests = 0;
 
-          // for(var j = 0, k = data.length; j < k; k += 1){
-          //   console.debug('isPR', data[j].pull_request);
-          // }
+          for(var j = 0, k = data.length; j < k; j += 1){
+            if(data[j].pull_request) {
+              repos[i].pullRequests += 1;
+            }
+          }
+
+          repos[i].openIssues = repos[i].issues.length - repos[i].pullRequests;
 
           if(i === (repos.length - 1)) {
             this.setState({
@@ -45,11 +51,18 @@ var RepositoryList = React.createClass({
           <tr>
             <th>Repo Name</th>
             <th>Total Issues</th>
+            <th>Pull Requests</th>
+            <th>Open Issues</th>
           </tr>
         </thead>
         <tbody>
           {this.state.repositories.map(function(repository){
-            return <tr><td><a target="_blank" href={repository.html_url}>{repository.name}</a></td><td>{repository.issues.length}</td></tr>
+            return <tr>
+                     <td><a target="_blank" href={repository.html_url}>{repository.name}</a></td>
+                     <td>{repository.issues.length}</td>
+                     <td>{repository.pullRequests}</td>
+                     <td>{repository.openIssues}</td>
+                   </tr>
           })}
         </tbody>
       </table>
