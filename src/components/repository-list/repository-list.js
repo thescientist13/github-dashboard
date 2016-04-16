@@ -3,9 +3,13 @@
 import './repository-list.css!';
 import {GithubAPI} from '../github-api/github-api';
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-var RepositoryList = React.createClass({
+const RepositoryList = React.createClass({
+
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
   getInitialState: function() {
     return {
       repositories: []
@@ -69,9 +73,7 @@ var RepositoryList = React.createClass({
       </table>
     )
   }
+
 });
 
-ReactDOM.render(
-  <RepositoryList />,
-  document.getElementById('repository-list')
-);
+export default RepositoryList;
