@@ -22,7 +22,6 @@ var OwnerDetails = React.createClass({
     }).done(response => {
       var owner = response[0].owner;
 
-      console.log(owner.avatar_url);
       this.setState({
         avatar: owner.avatar_url,
         name: owner.login
@@ -42,5 +41,5 @@ var OwnerDetails = React.createClass({
 
 ReactDOM.render(
   <OwnerDetails />,
-  document.getElementById('root')
+  document.getElementById('owner-details')
 );
