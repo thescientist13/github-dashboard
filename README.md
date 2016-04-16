@@ -11,4 +11,4 @@ This is a concept project to streamline management of Github repos into a dashbo
 [Node]: https://nodejs.org/en/
 
 ## Running
-1. Run `gulp serve`
+1. Run `gulp run`
