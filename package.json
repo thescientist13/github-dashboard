@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/thescientist13/github-dashboard.git"
   },
+  "engines": {
+    "node": ">=4.4.1"
+  },
   "keywords": [
     "Node",
     "Github"
