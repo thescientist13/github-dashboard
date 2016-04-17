@@ -1,10 +1,10 @@
 'use strict';
 
-import './repository-list.css!';
+import './repositories-personal.css!';
 import {GithubStore} from '../github-store/github-store';
 import React from 'react';
 
-const RepositoryList = React.createClass({
+const RepositoriesPersonal = React.createClass({
 
   contextTypes: {
     router: React.PropTypes.object.isRequired
@@ -76,4 +76,4 @@ const RepositoryList = React.createClass({
 
 });
 
-export default RepositoryList;
+export default RepositoriesPersonal;

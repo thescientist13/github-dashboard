@@ -3,7 +3,7 @@
 import React from 'react';
 import {GithubStore} from '../github-store/github-store';
 
-const Following = React.createClass({
+const RepositoriesFollowing = React.createClass({
 
   contextTypes: {
     router: React.PropTypes.object.isRequired
@@ -81,4 +81,4 @@ const Following = React.createClass({
 
 });
 
-export default Following;
+export default RepositoriesFollowing;
