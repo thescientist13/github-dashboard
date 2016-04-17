@@ -11,7 +11,7 @@ import Following from './components/following/following';
 import Footer from './components/footer/footer';
 import Header from './components/header/header';
 import Navigation from './components/navigation/navigation';
-import OwnerDetails from './components/owner-details/owner-details';
+import UserDetails from './components/user-details/user-details';
 import RepositoryList from './components/repository-list/repository-list';
 
 const Bootstrap = React.createClass({
@@ -29,7 +29,7 @@ const Bootstrap = React.createClass({
         <section className="row">
 
           <div className="col-md-3">
-            <OwnerDetails></OwnerDetails>
+            <UserDetails></UserDetails>
             <Navigation></Navigation>
           </div>
 

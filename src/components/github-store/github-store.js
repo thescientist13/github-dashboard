@@ -3,7 +3,7 @@
 import {CREDENTIALS} from '../../credentials';
 import $ from 'jquery'
 
-export class GithubAPI {
+export class GithubStore {
 
   constructor(){
     $.ajaxSetup({
@@ -33,6 +33,14 @@ export class GithubAPI {
 
   getIssuesForRepository(repository, doneCallback) {
     this.makeRequest('GET', 'repos/' + CREDENTIALS.username + '/' + repository + '/issues', doneCallback)
+  }
+
+  getUserWatchedRepositories(doneCallback) {
+    this.makeRequest('GET', 'users/' + CREDENTIALS.username + '/subscriptions', doneCallback);
+  }
+
+  getIssuesForUserWatchedRepositories(username, repository, doneCallback) {
+    this.makeRequest('GET', 'repos/' + username + '/' + repository + '/issues', doneCallback)
   }
 
 }
