@@ -1,7 +1,8 @@
 'use strict';
 
-import React from 'react';
 import {GithubStore} from '../github-store/github-store';
+import React from 'react';
+import TableRepositories from '../table-repositories/table-repositories';
 
 const RepositoriesFollowing = React.createClass({
 
@@ -56,26 +57,7 @@ const RepositoriesFollowing = React.createClass({
 
   render: function() {
     return (
-      <table className="table table-bordered table-striped table-hover">
-        <thead>
-        <tr>
-          <th>Repo Name</th>
-          <th>Total Issues</th>
-          <th>Pull Requests</th>
-          <th>Open Issues</th>
-        </tr>
-        </thead>
-        <tbody>
-        {this.state.repositories.map(function(repository){
-          return <tr key={repository.id}>
-            <td><a target="_blank" href={repository.html_url}>{repository.name}</a></td>
-            <td>{repository.open_issues_count}</td>
-            <td>{repository.pullRequests}</td>
-            <td>{repository.openIssues}</td>
-          </tr>
-        })}
-        </tbody>
-      </table>
+      <TableRepositories repositories={this.state.repositories}></TableRepositories>
     )
   }
 
