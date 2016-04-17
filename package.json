@@ -2,7 +2,7 @@
   "name": "github-dashboard",
   "version": "0.3.0",
   "description": "A Github Dashboard app running on-top of Node",
-  "main": "gulpfile.js",
+  "main": "src/bootstrap.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
