@@ -22,6 +22,7 @@ System.config({
     "jquery": "npm:jquery@2.2.3",
     "react": "npm:react@15.0.1",
     "react-dom": "npm:react-dom@15.0.1",
+    "react-loader": "npm:react-loader@2.4.0",
     "react-router": "npm:react-router@2.2.4",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
@@ -220,6 +221,11 @@ System.config({
     "npm:react-dom@15.0.1": {
       "react": "npm:react@15.0.1"
     },
+    "npm:react-loader@2.4.0": {
+      "react": "npm:react@15.0.1",
+      "react-dom": "npm:react-dom@15.0.1",
+      "spin.js": "npm:spin.js@2.3.2"
+    },
     "npm:react-router@2.2.4": {
       "history": "npm:history@2.0.2",
       "invariant": "npm:invariant@2.2.1",
@@ -233,16 +239,6 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:readable-stream@1.0.34": {
-      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
-      "core-util-is": "npm:core-util-is@1.0.2",
-      "events": "github:jspm/nodelibs-events@0.1.1",
-      "inherits": "npm:inherits@2.0.1",
-      "isarray": "npm:isarray@0.0.1",
-      "process": "github:jspm/nodelibs-process@0.1.2",
-      "stream-browserify": "npm:stream-browserify@1.0.0",
-      "string_decoder": "npm:string_decoder@0.10.31"
-    },
-    "npm:readable-stream@1.1.14": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "core-util-is": "npm:core-util-is@1.0.2",
       "events": "github:jspm/nodelibs-events@0.1.1",
@@ -281,7 +277,7 @@ System.config({
     "npm:stream-browserify@1.0.0": {
       "events": "github:jspm/nodelibs-events@0.1.1",
       "inherits": "npm:inherits@2.0.1",
-      "readable-stream": "npm:readable-stream@1.1.14"
+      "readable-stream": "npm:readable-stream@1.0.34"
     },
     "npm:string_decoder@0.10.31": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"

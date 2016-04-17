@@ -1,7 +1,9 @@
 'use strict';
 
 import './repositories-personal.css!';
+
 import {GithubStore} from '../github-store/github-store';
+import Loader from 'react-loader';
 import React from 'react';
 
 const RepositoriesPersonal = React.createClass({
@@ -12,6 +14,7 @@ const RepositoriesPersonal = React.createClass({
 
   getInitialState: function() {
     return {
+      loaded: false,
       repositories: []
     };
   },
@@ -39,9 +42,7 @@ const RepositoriesPersonal = React.createClass({
           repos[i].openIssues = repos[i].issues.length - repos[i].pullRequests;
 
           if(i === (repos.length - 1)) {
-            this.setState({
-              repositories: repos
-            });
+            this.onSuccess(repos);
           }
         });
       }
@@ -49,28 +50,37 @@ const RepositoriesPersonal = React.createClass({
     });
   },
 
+  onSuccess: function (repos) {
+    this.setState({
+      repositories: repos,
+      loaded: true
+    });
+  },
+
   render: function() {
     return (
-      <table className="table table-bordered table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Repo Name</th>
-            <th>Total Issues</th>
-            <th>Pull Requests</th>
-            <th>Open Issues</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.repositories.map(function(repository){
-            return <tr key={repository.id}>
-                     <td><a target="_blank" href={repository.html_url}>{repository.name}</a></td>
-                     <td>{repository.issues.length}</td>
-                     <td>{repository.pullRequests}</td>
-                     <td>{repository.openIssues}</td>
-                   </tr>
-          })}
-        </tbody>
-      </table>
+      <Loader loaded={this.state.loaded}>
+        <table className="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Repo Name</th>
+              <th>Total Issues</th>
+              <th>Pull Requests</th>
+              <th>Open Issues</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.repositories.map(function(repository){
+              return <tr key={repository.id}>
+                       <td><a target="_blank" href={repository.html_url}>{repository.name}</a></td>
+                       <td>{repository.issues.length}</td>
+                       <td>{repository.pullRequests}</td>
+                       <td>{repository.openIssues}</td>
+                     </tr>
+            })}
+          </tbody>
+        </table>
+      </Loader>
     )
   }
 
