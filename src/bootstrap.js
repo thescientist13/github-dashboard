@@ -7,12 +7,12 @@ import { IndexRoute, Link, Router, Route, browserHistory } from 'react-router';
 import '../../jspm_packages/github/twbs/bootstrap@3.3.6/css/bootstrap.css!';
 
 // TODO use custom elements?
-import Following from './components/following/following';
 import Footer from './components/footer/footer';
 import Header from './components/header/header';
 import Navigation from './components/navigation/navigation';
-import OwnerDetails from './components/owner-details/owner-details';
-import RepositoryList from './components/repository-list/repository-list';
+import UserDetails from './components/user-details/user-details';
+import RepositoriesFollowing from './components/repositories-following/repositories-following';
+import RepositoriesPersonal from './components/repositories-personal/repositories-personal';
 
 const Bootstrap = React.createClass({
   render: function() {
@@ -29,7 +29,7 @@ const Bootstrap = React.createClass({
         <section className="row">
 
           <div className="col-md-3">
-            <OwnerDetails></OwnerDetails>
+            <UserDetails></UserDetails>
             <Navigation></Navigation>
           </div>
 
@@ -54,9 +54,9 @@ const Bootstrap = React.createClass({
 render((
   <Router history={browserHistory}>
     <Route path="/" component={Bootstrap}>
-      <IndexRoute component={RepositoryList} />
-      <Route path="personal" component={RepositoryList} />
-      <Route path="following" component={Following} />
+      <IndexRoute component={RepositoriesPersonal} />
+      <Route path="personal" component={RepositoriesPersonal} />
+      <Route path="following" component={RepositoriesFollowing} />
     </Route>
   </Router>
 ), document.getElementById('content'));

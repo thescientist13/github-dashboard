@@ -1,10 +1,10 @@
 'use strict';
 
-import './owner-details.css!';
-import {GithubAPI} from '../github-api/github-api';
+import './user-details.css!';
+import {GithubStore} from '../github-store/github-store';
 import React from 'react';
 
-const OwnerDetails = React.createClass({
+const UserDetails = React.createClass({
 
   getInitialState: function() {
     return {
@@ -14,9 +14,9 @@ const OwnerDetails = React.createClass({
   },
 
   componentDidMount: function() {
-    let api = new GithubAPI();
+    let store = new GithubStore();
 
-    api.getUserDetails(response => {
+    store.getUserDetails(response => {
       this.setState({
         avatar: response.avatar_url,
         name: response.login
@@ -34,4 +34,4 @@ const OwnerDetails = React.createClass({
   }
 });
 
-export default OwnerDetails;
+export default UserDetails;

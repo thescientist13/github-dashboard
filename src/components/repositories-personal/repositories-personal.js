@@ -1,10 +1,10 @@
 'use strict';
 
-import './repository-list.css!';
-import {GithubAPI} from '../github-api/github-api';
+import './repositories-personal.css!';
+import {GithubStore} from '../github-store/github-store';
 import React from 'react';
 
-const RepositoryList = React.createClass({
+const RepositoriesPersonal = React.createClass({
 
   contextTypes: {
     router: React.PropTypes.object.isRequired
@@ -18,15 +18,15 @@ const RepositoryList = React.createClass({
 
   // TOOD really need to clean this up
   componentDidMount: function() {
-    let api = new GithubAPI();
+    let store = new GithubStore();
 
-    api.getUserRepositories(response => {
+    store.getUserRepositories(response => {
       var repos = response;
 
       for(let i = 0, l = repos.length; i < l; i += 1){
         var repo = repos[i];
 
-        api.getIssuesForRepository(repo.name, data => {
+        store.getIssuesForRepository(repo.name, data => {
           repos[i].issues = data || [];
           repos[i].pullRequests = 0;
 
@@ -76,4 +76,4 @@ const RepositoryList = React.createClass({
 
 });
 
-export default RepositoryList;
+export default RepositoriesPersonal;
