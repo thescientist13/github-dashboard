@@ -1,6 +1,6 @@
 'use strict';
 
-import {GithubStore} from '../github-store/github-store';
+import GithubStore from '../../stores/github-store';
 import React from 'react';
 import TableRepositories from '../table-repositories/table-repositories';
 
