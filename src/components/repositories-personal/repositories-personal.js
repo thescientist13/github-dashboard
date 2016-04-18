@@ -1,6 +1,6 @@
 'use strict';
 
-import GithubStore from '../../stores/github-store';
+import { GithubStore } from '../../stores/github-store';
 import React from 'react';
 import TableRepositories from '../table-repositories/table-repositories';
 
@@ -16,36 +16,28 @@ const RepositoriesPersonal = React.createClass({
     };
   },
 
-  // TOOD really need to clean this up
   componentDidMount: function() {
     let store = new GithubStore();
 
-    store.getUserRepositories(response => {
-      var repos = response;
+    store.getUserRepositories().then(response => {
+      this.setState({
+        repositories: response
+      });
 
-      for(let i = 0, l = repos.length; i < l; i += 1){
-        var repo = repos[i];
+      this.state.repositories.map((repository, index) => {
+        store.getIssuesForRepository(repository.name).then(response => {
+          repository.issues = response.issues;
+          repository.count = response.count;
+          repository.pullRequests = response.pullRequests;
+          repository.openIssues = response.openIssues;
 
-        store.getIssuesForRepository(repo.name, data => {
-          repos[i].issues = data || [];
-          repos[i].pullRequests = 0;
+          this.state.repositories[index] = repository;
 
-          for(var j = 0, k = data.length; j < k; j += 1){
-            if(data[j].pull_request) {
-              repos[i].pullRequests += 1;
-            }
-          }
-
-          repos[i].openIssues = repos[i].issues.length - repos[i].pullRequests;
-
-          if(i === (repos.length - 1)) {
-            this.setState({
-              repositories: repos
-            });
-          }
-        });
-      }
-
+          this.setState({
+            repositories: this.state.repositories
+          })
+        })
+      })
     });
   },
 

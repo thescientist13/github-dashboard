@@ -8,15 +8,14 @@ import '../../jspm_packages/github/twbs/bootstrap@3.3.6/css/bootstrap.css!';
 
 import Layout from './components/layout/layout';
 //import RepositoriesFollowing from './components/repositories-following/repositories-following';
-//import RepositoriesPersonal from './components/repositories-personal/repositories-personal';
+import RepositoriesPersonal from './components/repositories-personal/repositories-personal';
 
 render((
   <Router history={browserHistory}>
     <Route path="/" component={Layout}>
+      <IndexRoute component={RepositoriesPersonal} />
+      <Route path="personal" component={RepositoriesPersonal} />
     </Route>
   </Router>
 ), document.getElementById('content'));
-//
-// <IndexRoute component={RepositoriesPersonal} />
-// <Route path="personal" component={RepositoriesPersonal} />
-//   <Route path="following" component={RepositoriesFollowing} />
+//<Route path="following" component={RepositoriesFollowing} />
