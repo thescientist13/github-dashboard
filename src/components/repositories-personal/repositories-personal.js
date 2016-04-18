@@ -1,7 +1,8 @@
 'use strict';
 
-import { GithubStore } from '../../stores/github-store';
 import React from 'react';
+
+import { GithubStore } from '../../stores/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
 
 const RepositoriesPersonal = React.createClass({

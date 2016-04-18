@@ -2,7 +2,6 @@
 
 import CREDENTIALS from '../credentials';
 import axios from 'axios';
-import q from 'q';
 
 const baseUrl = 'https://api.github.com/';
 const $ = axios.create({
@@ -13,11 +12,9 @@ const $ = axios.create({
 });
 
 class GithubUser {
-  construct(avatar, name) {
+  constructor(avatar, name) {
     this.avatar = avatar;
     this.name = name;
-    console.log(this.avatar);
-    console.log(this.name);
   }
 
   getDetails() {
@@ -66,8 +63,21 @@ export class GithubStore {
         repository.issues = [];
       });
 
-      console.log('modded repos', this.repositories.personal);
       return this.repositories.personal;
+    })
+  }
+
+  getUserSubscriptions (username) {
+    let user = username || CREDENTIALS.username;
+
+    return $.get(baseUrl + 'users/' + user + '/subscriptions').then(response => {
+      this.repositories.following = response.data;
+
+      this.repositories.following.map(repository => {
+        repository.issues = [];
+      });
+
+      return this.repositories.following;
     })
   }
 
@@ -93,21 +103,5 @@ export class GithubStore {
       }
     });
   }
-  //
-  // getUserRepositories(doneCallback) {
-  //   this.makeRequest('GET', 'users/' + CREDENTIALS.username + '/repos', doneCallback);
-  // }
-  //
-  // getIssuesForRepository(repository, doneCallback) {
-  //   this.makeRequest('GET', 'repos/' + CREDENTIALS.username + '/' + repository + '/issues', doneCallback)
-  // }
-  //
-  // getUserWatchedRepositories(doneCallback) {
-  //   this.makeRequest('GET', 'users/' + CREDENTIALS.username + '/subscriptions', doneCallback);
-  // }
-  //
-  // getIssuesForUserWatchedRepositories(username, repository, doneCallback) {
-  //   this.makeRequest('GET', 'repos/' + username + '/' + repository + '/issues', doneCallback)
-  // }
 
 }
