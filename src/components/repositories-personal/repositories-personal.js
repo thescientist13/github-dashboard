@@ -33,7 +33,6 @@ const RepositoriesPersonal = React.createClass({
           repository.openIssues = response.openIssues;
 
           this.state.repositories[index] = repository;
-
           this.setState({
             repositories: this.state.repositories
           })

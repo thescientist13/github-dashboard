@@ -23,7 +23,7 @@ const RepositoriesFollowing = React.createClass({
     store.getUserSubscriptions().then(response => {
       this.setState({
         repositories: response
-      })
+      });
 
       this.state.repositories.map((repository, index) => {
         store.getIssuesForRepository(repository.name, repository.owner.login).then(response => {
@@ -33,7 +33,6 @@ const RepositoriesFollowing = React.createClass({
           repository.openIssues = response.openIssues;
 
           this.state.repositories[index] = repository;
-
           this.setState({
             repositories: this.state.repositories
           })
