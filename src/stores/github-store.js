@@ -3,6 +3,7 @@
 import CREDENTIALS from '../credentials';
 import axios from 'axios';
 
+// TODO make these private to the class
 const baseUrl = 'https://api.github.com/';
 const $ = axios.create({
   headers: {
@@ -87,7 +88,6 @@ export class GithubStore {
     return $.get(baseUrl + 'repos/' + user + '/' + repository + '/issues').then(response => {
       let issues = response.data || [];
       let pullRequests = 0;
-      let openIssues = null;
 
       issues.map(issue => {
         if (issue.pull_request) {
