@@ -1,7 +1,7 @@
 'use strict';
 
 import './user-details.css!';
-import {GithubStore} from '../github-store/github-store';
+import { GithubStore } from '../../stores/github-store';
 import React from 'react';
 
 const UserDetails = React.createClass({
@@ -16,11 +16,8 @@ const UserDetails = React.createClass({
   componentDidMount: function() {
     let store = new GithubStore();
 
-    store.getUserDetails(response => {
-      this.setState({
-        avatar: response.avatar_url,
-        name: response.login
-      });
+    store.getUserDetails().then(response => {
+      this.setState(response.data);
     });
   },
 

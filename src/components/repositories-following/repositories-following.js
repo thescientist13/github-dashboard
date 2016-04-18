@@ -1,7 +1,8 @@
 'use strict';
 
-import {GithubStore} from '../github-store/github-store';
 import React from 'react';
+
+import { GithubStore } from '../../stores/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
 
 const RepositoriesFollowing = React.createClass({
@@ -16,42 +17,27 @@ const RepositoriesFollowing = React.createClass({
     };
   },
 
-  // TOOD really need to clean this up
   componentDidMount: function() {
     let store = new GithubStore();
 
-    store.getUserWatchedRepositories(response => {
-      var repos = response;
-      var availableRepos = [];
-      var counter = 1;
+    store.getUserSubscriptions().then(response => {
+      this.setState({
+        repositories: response
+      });
 
-      for(let i = 0, l = repos.length; i < l; i += 1){
-        var repo = repos[i];
-        counter += 1;
+      this.state.repositories.map((repository, index) => {
+        store.getIssuesForRepository(repository.name, repository.owner.login).then(response => {
+          repository.issues = response.issues;
+          repository.count = response.count;
+          repository.pullRequests = response.pullRequests;
+          repository.openIssues = response.openIssues;
 
-        store.getIssuesForUserWatchedRepositories(repo.owner.login, repo.name, data => {
-          repo.issues = data || [];
-          repo.pullRequests = 0;
-
-          for(var j = 0, k = data.length; j < k; j += 1){
-            if(data[j].pull_request) {
-              repo.pullRequests += 1;
-            }
-          }
-
-          repo.openIssues = repo.open_issues_count - repo.pullRequests;
-
-          availableRepos.push(repo);
-
-          if(counter === (repos.length - 1)) {
-            this.setState({
-              repositories: availableRepos
-            });
-          }
-        });
-
-      }
-
+          this.state.repositories[index] = repository;
+          this.setState({
+            repositories: this.state.repositories
+          })
+        })
+      })
     });
   },
 
