@@ -1,27 +1,32 @@
 'use strict';
 
-import './user-details.css!';
-import { GithubStore } from '../../stores/github-store';
 import React from 'react';
 
-const UserDetails = React.createClass({
+import './user-details.css!';
+import { GithubStore } from '../../stores/github-store';
 
-  getInitialState: function() {
-    return {
+class UserDetails extends React.Component {
+
+  constructor() {
+    super();
+
+    this.state = {
       avatar: '',
       name: ''
     };
-  },
 
-  componentDidMount: function() {
+    this.getUserDetails();
+  }
+
+  getUserDetails() {
     let store = new GithubStore();
 
     store.getUserDetails().then(response => {
       this.setState(response.data);
     });
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div className="user-details">
         <img className="user-avatar img-responsive" src={this.state.avatar}/>
@@ -29,6 +34,7 @@ const UserDetails = React.createClass({
       </div>
     )
   }
-});
+
+}
 
 export default UserDetails;

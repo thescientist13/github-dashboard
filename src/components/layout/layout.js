@@ -7,8 +7,9 @@ import Header from '../header/header';
 import Navigation from '../navigation/navigation';
 import UserDetails from '../user-details/user-details';
 
-const Layout = React.createClass({
-  render: function() {
+class Layout extends React.Component {
+
+  render() {
     return (
       <section>
         <section className="row">
@@ -42,6 +43,7 @@ const Layout = React.createClass({
       </section>
     )
   }
-});
+
+}
 
 export default Layout;

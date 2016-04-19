@@ -5,19 +5,24 @@ import React from 'react';
 import { GithubStore } from '../../stores/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
 
-const RepositoriesFollowing = React.createClass({
+class RepositoriesFollowing extends React.Component {
 
   contextTypes: {
     router: React.PropTypes.object.isRequired
-  },
+  };
 
-  getInitialState: function() {
-    return {
+  constructor() {
+    super();
+
+    this.state = {
       repositories: []
     };
-  },
 
-  componentDidMount: function() {
+    this.getUserSubscriptions();
+  }
+
+  getUserSubscriptions() {
+
     let store = new GithubStore();
 
     store.getUserSubscriptions().then(response => {
@@ -39,14 +44,14 @@ const RepositoriesFollowing = React.createClass({
         })
       })
     });
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <TableRepositories repositories={this.state.repositories}></TableRepositories>
     )
   }
 
-});
+}
 
 export default RepositoriesFollowing;
