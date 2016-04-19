@@ -1,7 +1,6 @@
 'use strict';
 
 var gulp = require('gulp');
-var taskLister = require('gulp-task-listing');
 var validatePipeline = require('pipeline-validate-js');
 var webserver = require('gulp-webserver');
 
@@ -30,7 +29,5 @@ gulp.task('serve', function () {
 
 });
 
-gulp.task('default', ['help']);
-gulp.task('help', taskLister);
 gulp.task('build', ['lint']);
 gulp.task('run', ['serve']);

@@ -4,7 +4,10 @@
   "description": "A Github Dashboard app running on-top of Node",
   "main": "src/bootstrap.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp build",
+    "help": "gulp help",
+    "install:jspm": "jspm install",
+    "serve": "gulp serve"
   },
   "repository": {
     "type": "git",
@@ -25,9 +28,9 @@
   },
   "homepage": "https://github.com/thescientist13/github-dashboard#readme",
   "devDependencies": {
-    "gulp-task-list": "0.0.1",
-    "gulp-task-listing": "1.0.1",
+    "gulp": "3.9.1",
     "gulp-webserver": "0.9.1",
+    "jspm": "0.16.33",
     "pipeline-validate-js": "1.0.0-rc2"
   },
   "jspm": {
