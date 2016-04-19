@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { GithubStore } from '../../stores/github-store';
+import { GithubStore } from '../../stores/github/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
 
 class RepositoriesFollowing extends React.Component {
