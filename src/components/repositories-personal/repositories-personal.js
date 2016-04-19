@@ -5,19 +5,23 @@ import React from 'react';
 import { GithubStore } from '../../stores/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
 
-const RepositoriesPersonal = React.createClass({
+class RepositoriesPersonal extends React.Component {
 
   contextTypes: {
     router: React.PropTypes.object.isRequired
-  },
+  };
 
-  getInitialState: function() {
-    return {
+  constructor() {
+    super();
+
+    this.state = {
       repositories: []
     };
-  },
 
-  componentDidMount: function() {
+    this.getUserRepositories();
+  }
+
+  getUserRepositories() {
     let store = new GithubStore();
 
     store.getUserRepositories().then(response => {
@@ -39,14 +43,14 @@ const RepositoriesPersonal = React.createClass({
         })
       })
     });
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <TableRepositories repositories={this.state.repositories}></TableRepositories>
     )
   }
 
-});
+}
 
 export default RepositoriesPersonal;

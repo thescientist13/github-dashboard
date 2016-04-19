@@ -1,17 +1,19 @@
 'use strict';
 
-import './header.css!';
 import React from 'react';
 
-const Header = React.createClass({
+import './header.css!';
 
-  render: function() {
+class Header extends React.Component {
+
+  render() {
     return (
       <header>
         <h1 className="header-text">Github Dashboard</h1>
       </header>
     )
   }
-});
+
+}
 
 export default Header;

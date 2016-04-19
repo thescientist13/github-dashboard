@@ -1,12 +1,13 @@
 'use strict';
 
-import './navigation.css!';
 import React from 'react';
 import { Link } from 'react-router';
 
-const Navigation = React.createClass({
+import './navigation.css!';
 
-  render: function() {
+class Navigation extends React.Component {
+
+  render() {
     return (
       <navigation>
         <ul role="nav">
@@ -16,6 +17,7 @@ const Navigation = React.createClass({
       </navigation>
     )
   }
-});
+
+}
 
 export default Navigation;
