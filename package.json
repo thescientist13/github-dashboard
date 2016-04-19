@@ -4,10 +4,7 @@
   "description": "A Github Dashboard app running on-top of Node",
   "main": "src/bootstrap.js",
   "scripts": {
-    "build": "gulp build",
-    "help": "gulp help",
-    "install:jspm": "jspm install",
-    "serve": "gulp serve"
+    "install:jspm": "jspm install"
   },
   "repository": {
     "type": "git",
@@ -28,7 +25,7 @@
   },
   "homepage": "https://github.com/thescientist13/github-dashboard#readme",
   "devDependencies": {
-    "gulp": "3.9.1",
+    "gulp": "^3.9.1",
     "gulp-webserver": "0.9.1",
     "jspm": "0.16.33",
     "pipeline-validate-js": "1.0.0-rc2"
