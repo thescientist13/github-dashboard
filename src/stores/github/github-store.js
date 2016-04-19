@@ -1,7 +1,11 @@
 'use strict';
 
-import CREDENTIALS from '../credentials';
 import axios from 'axios';
+
+import CREDENTIALS from '../../credentials';
+import { GithubIssues } from './github-issues';
+import { GithubRepos } from './github-repos';
+import { GithubUser } from './github-user';
 
 // TODO make these private to the class
 const baseUrl = 'https://api.github.com/';
@@ -11,20 +15,6 @@ const $ = axios.create({
     'Authorization': 'token ' +  CREDENTIALS.accessToken
   }
 });
-
-class GithubUser {
-  constructor(avatar, name) {
-    this.avatar = avatar;
-    this.name = name;
-  }
-
-  getDetails() {
-    return {
-      avatar: this.avatar,
-      name: this.name
-    }
-  }
-}
 
 export class GithubStore {
   constructor() {
@@ -41,14 +31,10 @@ export class GithubStore {
     return $.get(baseUrl + 'user', {
       transformResponse: [response => {
         let resp = JSON.parse(response);
-        //let user = new GithubUser(resp.avatar_url, resp.login);
-        //console.log(user);
-        //console.log(user.getDetails());
-        this.user = {
-          avatar: resp.avatar_url,
-          name: resp.login
-        };
-        //console.log(this.user);
+        let user = new GithubUser(resp.avatar_url, resp.login);
+
+        this.user = user.getUserDetails();
+
         return this.user;
       }]
     })
@@ -58,11 +44,9 @@ export class GithubStore {
     let user = username || CREDENTIALS.username;
 
     return $.get(baseUrl + 'users/' + user + '/repos').then(response => {
-      this.repositories.personal = response.data;
+      let repos = new GithubRepos(response.data);
 
-      this.repositories.personal.map(repository => {
-        repository.issues = [];
-      });
+      this.repositories.personal = repos.getRepos();
 
       return this.repositories.personal;
     })
@@ -72,11 +56,9 @@ export class GithubStore {
     let user = username || CREDENTIALS.username;
 
     return $.get(baseUrl + 'users/' + user + '/subscriptions').then(response => {
-      this.repositories.following = response.data;
+      let repos = new GithubRepos(response.data);
 
-      this.repositories.following.map(repository => {
-        repository.issues = [];
-      });
+      this.repositories.following = repos.getRepos();
 
       return this.repositories.following;
     })
@@ -86,21 +68,9 @@ export class GithubStore {
     let user = username || CREDENTIALS.username;
 
     return $.get(baseUrl + 'repos/' + user + '/' + repository + '/issues').then(response => {
-      let issues = response.data || [];
-      let pullRequests = 0;
+      let issues = new GithubIssues(response.data);
 
-      issues.map(issue => {
-        if (issue.pull_request) {
-          pullRequests += 1;
-        }
-      });
-
-      return {
-        issues: issues,
-        count: issues.length,
-        pullRequests: pullRequests,
-        openIssues: issues.length - pullRequests
-      }
+      return issues.getIssues();
     });
   }
 

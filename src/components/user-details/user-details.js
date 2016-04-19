@@ -3,7 +3,7 @@
 import React from 'react';
 
 import './user-details.css!';
-import { GithubStore } from '../../stores/github-store';
+import { GithubStore } from '../../stores/github/github-store';
 
 class UserDetails extends React.Component {
 
