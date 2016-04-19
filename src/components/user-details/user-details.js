@@ -23,9 +23,9 @@ const UserDetails = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <img className="owner-avatar" src={this.state.avatar}/>
-        <h1><span className="owner-name">{this.state.name}</span></h1>
+      <div className="user-details">
+        <img className="user-avatar img-responsive" src={this.state.avatar}/>
+        <h1><span className="user-name">{this.state.name}</span></h1>
       </div>
     )
   }
