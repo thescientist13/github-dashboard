@@ -4,10 +4,7 @@
   "description": "A Github Dashboard app running on-top of Node",
   "main": "src/bootstrap.js",
   "scripts": {
-    "build": "gulp build",
-    "help": "gulp help",
-    "install:jspm": "jspm install",
-    "serve": "gulp serve"
+    "install:jspm": "jspm install"
   },
   "repository": {
     "type": "git",

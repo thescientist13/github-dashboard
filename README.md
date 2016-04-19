@@ -10,6 +10,7 @@ It is expected that you have the latest LTS version of [Node][] installed and it
 ## Setup
 After cloning the repo, please do the following
 
+1. Run `npm install -g gulp`
 1. Run `npm install`
 2. Run `npm run install:jspm`
 3. Run `cp src/credentials.js.tmpl _src/credentials.js` and replace the `xxx`'s with your Gitub username and a Github
@@ -45,10 +46,11 @@ and [Mobx] as well as converting to [TypeScript].
 
 
 ## Running the App
-`npm run serve` - starts the app in a webrowser (with livereload)
+`gulp serve` - starts the app in a webrowser (with livereload)
 
 ## Development
-`npm build` - runs the build with linting
+`gulp build` - runs the build with linting
+`gulp help` - show all available gulp tasks
 
 **Note: For development, it is recommended to use an IDE like [Webstorm][], and install React / JSX plugins, as well
 as setting any JavaScript language version settings to recognize ES6 or JSX syntax.**
