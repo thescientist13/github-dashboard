@@ -1,7 +1,7 @@
 # github-dashboard
 
 ## Overview
-This is a concept project to streamline management of Github repos into a dashboard application that can be run locally.
+This project is a locally running dashboard web application to help streamline management of Github repos and issues.
 It is expected that you have the latest LTS version of [Node][] installed and its package manager, [NPM][].
 
 [Node]: https://nodejs.org/
@@ -13,7 +13,7 @@ After cloning the repo, please do the following
 1. Run `npm install -g gulp`
 1. Run `npm install`
 2. Run `npm run install:jspm`
-3. Run `cp src/credentials.js.tmpl _src/credentials.js` and replace the `xxx`'s with your Gitub username and a Github
+3. Run `cp src/credentials.js.tmpl _src/credentials.js` and replace the `xxx`'s with your Github username and a Github
 _"Personal Access Token"_ with the following scopes:
 
 - repo
@@ -21,8 +21,8 @@ _"Personal Access Token"_ with the following scopes:
 - notifications
 
 ## Architecture
-This project is intended to be as closely aligned with modern day JavaScript standards and conventions by leverage as
-much as possible from the ES6 language specification.  The tools being used in the application are
+This project is intended to be as closely aligned with modern day JavaScript standards and conventions by leveraging as
+much from the ES6 language specification.  The tools being used in the application are:
 
 - [React][] - Component first UI library by Facebook.  This project will leverage [JSX].
 - [SystemJS][] - Universal module loader, coming in ES7.  Polyfilled for now so we can use ES6 `import` for JS, with
