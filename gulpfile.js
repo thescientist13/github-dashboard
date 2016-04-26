@@ -5,6 +5,7 @@ var validatePipeline = require('pipeline-validate-js');
 var webserver = require('gulp-webserver');
 
 var serverOptions = {
+  fallback: './index.html',
   livereload: true,
   open: '/',
   proxies: [{
