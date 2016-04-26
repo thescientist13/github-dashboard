@@ -1,11 +1,15 @@
 'use strict';
 
-import React from 'react';
+import * as React from 'react';
 
 import { GithubStore } from '../../stores/github/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
 
-class RepositoriesFollowing extends React.Component {
+class RepositoriesPersonal extends React.Component {
+
+  contextTypes: {
+    //router: React.PropTypes.object.isRequired
+  };
 
   constructor() {
     super();
@@ -14,21 +18,20 @@ class RepositoriesFollowing extends React.Component {
       repositories: []
     };
 
-    this.getUserSubscriptions();
+    this.getUserRepositories();
   }
 
-  getUserSubscriptions() {
-
+  getUserRepositories() {
     let store = new GithubStore();
 
-    store.getUserSubscriptions().then(response => {
+    store.getUserRepositories().then(response => {
       this.setState({
         repositories: response
       });
 
       this.state.repositories.map((repository, index) => {
-        //TODO this is duplicated in repositories-following, would be good to DRY this up
-        store.getIssuesForRepository(repository.name, repository.owner.login).then(response => {
+        //TODO this is duplicated in repositories-following, would be good to DRY this up.  maybe in the store?
+        store.getIssuesForRepository(repository.name).then(response => {
           repository.issues = response.issues;
           repository.count = response.count;
           repository.pullRequests = response.pullRequests;
@@ -52,4 +55,4 @@ class RepositoriesFollowing extends React.Component {
 
 }
 
-export default RepositoriesFollowing;
+export default RepositoriesPersonal;

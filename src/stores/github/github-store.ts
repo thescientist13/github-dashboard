@@ -1,6 +1,6 @@
 'use strict';
 
-import axios from 'axios';
+import * as axios from 'axios';
 
 import CREDENTIALS from '../../credentials';
 import { GithubIssues } from './github-issues';

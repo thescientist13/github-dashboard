@@ -2,7 +2,7 @@
 
 import './table-repositories.css!';
 
-import React from 'react';
+import * as React from 'react';
 
 class TableRepositories extends React.Component {
 
@@ -30,7 +30,6 @@ class TableRepositories extends React.Component {
       </table>
     )
   }
-
 }
 
 export default TableRepositories;

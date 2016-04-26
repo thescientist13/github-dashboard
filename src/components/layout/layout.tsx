@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react';
+import * as React from 'react';
 
 import Footer from '../footer/footer';
 import Header from '../header/header';

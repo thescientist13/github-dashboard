@@ -4,7 +4,13 @@
   "description": "A Github Dashboard app running on-top of Node",
   "main": "src/bootstrap.js",
   "scripts": {
-    "install:jspm": "jspm install"
+    "copy:credentials": "rm -rf ./dest/* && cp ./src/credentials.js ./dest/",
+    "install:jspm": "jspm install",
+    "install:typings": "./node_modules/.bin/typings install",
+    "build": "./node_modules/typescript/bin/tsc",
+    "develop": "npm run copy:credentials && ./node_modules/typescript/bin/tsc -w",
+    "serve": "./node_modules/.bin/lite-server",
+    "dashboard": "npm run copy:credentials && npm run build && npm run serve"
   },
   "repository": {
     "type": "git",
@@ -28,11 +34,13 @@
     "gulp": "3.9.1",
     "gulp-webserver": "0.9.1",
     "jspm": "0.16.33",
-    "pipeline-validate-js": "1.0.0-rc2"
+    "pipeline-validate-js": "1.0.0-rc2",
+    "typescript": "1.8.10",
+    "typings": "0.8.1"
   },
   "jspm": {
     "dependencies": {
-      "axios": "npm:axios@^0.9.1",
+      "axios": "npm:axios@0.9.1",
       "bootstrap": "github:twbs/bootstrap@3.3.6",
       "css": "github:systemjs/plugin-css@0.1.20",
       "react": "npm:react@15.0.1",
@@ -44,5 +52,8 @@
       "babel-runtime": "npm:babel-runtime@5.8.24",
       "core-js": "npm:core-js@1.1.4"
     }
+  },
+  "dependencies": {
+    "typed-react": "^3.4.1"
   }
 }
