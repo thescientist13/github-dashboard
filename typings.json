@@ -1,7 +1,10 @@
 {
   "name": "github-dashboard",
   "version": false,
-  "dependencies": {},
+  "dependencies": {
+    "history": "registry:npm/history#2.0.0+20160406171533",
+    "react-router": "registry:npm/react-router#2.0.0+20160214194820"
+  },
   "ambientDependencies": {
     "react": "registry:dt/react#0.14.0+20160423065914",
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",

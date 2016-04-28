@@ -1,10 +1,28 @@
+export class GithubRepo {
+  private details:any;
+  private issues: Array<any>;
+
+  constructor(repository:any){
+    this.details = repository;
+    this.issues = [];
+  }
+
+  getRepoInfo() {
+    return {
+      details: this.details,
+      issues: this.issues
+    }
+  }
+}
+
 export class GithubRepos {
+  private repositories:Array<GithubRepo>;
 
-  constructor(repos) {
-    this.repositories = repos;
+  constructor(repositories: Array<any>) {
+    const repos = repositories;
 
-    this.repositories.map(repository => {
-      repository.issues = [];
+    repos.map(repository => {
+      this.repositories.push(new GithubRepo(repository));
     });
   }
 

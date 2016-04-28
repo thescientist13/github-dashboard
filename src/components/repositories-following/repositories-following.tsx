@@ -3,9 +3,17 @@
 import * as React from 'react';
 
 import { GithubStore } from '../../stores/github/github-store';
+import { GithubIssue, GithubIssue } from "../../stores/github/github-issues";
+import { GithubRepo, GithubRepos } from "../../stores/github/github-repos";
 import TableRepositories from '../table-repositories/table-repositories';
 
-class RepositoriesFollowing extends React.Component {
+
+// TODO make this DRY?
+interface MyProps {}
+interface MyState {}
+
+class RepositoriesFollowing extends React.Component<MyProps, MyState> {
+  private repositories: Array<GithubRepo> = [];
 
   contextTypes: {
     //router: React.PropTypes.object.isRequired
@@ -13,11 +21,6 @@ class RepositoriesFollowing extends React.Component {
 
   constructor() {
     super();
-
-    this.state = {
-      repositories: []
-    };
-
     this.getUserSubscriptions();
   }
 
@@ -39,9 +42,10 @@ class RepositoriesFollowing extends React.Component {
           repository.openIssues = response.openIssues;
           repository.hasAssignedIssues = response.hasAssignedIssues;
 
-          this.state.repositories[index] = repository;
+          this.repositories[index] = repository;
+
           this.setState({
-            repositories: this.state.repositories
+            repositories: this.repositories
           })
         })
       })

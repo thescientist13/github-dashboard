@@ -4,7 +4,11 @@ import './table-repositories.css!';
 
 import * as React from 'react';
 
-class TableRepositories extends React.Component {
+// TODO make this DRY?
+interface MyProps {}
+interface MyState {}
+
+class TableRepositories extends React.Component<MyProps, MyState> {
 
   render() {
     return (

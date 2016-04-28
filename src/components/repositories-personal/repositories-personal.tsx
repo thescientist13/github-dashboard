@@ -5,7 +5,11 @@ import * as React from 'react';
 import { GithubStore } from '../../stores/github/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
 
-class RepositoriesPersonal extends React.Component {
+// TODO make this DRY?
+interface MyProps {}
+interface MyState {}
+
+class RepositoriesPersonal extends React.Component<MyProps, MyState> {
 
   contextTypes: {
     //router: React.PropTypes.object.isRequired

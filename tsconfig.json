@@ -1,16 +1,19 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "system",
     "outDir": "dest/",
     "target": "es5",
     "noImplicitAny": false,
     "removeComments": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "jsx": "react"
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
+  "files": [
+    "./typings/main.d.ts",
     "./src/bootstrap.tsx"
+  ],
+  "exclude": [
+    "jspm_packages",
+    "node_modules"
   ]
 }

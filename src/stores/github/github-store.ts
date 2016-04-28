@@ -2,70 +2,61 @@
 
 import * as axios from 'axios';
 
-import CREDENTIALS from '../../credentials';
-import { GithubIssues } from './github-issues';
-import { GithubRepos } from './github-repos';
+import Credentials from '../../credentials';
+import { GithubIssue, GithubIssues } from './github-issues';
+import { GithubRepo, GithubRepos } from './github-repos';
 import { GithubUser } from './github-user';
 
 // TODO make these private to the class
+const credentials = new Credentials().getCredentials();
 const baseUrl = 'https://api.github.com/';
 const $ = axios.create({
   headers: {
     'Accept': 'application/vnd.github.v3+json',
-    'Authorization': 'token ' +  CREDENTIALS.accessToken
+    'Authorization': 'token ' +  credentials.accessToken
   }
 });
 
 export class GithubStore {
-  constructor() {
-    this.user = {
-      avatar: '',
-      name: ''
-    };
-    this.repositories = {
-      personal: []
-    };
-  }
+  private user:GithubUser;
+  private repositoriesFollowing: Array <GithubRepo>;
+  private repositoriesPersonal: Array <GithubRepo>;
 
   getUserDetails() {
     return $.get(baseUrl + 'user', {
       transformResponse: [response => {
         let resp = JSON.parse(response);
-        let user = new GithubUser(resp.avatar_url, resp.login);
+        this.user = new GithubUser(resp.avatar_url, resp.login);
 
-        this.user = user.getUserDetails();
-
-        return this.user;
+        return this.user.getUserDetails();
       }]
     })
   }
 
-  getUserRepositories (username) {
-    let user = username || CREDENTIALS.username;
+  getUserRepositories (username?: string) {
+    //TOOD should this even be required since its a call specifically for the user?
+    let user = username || credentials.username;
 
     return $.get(baseUrl + 'users/' + user + '/repos').then(response => {
-      let repos = new GithubRepos(response.data);
+      this.repositoriesPersonal = new GithubRepos(response.data).getRepos();
 
-      this.repositories.personal = repos.getRepos();
-
-      return this.repositories.personal;
+      return this.repositoriesPersonal;
     })
   }
 
-  getUserSubscriptions (username) {
-    let user = username || CREDENTIALS.username;
+  getUserSubscriptions (username?: string) {
+    //TOOD should this even be required since its a call specifically for the user?
+    let user = username || credentials.username;
 
     return $.get(baseUrl + 'users/' + user + '/subscriptions').then(response => {
-      let repos = new GithubRepos(response.data);
+      this.repositoriesFollowing = new GithubRepos(response.data).getRepos();;
 
-      this.repositories.following = repos.getRepos();
-
-      return this.repositories.following;
+      return this.repositoriesFollowing;
     })
   }
 
-  getIssuesForRepository(repository, username) {
-    let user = username || CREDENTIALS.username;
+  getIssuesForRepository(repository: string, username: string) {
+    let user = username || credentials.username;
 
     return $.get(baseUrl + 'repos/' + user + '/' + repository + '/issues').then(response => {
       let issues = new GithubIssues(response.data, CREDENTIALS.username);

@@ -5,15 +5,16 @@ import * as React from 'react';
 import './user-details.css!';
 import { GithubStore } from '../../stores/github/github-store';
 
-class UserDetails extends React.Component {
+// TODO make this DRY?
+interface MyProps {}
+interface MyState {}
+
+class UserDetails extends React.Component<MyProps, MyState> {
+  private avatar:string;
+  private name:string;
 
   constructor() {
     super();
-
-    this.state = {
-      avatar: '',
-      name: ''
-    };
 
     this.getUserDetails();
   }
@@ -29,8 +30,8 @@ class UserDetails extends React.Component {
   render() {
     return (
       <div className="user-details">
-        <img className="user-avatar img-responsive" src={this.state.avatar}/>
-        <h1><span className="user-name">{this.state.name}</span></h1>
+        <img className="user-avatar img-responsive" src={this.avatar}/>
+        <h1><span className="user-name">{this.name}</span></h1>
       </div>
     )
   }

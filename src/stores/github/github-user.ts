@@ -1,14 +1,16 @@
 export class GithubUser {
+  private avatar:string;
+  private username:string;
 
-  constructor(avatar, name) {
-    this.avatar = avatar;
-    this.name = name;
+  constructor(username:string, avatarUrl:string) {
+    this.avatar = avatarUrl;
+    this.username = username;
   }
 
   getUserDetails() {
     return {
       avatar: this.avatar,
-      name: this.name
+      name: this.username
     }
   }
 

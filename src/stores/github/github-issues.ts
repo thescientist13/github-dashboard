@@ -1,38 +1,46 @@
+export class GithubIssue {
+  public details: any;
+
+  constructor(issue){
+    this.details = issue || null;
+  }
+
+  getIssueDetails() {
+    return this.details;
+  }
+}
+
 export class GithubIssues {
+  private count: number;
+  private issues: Array<GithubIssue> = [];
+  private openIssues: number;
+  private pullRequests: number;
 
-  constructor(issues, currentUser) {
-    this.issues = issues || [];
-    this.pullRequests = 0;
-    this.hasAssignedIssues = this.getHasAssignedIssues(issues, currentUser);
+  private modelIssues(issues) {
+    issues.map(issue => {
+      this.issues.push(new GithubIssue(issue));
 
-    this.issues.map(issue => {
       if (issue.pull_request) {
         this.pullRequests += 1;
       }
     });
   }
 
-  getHasAssignedIssues(issues, username) {
-    let hasAssignedIssues = false;
+  constructor(issues) {
+    this.pullRequests = 0;
 
-    issues.forEach(function (issue) {
-      let assignee = issue.assignee ? issue.assignee.login : '';
+    this.modelIssues(issues);
 
-      if (username === assignee) {
-        hasAssignedIssues = true;
-      }
-    });
-
-    return hasAssignedIssues;
+    this.count = this.issues.length;
+    this.openIssues = this.issues.length - this.pullRequests;
   }
 
-  getIssues() {
+  getIssueDetails() {
     return {
-      hasAssignedIssues: this.hasAssignedIssues,
       issues: this.issues,
       count: this.issues.length,
       pullRequests: this.pullRequests,
-      openIssues: this.issues.length - this.pullRequests
+      openIssues: this.openIssues
     }
   }
 

@@ -7,7 +7,11 @@ import Header from '../header/header';
 import Navigation from '../navigation/navigation';
 import UserDetails from '../user-details/user-details';
 
-class Layout extends React.Component {
+// TODO make this DRY?
+interface MyProps {}
+interface MyState {}
+
+class Layout extends React.Component<MyProps, MyState> {
 
   render() {
     return (
