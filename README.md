@@ -13,7 +13,7 @@ After cloning the repo, please do the following
 1. Run `npm install -g gulp`
 1. Run `npm install`
 2. Run `npm run install:jspm`
-3. Run `cp src/credentials.js.tmpl _src/credentials.js` and replace the `xxx`'s with your Github username and a Github
+3. Run `cp src/credentials.ts.tmpl _src/credentials.js` and replace the `xxx`'s with your Github username and a Github
 _"Personal Access Token"_ with the following scopes:
 
 - repo

@@ -3,6 +3,7 @@
 import gulp from 'gulp';
 import handymanPipeline from 'pipeline-handyman';
 import runSequence from 'run-sequence';
+import sourcemaps from 'gulp-sourcemaps';
 import tsCompiler from 'gulp-typescript';
 import validatePipeline from 'pipeline-validate-js';
 import webserver from 'gulp-webserver';
@@ -27,6 +28,25 @@ gulp.task('lint:js', function () {
   ]).pipe(validatePipeline.validateJS());
 });
 
+gulp.task('compile:ts', function () {
+  var tsProject = tsCompiler.createProject('tsconfig.json');
+
+  return tsProject.src()
+    .pipe(sourcemaps.init())
+    .pipe(tsCompiler(tsProject))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('dest/'));
+});
+
+gulp.task('copy:css', function() {
+  return gulp.src('./src/**/**/*.css')
+    .pipe(gulp.dest('./dest/'));
+});
+
+gulp.task('watch', function() {
+  gulp.watch(['./src/**/**/*.ts*'], ['compile']);
+});
+
 gulp.task('serve', function () {
 
   return gulp.src(serverOptions.root)
@@ -34,38 +54,20 @@ gulp.task('serve', function () {
 
 });
 
-gulp.task('compile', function () {
-  var tsProject = tsCompiler.createProject('tsconfig.json');
-
-  var tsResult = tsProject.src() // instead of gulp.src(...)
-    .pipe(tsCompiler(tsProject));
-
-  return tsResult.js.pipe(gulp.dest('dest/'));
-});
-
-gulp.task('build', ['clean'], function () {
-  runSequence(
-    ['lint:js'],
-    ['compile']
-  );
-});
-
+// "public" tasks
 gulp.task('develop', ['build'], function () {
   return runSequence(
     ['serve', 'watch']
   );
 });
 
-gulp.task('run', ['build'], function() {
-  return runSequence(['serve']);
+gulp.task('build', ['clean'], function () {
+  runSequence(
+    ['lint:js'],
+    ['compile:ts', 'copy:css']
+  );
 });
 
-gulp.task('watch', function() {
-  gulp.watch(['./src/**/**/*.ts*'], ['compile']);
-});
-
-// TODO "copy:credentials": "rm -rf ./dest/* && cp ./src/credentials.js ./dest/",
-// TODO "install:typings": "./node_modules/.bin/typings install",
-// TODO "build": "./node_modules/typescript/bin/tsc",
-// TODO "develop": "npm run copy:credentials && ./node_modules/typescript/bin/tsc -w",
-// TODO "dashboard": "npm run copy:credentials && npm run build && npm run serve"
+// gulp.task('serve', ['build'], function() {
+//   return runSequence(['serve']);
+// });
