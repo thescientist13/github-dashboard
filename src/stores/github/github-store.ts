@@ -8,60 +8,60 @@ import { GithubRepo, GithubRepos } from './github-repos';
 import { GithubUser } from './github-user';
 
 // TODO make these private to the class
-const credentials = new Credentials().getCredentials();
-const baseUrl = 'https://api.github.com/';
-const $ = axios.create({
-  headers: {
-    'Accept': 'application/vnd.github.v3+json',
-    'Authorization': 'token ' +  credentials.accessToken
-  }
-});
+
 
 export class GithubStore {
   private user:GithubUser;
-  private repositoriesFollowing: Array <GithubRepo>;
-  private repositoriesPersonal: Array <GithubRepo>;
+  private repositoriesFollowing: GithubRepos;
+  private repositoriesPersonal: GithubRepos;
+
+  private credentials = Credentials.getCredentials();
+  private baseUrl:string = 'https://api.github.com/';
+  private $ = axios.create({
+    headers: {
+      'Accept': 'application/vnd.github.v3+json',
+      'Authorization': 'token ' +  this.credentials.accessToken
+    }
+  });
 
   getUserDetails() {
-    return $.get(baseUrl + 'user', {
+    return this.$.get(this.baseUrl + 'user', {
       transformResponse: [response => {
         let resp = JSON.parse(response);
-        this.user = new GithubUser(resp.avatar_url, resp.login);
+        this.user = new GithubUser(resp.login, resp.avatar_url);
 
-        return this.user.getUserDetails();
+        return this.user;
       }]
     })
   }
 
   getUserRepositories (username?: string) {
-    //TOOD should this even be required since its a call specifically for the user?
-    let user = username || credentials.username;
+    // TODO should this even be required since its a call specifically for the user?
+    let user = username || this.credentials.username;
 
-    return $.get(baseUrl + 'users/' + user + '/repos').then(response => {
-      this.repositoriesPersonal = new GithubRepos(response.data).getRepos();
+    return this.$.get(this.baseUrl + 'users/' + user + '/repos').then(response => {
+      this.repositoriesPersonal = new GithubRepos(response.data);
 
       return this.repositoriesPersonal;
     })
   }
 
   getUserSubscriptions (username?: string) {
-    //TOOD should this even be required since its a call specifically for the user?
-    let user = username || credentials.username;
+    // TODO should this even be required since its a call specifically for the user?
+    let user = username || this.credentials.username;
 
-    return $.get(baseUrl + 'users/' + user + '/subscriptions').then(response => {
-      this.repositoriesFollowing = new GithubRepos(response.data).getRepos();;
+    return this.$.get(this.baseUrl + 'users/' + user + '/subscriptions').then(response => {
+      this.repositoriesFollowing = new GithubRepos(response.data);
 
       return this.repositoriesFollowing;
     })
   }
 
-  getIssuesForRepository(repository: string, username: string) {
-    let user = username || credentials.username;
+  getIssuesForRepository(repositoryName: string, username?: string) {
+    let user = username || this.credentials.username;
 
-    return $.get(baseUrl + 'repos/' + user + '/' + repository + '/issues').then(response => {
-      let issues = new GithubIssues(response.data, CREDENTIALS.username);
-
-      return issues.getIssues();
+    return this.$.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
+      return new GithubIssues(response.data);
     });
   }
 

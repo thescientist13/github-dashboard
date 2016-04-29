@@ -2,14 +2,13 @@
 
 import * as React from 'react';
 
+import { GithubIssues } from "../../stores/github/github-issues";
+import { GithubRepo, GithubRepos } from "../../stores/github/github-repos";
 import { GithubStore } from '../../stores/github/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
 
-// TODO make this DRY?
-interface MyProps {}
-interface MyState {}
-
-class RepositoriesPersonal extends React.Component<MyProps, MyState> {
+class RepositoriesPersonal extends React.Component<any, GithubRepo> {
+  private repositories: Array<GithubRepo> = [];
 
   contextTypes: {
     //router: React.PropTypes.object.isRequired
@@ -17,10 +16,9 @@ class RepositoriesPersonal extends React.Component<MyProps, MyState> {
 
   constructor() {
     super();
-
-    this.state = {
-      repositories: []
-    };
+    // this.setState({
+    //   repositories: Array<GithubRepo>
+    // }};
 
     this.getUserRepositories();
   }
@@ -28,24 +26,21 @@ class RepositoriesPersonal extends React.Component<MyProps, MyState> {
   getUserRepositories() {
     let store = new GithubStore();
 
-    store.getUserRepositories().then(response => {
-      this.setState({
-        repositories: response
-      });
+    store.getUserRepositories().then((response:GithubRepos) => {
+      this.repositories = response.getRepos();
+      // this.setState({
+      //   repositories: response.getRepos()
+      // });
 
-      this.state.repositories.map((repository, index) => {
-        //TODO this is duplicated in repositories-following, would be good to DRY this up.  maybe in the store?
-        store.getIssuesForRepository(repository.name).then(response => {
-          repository.issues = response.issues;
-          repository.count = response.count;
-          repository.pullRequests = response.pullRequests;
-          repository.openIssues = response.openIssues;
-          repository.hasAssignedIssues = response.hasAssignedIssues;
+      this.repositories.map((repository:GithubRepo, index:number) => {
+        const repoInfo = repository.getRepoDetails();
 
-          this.state.repositories[index] = repository;
-          this.setState({
-            repositories: this.state.repositories
-          })
+        store.getIssuesForRepository(repoInfo.details.name).then((response: GithubIssues) => {
+          this.repositories[index].setIssues(response);
+
+          // this.setState({
+          //   repositories: this.state.repositories
+          // })
         })
       })
     });
@@ -53,7 +48,7 @@ class RepositoriesPersonal extends React.Component<MyProps, MyState> {
 
   render() {
     return (
-      <TableRepositories repositories={this.state.repositories}></TableRepositories>
+      <TableRepositories repositories={this.repositories}></TableRepositories>
     )
   }
 

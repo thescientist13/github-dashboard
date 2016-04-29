@@ -1,14 +1,10 @@
 'use strict';
 
 import './table-repositories.css!';
-
 import * as React from 'react';
+import {GithubRepos, GithubRepo} from "../../stores/github/github-repos";
 
-// TODO make this DRY?
-interface MyProps {}
-interface MyState {}
-
-class TableRepositories extends React.Component<MyProps, MyState> {
+class TableRepositories extends React.Component<GithubRepos, GithubRepos> {
 
   render() {
     return (

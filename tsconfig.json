@@ -9,6 +9,7 @@
     "jsx": "react"
   },
   "files": [
+    "./jspm_packages/npm/axios@0.9.1/axios.d.ts",
     "./typings/main.d.ts",
     "./src/bootstrap.tsx"
   ],

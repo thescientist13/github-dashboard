@@ -1,13 +1,19 @@
+import {GithubIssue, GithubIssues} from "./github-issues";
+
 export class GithubRepo {
+  // TODO list out properties
   private details:any;
-  private issues: Array<any>;
+  private issues: GithubIssues;
 
   constructor(repository:any){
     this.details = repository;
-    this.issues = [];
   }
 
-  getRepoInfo() {
+  setIssues(issues: GithubIssues){
+    this.issues = issues;
+  }
+
+  getRepoDetails() {
     return {
       details: this.details,
       issues: this.issues
@@ -16,7 +22,7 @@ export class GithubRepo {
 }
 
 export class GithubRepos {
-  private repositories:Array<GithubRepo>;
+  private repositories:Array<GithubRepo> = [];
 
   constructor(repositories: Array<any>) {
     const repos = repositories;

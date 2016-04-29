@@ -44,6 +44,12 @@ and [Mobx] as well as converting to [TypeScript].
 [Mobx]: https://github.com/mobxjs/mobx
 [TypeScript]: https://www.typescriptlang.org/
 
+## Project Layout
+
+- Components: UI components extending React.Component class
+- Stores: State management classes
+- - Github Store: Manages a Github store for a given user, tracking their user profile and repositories
+
 
 ## Running the App
 `gulp serve` - starts the app in a webrowser (with livereload)
