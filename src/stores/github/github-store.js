@@ -68,7 +68,7 @@ export class GithubStore {
     let user = username || CREDENTIALS.username;
 
     return $.get(baseUrl + 'repos/' + user + '/' + repository + '/issues').then(response => {
-      let issues = new GithubIssues(response.data);
+      let issues = new GithubIssues(response.data, CREDENTIALS.username);
 
       return issues.getIssues();
     });

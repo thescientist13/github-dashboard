@@ -30,11 +30,13 @@ class RepositoriesPersonal extends React.Component {
       });
 
       this.state.repositories.map((repository, index) => {
+        //TODO this is duplicated in repositories-following.  could we just assign response directly and do the modeling in the store?
         store.getIssuesForRepository(repository.name).then(response => {
           repository.issues = response.issues;
           repository.count = response.count;
           repository.pullRequests = response.pullRequests;
           repository.openIssues = response.openIssues;
+          repository.hasAssignedIssues = response.hasAssignedIssues;
 
           this.state.repositories[index] = repository;
           this.setState({
