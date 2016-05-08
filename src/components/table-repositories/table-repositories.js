@@ -19,7 +19,7 @@ class TableRepositories extends React.Component {
         </thead>
         <tbody>
         {this.props.repositories.map(function(repository){
-          return <tr key={repository.id} className={repository.hasAssignedIssues ? 'bg-warning' : ''}>
+          return <tr key={repository.id} className={repository.hasAssignedIssues ? 'bg-danger' : ''}>
             <td><a target="_blank" href={repository.html_url}>{repository.name}</a></td>
             <td>{repository.issues.length}</td>
             <td>{repository.pullRequests}</td>
