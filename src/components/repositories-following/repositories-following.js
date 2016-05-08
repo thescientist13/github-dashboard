@@ -31,11 +31,13 @@ class RepositoriesFollowing extends React.Component {
       });
 
       this.state.repositories.map((repository, index) => {
+        //TODO this is duplicated in repositories-following, would be good to DRY this up
         store.getIssuesForRepository(repository.name, repository.owner.login).then(response => {
           repository.issues = response.issues;
           repository.count = response.count;
           repository.pullRequests = response.pullRequests;
           repository.openIssues = response.openIssues;
+          repository.hasAssignedIssues = response.hasAssignedIssues;
 
           this.state.repositories[index] = repository;
           this.setState({

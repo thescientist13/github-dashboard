@@ -4,9 +4,9 @@ import './table-repositories.css!';
 
 import React from 'react';
 
-const TableRepositories = React.createClass({
-  
-  render: function() {
+class TableRepositories extends React.Component {
+
+  render() {
     return (
       <table className="table table-bordered table-striped table-hover">
         <thead>
@@ -19,7 +19,7 @@ const TableRepositories = React.createClass({
         </thead>
         <tbody>
         {this.props.repositories.map(function(repository){
-          return <tr key={repository.id}>
+          return <tr key={repository.id} className={repository.hasAssignedIssues ? 'bg-danger' : ''}>
             <td><a target="_blank" href={repository.html_url}>{repository.name}</a></td>
             <td>{repository.issues.length}</td>
             <td>{repository.pullRequests}</td>
@@ -30,6 +30,7 @@ const TableRepositories = React.createClass({
       </table>
     )
   }
-});
+
+}
 
 export default TableRepositories;
