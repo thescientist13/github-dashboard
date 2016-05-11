@@ -18,7 +18,7 @@ var serverOptions = {
 gulp.task('lint', function () {
   gulp.src([
     './gulpfile.js',
-    'src/**/*.js'
+    'src/**/**/*.js'
   ]).pipe(validatePipeline.validateJS());
 });
 

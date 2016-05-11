@@ -7,10 +7,6 @@ import TableRepositories from '../table-repositories/table-repositories';
 
 class RepositoriesPersonal extends React.Component {
 
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  };
-
   constructor() {
     super();
 
