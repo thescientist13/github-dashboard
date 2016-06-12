@@ -76,6 +76,14 @@ gulp.task('watch', function() {
   gulp.watch(['./src/**/**/*.ts*'], ['compile:ts']);
 });
 
+gulp.task('develop', ['clean'], function () {
+  return runSequence(
+    ['lint:js'],
+    ['compile:ts'],
+    ['copy:css', 'copy:vendor', 'copy:html', 'copy:config']
+  );
+});
+
 // TODO develop and run tasks
 // TODO fix gulp-webserver
 // "public" tasks
