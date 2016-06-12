@@ -25,7 +25,7 @@ export class GithubRepo {
 }
 
 export class GithubRepos {
-  //TODO why do this have to public to return them from the getter?
+  //TODO why does this have to public to return them from the getter?
   public repositories: Array<GithubRepo> = [];
 
   constructor(repositories: Array<any>) {

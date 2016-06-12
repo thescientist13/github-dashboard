@@ -7,32 +7,28 @@ import { GithubStore } from '../../stores/github/github-store';
 import { GithubUser } from '../../stores/github/github-user';
 
 class UserDetails extends React.Component<any, any> {
-  private avatar:string;
-  private name:string;
+  state = {
+    avatar: '',
+    username: ''
+  };
 
   constructor() {
     super();
 
-    this.state = {
-      avatar: '',
-      user: ''
-    }
-  }
-
-  componentWillMount() {
     this.getUserDetails();
   }
 
   getUserDetails() {
     let store = new GithubStore();
 
-    store.getUserDetails().then((response: GithubUser) => {
+    store.getUserDetails().then((response) => {
       // TODO this works??  instead of response.getUserDetails
-      const user = response;
+      const user = response.data;
 
+      console.log('USER', user);
       this.setState({
         avatar: user.avatar,
-        name: user.username
+        username: user.username
       });
     });
   }
@@ -41,7 +37,7 @@ class UserDetails extends React.Component<any, any> {
     return (
       <div className="user-details">
         <img className="user-avatar img-responsive" src={this.state.avatar}/>
-        <h1><span className="user-name">{this.state.name}</span></h1>
+        <h1><span className="user-name">{this.state.username}</span></h1>
       </div>
     )
   }
