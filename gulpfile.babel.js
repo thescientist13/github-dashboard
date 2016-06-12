@@ -4,9 +4,11 @@ import gulp from 'gulp';
 import handymanPipeline from 'pipeline-handyman';
 import runSequence from 'run-sequence';
 import sourcemaps from 'gulp-sourcemaps';
+import taskListing from 'gulp-task-listing';
 import tsCompiler from 'gulp-typescript';
 import validatePipeline from 'pipeline-validate-js';
 import webserver from 'gulp-webserver';
+
 
 const serverOptions = {
   livereload: true,
@@ -15,9 +17,10 @@ const serverOptions = {
     source: 'api.github.com/',
     target: 'http://api.github.com/'
   }],
-  root: './'
+  root: './dest/'
 };
 
+//phases - private tasks//
 gulp.task('clean', function() {
   return handymanPipeline.clean(['./dest/']);
 });
@@ -58,23 +61,10 @@ gulp.task('copy:vendor', function() {
     .pipe(gulp.dest('./dest/jspm_packages'));
 });
 
-gulp.task('develop', ['clean'], function () {
-  return runSequence(
-    ['lint:js'],
-    ['compile:ts'],
-    ['copy:css', 'copy:vendor', 'copy:html', 'copy:config'],
-    ['watch']
-  );
-});
-
-gulp.task('serve', ['build'], function () {
-  return gulp.src(serverOptions.root)
-    .pipe(webserver(serverOptions));
-});
-
 gulp.task('watch', function() {
   gulp.watch(['./src/**/**/*.ts*'], ['compile:ts']);
 });
+
 
 gulp.task('build', ['clean'], function () {
   return runSequence(
@@ -84,8 +74,14 @@ gulp.task('build', ['clean'], function () {
   );
 });
 
-// TODO develop and run tasks
-// TODO fix gulp-webserver
-// "public" tasks
-// gulp.task('develop', ['serve', 'watch']);
-// gulp.task('run', ['serve']);
+
+gulp.task('serve', function () {
+  return gulp.src(serverOptions.root)
+    .pipe(webserver(serverOptions));
+});
+
+//lifecycles - public tasks//
+//TODO make these work with serve :/
+gulp.task('help', taskListing);
+gulp.task('develop', ['build', 'watch']);
+gulp.task('run', ['build']);

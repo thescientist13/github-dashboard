@@ -46,16 +46,24 @@ and [Mobx] as well as converting to [TypeScript].
 
 ## Project Layout
 
+- bootstrap - SystemJS bootstrap for the application
+- credentials - from a template, with Github credentials
 - Components: UI components extending React.Component class
+- Layouts: HTML views
 - Stores: State management classes
-- - Github Store: Manages a Github store for a given user, tracking their user profile and repositories
+-- Github Store: Manages a Github store for a given user, tracking
+their profile, repositories and issues
+
+## Lifecycle Tasks
 
 
 ## Running the App
-`gulp serve` - starts the app in a webrowser (with livereload)
+`gulp build && gulp serve` - starts the app in a webrowser (with livereload)
 
 ## Development
-`gulp build` - runs the build with linting
+1. In one tab run `gulp develop`
+2. In another tab, run `gulp serve`
+
 `gulp help` - show all available gulp tasks
 
 **Note: For development, it is recommended to use an IDE like [Webstorm][], and install React / JSX plugins, as well
