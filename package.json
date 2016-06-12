@@ -49,7 +49,13 @@
     }
   },
   "scripts": {
-    "install:jspm": "jspm install"
+    "app": "npm run build && npm run serve",
+    "build": "./node_modules/.bin/gulp build",
+    "develop": "./node_modules/.bin/gulp develop",
+    "help": "./node_modules/.bin/gulp help",
+    "serve": "./node_modules/.bin/gulp serve",
+    "install:jspm": "./node_modules/.bin/jspm install",
+    "install:typings": "./node_modules/.bin/typings install"
   },
   "devDependencies": {
     "babel-core": "6.7.7",
