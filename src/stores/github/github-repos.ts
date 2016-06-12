@@ -2,7 +2,7 @@ import {GithubIssue, GithubIssues} from "./github-issues";
 
 export class GithubRepo {
   // TODO list out properties
-  private details:any;
+  private details: any;
   private issues: GithubIssues;
 
   constructor(repository:any){
@@ -32,7 +32,7 @@ export class GithubRepos {
     });
   }
 
-  getRepos() {
+  getRepos(): Array<GithubRepo> {
     return this.repositories;
   }
 

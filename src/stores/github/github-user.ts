@@ -10,7 +10,7 @@ export class GithubUser {
   getUserDetails() {
     return {
       avatar: this.avatar,
-      name: this.username
+      username: this.username
     }
   }
 

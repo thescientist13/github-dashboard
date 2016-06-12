@@ -2,12 +2,11 @@
 
 import * as React from 'react';
 
-import { GithubIssues } from "../../stores/github/github-issues";
 import { GithubRepo, GithubRepos } from "../../stores/github/github-repos";
 import { GithubStore } from '../../stores/github/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
 
-class RepositoriesPersonal extends React.Component<any, GithubRepo> {
+class RepositoriesPersonal extends React.Component<any, any> {
   private repositories: Array<GithubRepo> = [];
 
   contextTypes: {
@@ -16,9 +15,10 @@ class RepositoriesPersonal extends React.Component<any, GithubRepo> {
 
   constructor() {
     super();
-    // this.setState({
-    //   repositories: Array<GithubRepo>
-    // }};
+
+    this.setState({
+      repositories: []
+    });
 
     this.getUserRepositories();
   }
@@ -26,31 +26,18 @@ class RepositoriesPersonal extends React.Component<any, GithubRepo> {
   getUserRepositories() {
     let store = new GithubStore();
 
-    store.getUserRepositories().then((response:GithubRepos) => {
-      this.repositories = response.getRepos();
-      // this.setState({
-      //   repositories: response.getRepos()
-      // });
-
-      this.repositories.map((repository:GithubRepo, index:number) => {
-        const repoInfo = repository.getRepoDetails();
-
-        store.getIssuesForRepository(repoInfo.details.name).then((response: GithubIssues) => {
-          this.repositories[index].setIssues(response);
-
-          // this.setState({
-          //   repositories: this.state.repositories
-          // })
-        })
-      })
+    store.getUserRepositories().then((response: GithubRepos) => {
+      this.setState({
+        repositories: response.getRepos()
+      });
     });
   }
 
-  render() {
-    return (
-      <TableRepositories repositories={this.repositories}></TableRepositories>
-    )
-  }
+  // render() {
+  //   return (
+  //     <TableRepositories repositories={this.repositories}></TableRepositories>
+  //   )
+  // }
 
 }
 

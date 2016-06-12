@@ -2,16 +2,15 @@
 
 import * as axios from 'axios';
 
+// TODO make these private to the class ???
 import Credentials from '../../credentials';
-import { GithubIssue, GithubIssues } from './github-issues';
+import { GithubIssues } from './github-issues';
 import { GithubRepo, GithubRepos } from './github-repos';
 import { GithubUser } from './github-user';
 
-// TODO make these private to the class
-
-
+// TODO implement some sort of caching mechanism
 export class GithubStore {
-  private user:GithubUser;
+  private user: GithubUser;
   private repositoriesFollowing: GithubRepos;
   private repositoriesPersonal: GithubRepos;
 
@@ -23,6 +22,14 @@ export class GithubStore {
       'Authorization': 'token ' +  this.credentials.accessToken
     }
   });
+
+  private getIssuesForRepository(repositoryName: string, username?: string) {
+    let user = username || this.credentials.username;
+
+    return this.$.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
+      return new GithubIssues(response.data);
+    });
+  }
 
   getUserDetails() {
     return this.$.get(this.baseUrl + 'user', {
@@ -40,9 +47,19 @@ export class GithubStore {
     let user = username || this.credentials.username;
 
     return this.$.get(this.baseUrl + 'users/' + user + '/repos').then(response => {
-      this.repositoriesPersonal = new GithubRepos(response.data);
+      var repos = new GithubRepos(response.data);
 
-      return this.repositoriesPersonal;
+      repos.getRepos().map((repository: GithubRepo, index: number) => {
+        const repoInfo = repository.getRepoDetails();
+
+        this.getIssuesForRepository(repoInfo.details.name, repoInfo.details.owner.login).then((response: GithubIssues) => {
+          repos[index].setIssues(response);
+
+          this.repositoriesPersonal = repos;
+
+          return this.repositoriesPersonal;
+        })
+      })
     })
   }
 
@@ -51,18 +68,20 @@ export class GithubStore {
     let user = username || this.credentials.username;
 
     return this.$.get(this.baseUrl + 'users/' + user + '/subscriptions').then(response => {
-      this.repositoriesFollowing = new GithubRepos(response.data);
+      var repos = new GithubRepos(response.data);
 
-      return this.repositoriesFollowing;
+      repos.getRepos().map((repository: GithubRepo, index: number) => {
+        const repoInfo = repository.getRepoDetails();
+
+        this.getIssuesForRepository(repoInfo.details.name, repoInfo.details.owner.login).then((response: GithubIssues) => {
+          repos[index].setIssues(response);
+
+          this.repositoriesFollowing = repos;
+
+          return this.repositoriesFollowing;
+        })
+      })
     })
-  }
-
-  getIssuesForRepository(repositoryName: string, username?: string) {
-    let user = username || this.credentials.username;
-
-    return this.$.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
-      return new GithubIssues(response.data);
-    });
   }
 
 }
