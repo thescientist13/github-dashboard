@@ -76,7 +76,7 @@ gulp.task('watch', function() {
   gulp.watch(['./src/**/**/*.ts*'], ['compile:ts']);
 });
 
-gulp.task('develop', ['clean'], function () {
+gulp.task('build', ['clean'], function () {
   return runSequence(
     ['lint:js'],
     ['compile:ts'],
