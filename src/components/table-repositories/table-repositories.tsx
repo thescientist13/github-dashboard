@@ -15,10 +15,6 @@ class TableRepositories extends React.Component<any, any> {
   }
 
   render() {
-    // console.log(this.props);
-    // if(this.props.repositories.length === 0){
-    //   return null;
-    // }
 
     return (
       <table className="table table-bordered table-striped table-hover">
