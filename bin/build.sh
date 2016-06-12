@@ -11,5 +11,6 @@ rm -rf jspm_packages/ > /dev/null 2>&1
 
 npm install
 
+./node_modules/.bin/typings install
 ./node_modules/.bin/jspm install
 ./node_modules/.bin/gulp  build
