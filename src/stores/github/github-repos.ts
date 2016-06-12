@@ -22,7 +22,8 @@ export class GithubRepo {
 }
 
 export class GithubRepos {
-  private repositories:Array<GithubRepo> = [];
+  // TODO why does this need to be public?
+  public repositories: Array<GithubRepo> = [];
 
   constructor(repositories: Array<any>) {
     const repos = repositories;

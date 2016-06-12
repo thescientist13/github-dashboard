@@ -2,9 +2,10 @@
 
 import './table-repositories.css!';
 import * as React from 'react';
-import {GithubRepos, GithubRepo} from "../../stores/github/github-repos";
+import { GithubRepo } from "../../stores/github/github-repos";
 
-class TableRepositories extends React.Component<GithubRepos, GithubRepos> {
+//TODO fix any, any
+class TableRepositories extends React.Component<any, any> {
 
   render() {
     return (
@@ -20,10 +21,10 @@ class TableRepositories extends React.Component<GithubRepos, GithubRepos> {
         <tbody>
         {this.props.repositories.map(function(repository){
           return <tr key={repository.id} className={repository.hasAssignedIssues ? 'bg-danger' : ''}>
-            <td><a target="_blank" href={repository.html_url}>{repository.name}</a></td>
-            <td>{repository.issues.length}</td>
-            <td>{repository.pullRequests}</td>
-            <td>{repository.openIssues}</td>
+              <td><a target="_blank" href={repository.getRepoDetails().details.html_url}>{repository.getRepoDetails().details.name}</a></td>
+              <td>{repository.getRepoDetails().issues.getIssueDetails().count}</td>
+              <td>{repository.getRepoDetails().issues.getIssueDetails().pullRequests}</td>
+              <td>{repository.getRepoDetails().issues.getIssueDetails().openIssues}</td>
           </tr>
         })}
         </tbody>

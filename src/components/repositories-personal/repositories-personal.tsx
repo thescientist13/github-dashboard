@@ -7,7 +7,7 @@ import { GithubStore } from '../../stores/github/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
 
 class RepositoriesPersonal extends React.Component<any, any> {
-  private repositories: Array<GithubRepo> = [];
+  //private repositories: Array<GithubRepo> = [];
 
   contextTypes: {
     //router: React.PropTypes.object.isRequired
@@ -28,16 +28,16 @@ class RepositoriesPersonal extends React.Component<any, any> {
 
     store.getUserRepositories().then((response: GithubRepos) => {
       this.setState({
-        repositories: response.getRepos()
+        repositories: response
       });
     });
   }
 
-  // render() {
-  //   return (
-  //     <TableRepositories repositories={this.repositories}></TableRepositories>
-  //   )
-  // }
+  render() {
+    return (
+      <TableRepositories repositories={this.state.repositories}></TableRepositories>
+    )
+  }
 
 }
 

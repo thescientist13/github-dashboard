@@ -57,7 +57,7 @@ export class GithubStore {
 
           this.repositoriesPersonal = repos;
 
-          return this.repositoriesPersonal;
+          return this.repositoriesPersonal.getRepos();
         })
       })
     })
@@ -78,7 +78,7 @@ export class GithubStore {
 
           this.repositoriesFollowing = repos;
 
-          return this.repositoriesFollowing;
+          return this.repositoriesFollowing.getRepos();
         })
       })
     })
