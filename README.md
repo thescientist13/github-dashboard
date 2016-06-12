@@ -13,16 +13,15 @@ After cloning the repo, please do the following
 1. Run `npm install`
 2. Run `npm run install:jspm`
 3. Run `npm run install:typings`
-4. Run `cp src/credentials.ts.tmpl _src/credentials.ts` and replace the `xxx`'s with your Github username and a Github
+4. Run `cp src/credentials.ts.tmpl src/credentials.ts` and replace the `xxx`'s with your Github username and a Github
 _"Personal Access Token"_ with the following scopes:
-
-- repo
-- admin:org
-- notifications
+-- repo
+-- admin:org
+-- notifications
 
 ## Architecture
 This project is intended to be as closely aligned with modern day JavaScript standards and conventions by leveraging as
-much from the ES6 language specification.  The tools being used in the application are:
+much from the ES6 / ES7 language specification.  The tools being used in the application are:
 
 - [React][] - Component first UI library by Facebook.  This project will leverage [JSX].
 - [SystemJS][] - Universal module loader, coming in ES7.  Polyfilled for now so we can use ES6 `import` for JS, with
@@ -49,12 +48,12 @@ and [Mobx].
 
 ## Project Layout
 
-- bootstrap - SystemJS bootstrap for the application
-- credentials - from a template, with Github credentials
-- Components: UI components extending React.Component class
-- Layouts: HTML views
-- Stores: State management classes
--- Github Store: Manages a Github store for a given user, tracking
+- _bootstrap_ - SystemJS bootstrap for the application
+- _credentials_ - from a template, with Github credentials
+- _components/_: UI components extending React.Component class
+- _layouts/_: HTML views
+- _stores/_: State management classes
+-- _github/_: Manages a Github store for a given user, tracking
 their profile, repositories and issues
 
 ## Running the App
