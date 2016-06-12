@@ -11,8 +11,8 @@ import { GithubUser } from './github-user';
 // TODO implement some sort of caching mechanism
 export class GithubStore {
   private user: GithubUser;
-  private repositoriesFollowing: GithubRepos;
-  private repositoriesPersonal: GithubRepos;
+  private repositoriesFollowing: Array<GithubRepo>;
+  private repositoriesPersonal: Array<GithubRepo>;
 
   private credentials = Credentials.getCredentials();
   private baseUrl:string = 'https://api.github.com/';
@@ -22,14 +22,6 @@ export class GithubStore {
       'Authorization': 'token ' +  this.credentials.accessToken
     }
   });
-
-  private getIssuesForRepository(repositoryName: string, username?: string) {
-    let user = username || this.credentials.username;
-
-    return this.$.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
-      return new GithubIssues(response.data);
-    });
-  }
 
   getUserDetails() {
     return this.$.get(this.baseUrl + 'user', {
@@ -42,24 +34,24 @@ export class GithubStore {
     })
   }
 
+  getIssuesForRepository(repositoryName: string, username?: string) {
+    let user = username || this.credentials.username;
+
+    return this.$.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
+      return new GithubIssues(response.data);
+    });
+  }
+
   getUserRepositories (username?: string) {
     // TODO should this even be required since its a call specifically for the user?
     let user = username || this.credentials.username;
 
     return this.$.get(this.baseUrl + 'users/' + user + '/repos').then(response => {
-      var repos = new GithubRepos(response.data);
+      var repos = new GithubRepos(response.data).getRepos();
 
-      repos.getRepos().map((repository: GithubRepo, index: number) => {
-        const repoInfo = repository.getRepoDetails();
+      this.repositoriesPersonal = repos;
 
-        this.getIssuesForRepository(repoInfo.details.name, repoInfo.details.owner.login).then((response: GithubIssues) => {
-          repos[index].setIssues(response);
-
-          this.repositoriesPersonal = repos;
-
-          return this.repositoriesPersonal.getRepos();
-        })
-      })
+      return this.repositoriesPersonal;
     })
   }
 
@@ -68,19 +60,11 @@ export class GithubStore {
     let user = username || this.credentials.username;
 
     return this.$.get(this.baseUrl + 'users/' + user + '/subscriptions').then(response => {
-      var repos = new GithubRepos(response.data);
+      var repos = new GithubRepos(response.data).getRepos();
 
-      repos.getRepos().map((repository: GithubRepo, index: number) => {
-        const repoInfo = repository.getRepoDetails();
+      this.repositoriesFollowing = repos;
 
-        this.getIssuesForRepository(repoInfo.details.name, repoInfo.details.owner.login).then((response: GithubIssues) => {
-          repos[index].setIssues(response);
-
-          this.repositoriesFollowing = repos;
-
-          return this.repositoriesFollowing.getRepos();
-        })
-      })
+      return this.repositoriesFollowing;
     })
   }
 

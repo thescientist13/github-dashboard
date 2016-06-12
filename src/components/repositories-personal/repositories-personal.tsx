@@ -2,12 +2,15 @@
 
 import * as React from 'react';
 
-import { GithubRepo, GithubRepos } from "../../stores/github/github-repos";
+import { GithubIssues } from "../../stores/github/github-issues";
+import { GithubRepo } from "../../stores/github/github-repos";
 import { GithubStore } from '../../stores/github/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
 
 class RepositoriesPersonal extends React.Component<any, any> {
-  //private repositories: Array<GithubRepo> = [];
+  state = {
+    repositories: []
+  };
 
   contextTypes: {
     //router: React.PropTypes.object.isRequired
@@ -16,19 +19,25 @@ class RepositoriesPersonal extends React.Component<any, any> {
   constructor() {
     super();
 
-    this.setState({
-      repositories: []
-    });
-
     this.getUserRepositories();
   }
 
   getUserRepositories() {
     let store = new GithubStore();
 
-    store.getUserRepositories().then((response: GithubRepos) => {
-      this.setState({
-        repositories: response
+    store.getUserRepositories().then((response: Array<GithubRepo>) => {
+      var repos = response;
+
+      repos.map((repository: GithubRepo, index: number) => {
+        const repoInfo = repository.getRepoDetails();
+
+        store.getIssuesForRepository(repoInfo.details.name, repoInfo.details.owner.login).then((response: GithubIssues) => {
+          repos[index].setIssues(response);
+
+          this.setState({
+            repositories: repos
+          });
+        })
       });
     });
   }

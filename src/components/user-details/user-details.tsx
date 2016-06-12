@@ -28,7 +28,7 @@ class UserDetails extends React.Component<any, any> {
 
     store.getUserDetails().then((response: GithubUser) => {
       // TODO this works??  instead of response.getUserDetails
-      const user = response.getUserDetails();
+      const user = response;
 
       this.setState({
         avatar: user.avatar,
