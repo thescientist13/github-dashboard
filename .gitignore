@@ -1,4 +1,6 @@
 .idea
-src/credentials.js
+src/credentials.ts
+dest/
+typings/
 jspm_packages
 node_modules

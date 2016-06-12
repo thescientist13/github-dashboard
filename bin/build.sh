@@ -11,5 +11,10 @@ rm -rf jspm_packages/ > /dev/null 2>&1
 
 npm install
 
-./node_modules/.bin/jspm install
-./node_modules/.bin/gulp  build
+//build prep
+npm run install:jspm
+npm run install:typings
+cp src/credentials.ts.tmpl src/credentials.ts
+
+//build
+npm run build

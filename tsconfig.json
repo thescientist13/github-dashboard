@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "module": "system",
+    "outDir": "dest/",
+    "rootDir": "src/",
+    "target": "es5",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "sourceMap": true,
+    "jsx": "react"
+  },
+  "files": [
+    "./jspm_packages/npm/axios@0.9.1/axios.d.ts",
+    "./typings/main.d.ts",
+    "./src/bootstrap.tsx",
+    "./src/credentials.ts",
+    "./src/components/footer/footer.tsx",
+    "./src/components/header/header.tsx",
+    "./src/components/layout/layout.tsx",
+    "./src/components/navigation/navigation.tsx",
+    "./src/components/repositories-following/repositories-following.tsx",
+    "./src/components/repositories-personal/repositories-personal.tsx",
+    "./src/components/table-repositories/table-repositories.tsx",
+    "./src/components/user-details/user-details.tsx",
+    "./src/stores/github/github-issues.ts",
+    "./src/stores/github/github-repos.ts",
+    "./src/stores/github/github-store.ts",
+    "./src/stores/github/github-user.ts"
+  ],
+  "exclude": [
+    "jspm_packages",
+    "node_modules"
+  ]
+}

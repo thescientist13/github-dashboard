@@ -1,10 +1,14 @@
 'use strict';
 
-import React from 'react';
+import * as React from 'react';
 
 import './header.css!';
 
-class Header extends React.Component {
+// TODO make this DRY?
+interface MyProps {}
+interface MyState {}
+
+class Header extends React.Component<MyProps, MyState> {
 
   render() {
     return (

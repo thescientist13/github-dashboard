@@ -1,10 +1,14 @@
 'use strict';
 
-import React from 'react';
+import * as React from 'react';
 
 import './footer.css!';
 
-class Footer extends React.Component {
+// TODO make this DRY?
+interface MyProps {}
+interface MyState {}
+
+class Footer extends React.Component<MyProps, MyState> {
 
   render() {
     return (

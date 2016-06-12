@@ -10,28 +10,29 @@ It is expected that you have the latest LTS version of [Node][] installed and it
 ## Setup
 After cloning the repo, please do the following
 
-1. Run `npm install -g gulp`
 1. Run `npm install`
 2. Run `npm run install:jspm`
-3. Run `cp src/credentials.js.tmpl _src/credentials.js` and replace the `xxx`'s with your Github username and a Github
+3. Run `npm run install:typings`
+4. Run `cp src/credentials.ts.tmpl src/credentials.ts` and replace the `xxx`'s with your Github username and a Github
 _"Personal Access Token"_ with the following scopes:
-
-- repo
-- admin:org
-- notifications
+-- repo
+-- admin:org
+-- notifications
 
 ## Architecture
 This project is intended to be as closely aligned with modern day JavaScript standards and conventions by leveraging as
-much from the ES6 language specification.  The tools being used in the application are:
+much from the ES6 / ES7 language specification.  The tools being used in the application are:
 
 - [React][] - Component first UI library by Facebook.  This project will leverage [JSX].
 - [SystemJS][] - Universal module loader, coming in ES7.  Polyfilled for now so we can use ES6 `import` for JS, with
 a plugin installed to allow us to load CSS too.
 - [JSPM] - ES6 forward thinking package manager to support SyatemJS instead of using [Bower][].  It can install packages
 from Github or NPM and prepares them for being used in the browser.
+- [TypeScript] - Super set of JavaScript, providing type support and more.  Added in version 0.4.0
+- [NPM Scripts] - exposed Gulp tasks through npm, for simplicity.  Formalized in version 0.4.0
 
 There is also intent to look into [Flux] and [Reactive] state management patterns, looking to libraries like [Redux]
-and [Mobx] as well as converting to [TypeScript].
+and [Mobx].
 
 [React]: https://facebook.github.io/react/
 [JSX]: https://facebook.github.io/react/docs/jsx-in-depth.html
@@ -43,14 +44,26 @@ and [Mobx] as well as converting to [TypeScript].
 [Redux]: https://github.com/reactjs/redux
 [Mobx]: https://github.com/mobxjs/mobx
 [TypeScript]: https://www.typescriptlang.org/
+[NPM Scripts]: https://docs.npmjs.com/misc/scripts
 
+## Project Layout
+
+- _bootstrap_ - SystemJS bootstrap for the application
+- _credentials_ - from a template, with Github credentials
+- _components/_: UI components extending React.Component class
+- _layouts/_: HTML views
+- _stores/_: State management classes
+-- _github/_: Manages a Github store for a given user, tracking
+their profile, repositories and issues
 
 ## Running the App
-`gulp serve` - starts the app in a webrowser (with livereload)
+`npm run app` - starts the app in a webrowser (with livereload)
 
 ## Development
-`gulp build` - runs the build with linting
-`gulp help` - show all available gulp tasks
+1. In one tab run `npm run develop`
+2. In another tab, run `npm run serve`
+
+To see all available gulp tasks, run `npm run help`
 
 **Note: For development, it is recommended to use an IDE like [Webstorm][], and install React / JSX plugins, as well
 as setting any JavaScript language version settings to recognize ES6 or JSX syntax.**
