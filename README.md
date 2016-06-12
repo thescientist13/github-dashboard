@@ -29,9 +29,10 @@ much from the ES6 language specification.  The tools being used in the applicati
 a plugin installed to allow us to load CSS too.
 - [JSPM] - ES6 forward thinking package manager to support SyatemJS instead of using [Bower][].  It can install packages
 from Github or NPM and prepares them for being used in the browser.
+- [TypeScript] - Super set of JavaScript, providing type support and more
 
 There is also intent to look into [Flux] and [Reactive] state management patterns, looking to libraries like [Redux]
-and [Mobx] as well as converting to [TypeScript].
+and [Mobx].
 
 [React]: https://facebook.github.io/react/
 [JSX]: https://facebook.github.io/react/docs/jsx-in-depth.html
@@ -53,9 +54,6 @@ and [Mobx] as well as converting to [TypeScript].
 - Stores: State management classes
 -- Github Store: Manages a Github store for a given user, tracking
 their profile, repositories and issues
-
-## Lifecycle Tasks
-
 
 ## Running the App
 `gulp build && gulp serve` - starts the app in a webrowser (with livereload)
