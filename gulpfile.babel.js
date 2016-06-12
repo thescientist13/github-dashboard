@@ -11,6 +11,7 @@ import webserver from 'gulp-webserver';
 
 
 const serverOptions = {
+  fallback: './index.html',
   livereload: true,
   open: '/',
   proxies: [{
