@@ -4,7 +4,7 @@ import './table-repositories.css!';
 import * as React from 'react';
 import { GithubRepo } from "../../stores/github/github-repos";
 
-//TODO fix any, any
+//TODO change use any, any to use types
 class TableRepositories extends React.Component<any, any> {
   props = {
     repositories: []
