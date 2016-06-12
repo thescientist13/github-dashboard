@@ -38,7 +38,7 @@ export class GithubStore {
     let user = username || this.credentials.username;
 
     return this.$.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
-      return new GithubIssues(response.data);
+      return new GithubIssues(response.data, user);
     });
   }
 
@@ -47,9 +47,7 @@ export class GithubStore {
     let user = username || this.credentials.username;
 
     return this.$.get(this.baseUrl + 'users/' + user + '/repos').then(response => {
-      var repos = new GithubRepos(response.data).getRepos();
-
-      this.repositoriesPersonal = repos;
+      this.repositoriesPersonal = new GithubRepos(response.data).getRepos();
 
       return this.repositoriesPersonal;
     })
@@ -60,9 +58,7 @@ export class GithubStore {
     let user = username || this.credentials.username;
 
     return this.$.get(this.baseUrl + 'users/' + user + '/subscriptions').then(response => {
-      var repos = new GithubRepos(response.data).getRepos();
-
-      this.repositoriesFollowing = repos;
+      this.repositoriesFollowing = new GithubRepos(response.data).getRepos();
 
       return this.repositoriesFollowing;
     })

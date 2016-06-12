@@ -34,6 +34,7 @@ class RepositoriesFollowing extends React.Component<any, any> {
 
         store.getIssuesForRepository(repoInfo.details.name, repoInfo.details.owner.login).then((response: GithubIssues) => {
           repos[index].setIssues(response);
+          //repos[index].hasAssignedIssues = response.getIssueDetails().hasAssignedIssues;
 
           this.setState({
             repositories: repos

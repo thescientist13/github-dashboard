@@ -43,31 +43,41 @@ gulp.task('copy:css', function() {
     .pipe(gulp.dest('./dest/'));
 });
 
-gulp.task('watch', function() {
-  gulp.watch(['./src/**/**/*.ts*'], ['compile']);
+gulp.task('copy:config', function() {
+  return gulp.src('./config.js')
+    .pipe(gulp.dest('./dest/'));
 });
 
-gulp.task('serve', function () {
+gulp.task('copy:html', function() {
+  return gulp.src('./src/layouts/index.html')
+    .pipe(gulp.dest('./dest/'));
+});
 
+gulp.task('copy:vendor', function() {
+  return gulp.src('./jspm_packages/**/**')
+    .pipe(gulp.dest('./dest/jspm_packages'));
+});
+
+gulp.task('develop', ['clean'], function () {
+  return runSequence(
+    ['lint:js'],
+    ['compile:ts'],
+    ['copy:css', 'copy:vendor', 'copy:html', 'copy:config'],
+    ['watch']
+  );
+});
+
+gulp.task('serve', ['build'], function () {
   return gulp.src(serverOptions.root)
     .pipe(webserver(serverOptions));
-
 });
 
+gulp.task('watch', function() {
+  gulp.watch(['./src/**/**/*.ts*'], ['compile:ts']);
+});
+
+// TODO develop and run tasks
+// TODO fix gulp-webserver
 // "public" tasks
-gulp.task('develop', ['build'], function () {
-  return runSequence(
-    ['serve', 'watch']
-  );
-});
-
-gulp.task('build', ['clean'], function () {
-  runSequence(
-    ['lint:js'],
-    ['compile:ts', 'copy:css']
-  );
-});
-
-// gulp.task('serve', ['build'], function() {
-//   return runSequence(['serve']);
-// });
+// gulp.task('develop', ['serve', 'watch']);
+// gulp.task('run', ['serve']);

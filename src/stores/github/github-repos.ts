@@ -4,9 +4,11 @@ export class GithubRepo {
   // TODO list out properties
   private details: any;
   private issues: GithubIssues;
+  public id: number;
 
   constructor(repository:any){
     this.details = repository;
+    this.id = new Date().getTime();
   }
 
   setIssues(issues: GithubIssues){
@@ -16,6 +18,7 @@ export class GithubRepo {
   getRepoDetails() {
     return {
       details: this.details,
+      id: this.id,
       issues: this.issues
     }
   }
