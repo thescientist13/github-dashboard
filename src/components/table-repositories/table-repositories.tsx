@@ -41,6 +41,4 @@ class TableRepositories extends React.Component<any, any> {
   }
 }
 
-
-
 export default TableRepositories;

@@ -13,10 +13,6 @@ class RepositoriesFollowing extends React.Component<any, any> {
     repositories: []
   };
 
-  contextTypes: {
-    //router: React.PropTypes.object.isRequired
-  };
-
   constructor() {
     super();
 
@@ -34,7 +30,6 @@ class RepositoriesFollowing extends React.Component<any, any> {
 
         store.getIssuesForRepository(repoInfo.details.name, repoInfo.details.owner.login).then((response: GithubIssues) => {
           repos[index].setIssues(response);
-          //repos[index].hasAssignedIssues = response.getIssueDetails().hasAssignedIssues;
 
           this.setState({
             repositories: repos

@@ -21,9 +21,8 @@ class UserDetails extends React.Component<any, any> {
   getUserDetails() {
     let store = new GithubStore();
 
-    store.getUserDetails().then((response) => {
-      // TODO this works??  instead of response.getUserDetails
-      const user = response.data;
+    store.getUserDetails().then((response: GithubUser) => {
+      const user = response.getDetails();
 
       this.setState({
         avatar: user.avatar,
@@ -42,7 +41,5 @@ class UserDetails extends React.Component<any, any> {
   }
 
 }
-
-
 
 export default UserDetails;

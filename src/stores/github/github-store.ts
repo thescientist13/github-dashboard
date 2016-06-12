@@ -24,14 +24,11 @@ export class GithubStore {
   });
 
   getUserDetails() {
-    return this.$.get(this.baseUrl + 'user', {
-      transformResponse: [response => {
-        let resp = JSON.parse(response);
-        this.user = new GithubUser(resp.login, resp.avatar_url);
+    return this.$.get(this.baseUrl + 'user').then(function(response) {
+      let data = response.data;
 
-        return this.user;
-      }]
-    })
+      return new GithubUser(data.login, data.avatar_url);
+    });
   }
 
   getIssuesForRepository(repositoryName: string, username?: string) {

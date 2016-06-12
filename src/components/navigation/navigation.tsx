@@ -9,7 +9,6 @@ import './navigation.css!';
 interface MyProps {}
 interface MyState {}
 
-
 class Navigation extends React.Component<MyProps, MyState> {
 
   render() {

@@ -13,10 +13,6 @@ class RepositoriesPersonal extends React.Component<any, any >{
     repositories: []
   };
 
-  contextTypes: {
-    //router: React.PropTypes.object.isRequired
-  };
-
   constructor() {
     super();
 
