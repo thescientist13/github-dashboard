@@ -15,7 +15,7 @@ class RepositoriesFollowing extends React.Component<any, any> {
 
   constructor() {
     super();
-
+    console.log('here');
     this.getUserSubscriptions();
   }
 

@@ -28,7 +28,9 @@ export class GithubStore {
       let data = response.data;
 
       return new GithubUser(data.login, data.avatar_url);
-    });
+    }).catch(function(response) {
+      console.error('UNHANDLED ERROR', response);
+    });;
   }
 
   getIssuesForRepository(repositoryName: string, username?: string) {
@@ -36,6 +38,12 @@ export class GithubStore {
 
     return this.$.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
       return new GithubIssues(response.data, user);
+    }).catch(function(response){
+      if(response.status === 404){
+        console.warn('404 NOT FOUND - ' + repositoryName + '.  Repo may be private.');
+      }else{
+        console.error('UNHANDLED ERROR', response);
+      }
     });
   }
 
@@ -47,7 +55,9 @@ export class GithubStore {
       this.repositoriesPersonal = new GithubRepos(response.data).getRepos();
 
       return this.repositoriesPersonal;
-    })
+    }).catch(function(response) {
+      console.error('UNHANDLED ERROR', response);
+    });
   }
 
   getUserSubscriptions (username?: string) {
@@ -58,7 +68,9 @@ export class GithubStore {
       this.repositoriesFollowing = new GithubRepos(response.data).getRepos();
 
       return this.repositoriesFollowing;
-    })
+    }).catch(function(response) {
+      console.error('UNHANDLED ERROR', response);
+    });
   }
 
 }
