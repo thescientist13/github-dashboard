@@ -47,14 +47,13 @@ and [Mobx].
 [NPM Scripts]: https://docs.npmjs.com/misc/scripts
 
 ## Project Layout
-
-- _bootstrap_ - SystemJS bootstrap for the application
-- _credentials_ - from a template, with Github credentials
-- _components/_: UI components extending React.Component class
-- _layouts/_: HTML views
-- _stores/_: State management classes
--- _github/_: Manages a Github store for a given user, tracking
-their profile, repositories and issues
+The _src_ directory contains all relevant source code needed to run the app
+- _bootstrap.ts_ - SystemJS bootstrap for the application
+- _credentials.ts_ - from a template, with Github credentials
+- _components/_ - UI components extending React.Component class
+- _layouts/_ - HTML views
+- _stores/_ - State management classes
+-- _github/_ - Manages a Github store for a given user, tracking their profile, repositories and issues
 
 ## Running the App
 `npm run app` - starts the app in a webrowser (with livereload)
