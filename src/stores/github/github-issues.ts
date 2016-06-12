@@ -36,9 +36,7 @@ export class GithubIssues {
       let assignee = issue.assignee ? issue.assignee.login : '';
 
       if (username === assignee) {
-        hasAssignedIssues = true;
-        console.log('HAS ASSIGNED ISSUES', username);
-        console.log(issues);
+        hasAssignedIssues = true;;
       }
     });
 

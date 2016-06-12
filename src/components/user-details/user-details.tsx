@@ -25,7 +25,6 @@ class UserDetails extends React.Component<any, any> {
       // TODO this works??  instead of response.getUserDetails
       const user = response.data;
 
-      console.log('USER', user);
       this.setState({
         avatar: user.avatar,
         username: user.username
