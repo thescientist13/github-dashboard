@@ -59,7 +59,7 @@ The _src_ directory contains all relevant source code needed to run the app
 `npm run app` - starts the app in a webrowser
 
 ## Development
-1. In one tab run `npm run develop`  (initiates a watch tag)
+1. In one tab run `npm run develop`  (initiates a watch task)
 2. In another tab, run `npm run serve` (will also have livereload)
 
 To see all available gulp tasks, run `npm run help`
