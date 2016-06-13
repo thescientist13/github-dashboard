@@ -56,11 +56,11 @@ The _src_ directory contains all relevant source code needed to run the app
 -- _github/_ - Manages a Github store for a given user, tracking their profile, repositories and issues
 
 ## Running the App
-`npm run app` - starts the app in a webrowser (with livereload)
+`npm run app` - starts the app in a webrowser
 
 ## Development
-1. In one tab run `npm run develop`
-2. In another tab, run `npm run serve`
+1. In one tab run `npm run develop`  (initiates a watch tag)
+2. In another tab, run `npm run serve` (will also have livereload)
 
 To see all available gulp tasks, run `npm run help`
 
