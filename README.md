@@ -2,7 +2,7 @@
 
 ## Overview
 This project is a locally running dashboard web application to help streamline management of Github repos and issues.
-It is expected that you have the latest LTS version of [Node][] installed and its package manager, [NPM][].
+It is expected thasdfdsfsdfdst you have the latest LTS version of [Node][] installed and its package manager, [NPM][].
 
 [Node]: https://nodejs.org/
 [NPM]: https://www.npmjs.com/
