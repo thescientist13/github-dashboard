@@ -1,5 +1,5 @@
 'use strict';
-
+console.log('hello world');
 import gulp from 'gulp';
 import handymanPipeline from 'pipeline-handyman';
 import runSequence from 'run-sequence';
