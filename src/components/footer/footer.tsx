@@ -1,8 +1,5 @@
-'use strict';
-
 import * as React from 'react';
-
-import './footer.css!';
+import './footer.css';
 
 // TODO make this DRY?
 interface MyProps {}

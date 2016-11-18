@@ -1,8 +1,5 @@
-'use strict';
-
 import * as React from 'react';
-
-import './user-details.css!';
+import './user-details.css';
 import { GithubStore } from '../../stores/github/github-store';
 import { GithubUser } from '../../stores/github/github-user';
 
