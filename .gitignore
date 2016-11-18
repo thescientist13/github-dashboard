@@ -1,6 +1,5 @@
-.idea
-.vscode
+.idea/
+.vscode/
 src/credentials.ts
-dest/
-typings/
-node_modules
+build/
+node_modules/
