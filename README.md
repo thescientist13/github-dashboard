@@ -38,10 +38,10 @@ much from the ES6 / ES7 language specification.  The tools being used in the app
 - [Webpack][]  Module bundler and build tool
 - [SystemJS][] - Universal module loader, coming in ES7.  Polyfilled for now so we can use ES6 `import` for JS, with
 a plugin installed to allow us to load CSS too.  _**deprecated**_
-- [JSPM] - ES6 forward thinking package manager to support SyatemJS instead of using [Bower][].  It can install packages
+- [JSPM][] - ES6 forward thinking package manager to support SyatemJS instead of using [Bower][].  It can install packages
 from Github or NPM and prepares them for being used in the browser. _**deprecated**_
-- [TypeScript] - Super set of JavaScript, providing type support and more.  Added in version 0.4.0
-- [NPM Scripts] - exposed Gulp tasks through npm, for simplicity.  Formalized in version 0.4.0
+- [TypeScript][] - Super set of JavaScript, providing type support and more.  Added in version 0.4.0
+- [NPM Scripts][] - exposed Gulp tasks through npm, for simplicity.  Formalized in version 0.4.0
 
 There is also intent to look into [Flux] and [Reactive] state management patterns, looking to libraries like [Redux]
 and [Mobx].
