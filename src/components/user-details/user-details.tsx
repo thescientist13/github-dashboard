@@ -1,7 +1,6 @@
 import * as React from 'react';
 import './user-details.css';
-import { GithubStore } from '../../stores/github/github-store';
-import { GithubUser } from '../../stores/github/github-user';
+import { GithubApi, GithubUser } from '../../services/github-api';
 
 class UserDetails extends React.Component<any, any> {
   state = {
@@ -11,15 +10,12 @@ class UserDetails extends React.Component<any, any> {
 
   constructor() {
     super();
-
     this.getUserDetails();
   }
 
   getUserDetails() {
-    let store = new GithubStore();
-
-    store.getUserDetails().then((response: GithubUser) => {
-      const user = response.getDetails();
+    new GithubApi().getUserDetails().then((response: GithubUser) => {
+      let user = response;
 
       this.setState({
         avatar: user.avatar,
