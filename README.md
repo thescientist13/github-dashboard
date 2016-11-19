@@ -16,12 +16,19 @@ the 2.0 release.
 After cloning the repo, please do the following
 
 1. Run `npm install`
-2. Run `npm run install:typings`
-3. Run `cp src/credentials.ts.tmpl src/credentials.ts` and replace the `xxx`'s with your Github username and a Github
+2. Run `cp src/credentials.ts.tmpl src/credentials.ts` and replace the `xxx`'s with your Github username and a Github
 _"Personal Access Token"_ with the following scopes:
 -- repo
 -- admin:org
 -- notifications
+
+## Tasks
+#### Running
+`npm run demo`
+
+#### Local Development
+`npm run develop`
+
 
 ## Architecture
 This project is intended to be as closely aligned with modern day JavaScript standards and conventions by leveraging as

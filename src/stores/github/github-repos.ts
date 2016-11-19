@@ -28,7 +28,7 @@ export class GithubRepos {
   //TODO why does this have to public to return them from the getter?
   public repositories: Array<GithubRepo> = [];
 
-  constructor(repositories: Array<any>) {
+  constructor(repositories: any) {
     const repos = repositories;
 
     repos.map(repository => {
