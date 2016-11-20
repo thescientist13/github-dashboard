@@ -6,7 +6,7 @@ It is expected that you have the latest LTS version of [Node][] installed and it
 
 #### Update 11/17/2016
 The project has shifted away from Gulp and JSPM / SystemJS, in favor of Webpack (eye on 2.0).  Webpack has proven to be
-an ideal and practical build tool in addition to being module bundler.  It will also support ES6 imports natively in
+an ideal and practical build tool in addition to being a module bundler.  It will also support ES6 imports natively in
 the 2.0 release.
 
 [Node]: https://nodejs.org/
@@ -22,14 +22,6 @@ _"Personal Access Token"_ with the following scopes:
 -- admin:org
 -- notifications
 
-## Tasks
-#### Running
-`npm run demo`
-
-#### Local Development
-`npm run develop`
-
-
 ## Architecture
 This project is intended to be as closely aligned with modern day JavaScript standards and conventions by leveraging as
 much from the ES6 / ES7 language specification.  The tools being used in the application are:
@@ -41,7 +33,7 @@ a plugin installed to allow us to load CSS too.  _**deprecated**_
 - [JSPM][] - ES6 forward thinking package manager to support SyatemJS instead of using [Bower][].  It can install packages
 from Github or NPM and prepares them for being used in the browser. _**deprecated**_
 - [TypeScript][] - Super set of JavaScript, providing type support and more.  Added in version 0.4.0
-- [NPM Scripts][] - exposed Gulp tasks through npm, for simplicity.  Formalized in version 0.4.0
+- [NPM Scripts][] - exposed "userland" tasks through NPM.  Formalized in version 0.4.0
 
 There is also intent to look into [Flux] and [Reactive] state management patterns, looking to libraries like [Redux]
 and [Mobx].
@@ -61,21 +53,17 @@ and [Mobx].
 
 ## Project Layout
 The _src_ directory contains all relevant source code needed to run the app
-- _bootstrap.ts_ - SystemJS bootstrap for the application
+- _index.tsx_ - bootstrap for the application
 - _credentials.ts_ - from a template, with Github credentials
-- _components/_ - UI components extending React.Component class
-- _layouts/_ - HTML views
-- _stores/_ - State management classes
--- _github/_ - Manages a Github store for a given user, tracking their profile, repositories and issues
+- _components/_ - UI components extending `React.Component` class
+- _services/_ - classes for interacting with 3rd party APIs or other non UI related functionality
 
-## Running the App
-`npm run app` - starts the app in a webrowser
+## Tasks
+#### Running the app
+`npm run demo`
 
-## Development
-1. In one tab run `npm run develop`  (initiates a watch task)
-2. In another tab, run `npm run serve` (will also have livereload)
-
-To see all available gulp tasks, run `npm run help`
+#### Local Development
+`npm run develop`
 
 **Note: For development, it is recommended to use an IDE like [Webstorm][], and install React / JSX plugins, as well
 as setting any JavaScript language version settings to recognize ES6 or JSX syntax.**

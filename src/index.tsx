@@ -10,9 +10,9 @@ import RepositoriesPersonal from './components/repositories-personal/repositorie
 render((
   <Router history={browserHistory}>
     <Route path="/" component={Layout}>
-      {/*<IndexRoute component={RepositoriesPersonal} />*/}
-      {/*<Route path="personal" component={RepositoriesPersonal} />*/}
-      {/*<Route path="following" component={RepositoriesFollowing} />*/}
+      <IndexRoute component={RepositoriesPersonal} />
+      <Route path="personal" component={RepositoriesPersonal} />
+      <Route path="following" component={RepositoriesFollowing} />
     </Route>
   </Router>
 ), document.getElementById('content'));

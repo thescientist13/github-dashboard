@@ -81,12 +81,12 @@ export class GithubApi {
     };
   }
 
-  getUserDetails() {
-    return this.$.get(this.baseUrl + 'user').then(function(response) {
+  getUserDetails(): any {
+    return this.$.get(this.baseUrl + 'user').then((response: any) => {
       let data = response.data;
       let user: GithubUser = {
         avatar: data.avatar_url,
-        username: data.login,
+        username: data.login
       };
 
       return user;
@@ -109,11 +109,11 @@ export class GithubApi {
     });
   }
 
-  getUserRepositories (username?: string) {
+  getUserRepositories (username?: string): any {
     // TODO should this even be required since its a call specifically for the user?
     let user = username || this.credentials.username;
 
-    return this.$.get(this.baseUrl + 'users/' + user + '/repos').then(response => {
+    return this.$.get(this.baseUrl + 'users/' + user + '/repos').then((response: any) => {
       let modeledRepos: Array<GithubRepo> = [];
 
       response.data.map(repository => {
@@ -130,11 +130,11 @@ export class GithubApi {
     });
   }
 
-  getUserSubscriptions (username?: string) {
+  getUserSubscriptions (username?: string): any {
     // TODO should this even be required since its a call specifically for the user?
     let user = username || this.credentials.username;
 
-    return this.$.get(this.baseUrl + 'users/' + user + '/subscriptions').then(response => {
+    return this.$.get(this.baseUrl + 'users/' + user + '/subscriptions').then((response: any) => {
       let modeledRepos: Array<GithubRepo> = [];
 
       response.data.map(repository => {
