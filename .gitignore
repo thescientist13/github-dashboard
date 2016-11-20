@@ -1,6 +1,6 @@
 npm-debug.log
 .idea/
 .vscode/
-src/credentials.ts
+src/services/credentials.ts
 build/
 node_modules/
