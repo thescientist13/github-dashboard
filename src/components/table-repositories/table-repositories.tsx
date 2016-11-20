@@ -1,6 +1,6 @@
 import './table-repositories.css';
 import * as React from 'react';
-import { GithubRepo } from "../../stores/github/github-repos";
+import { GithubRepo } from '../../services/github-api';
 
 //TODO change use any, any to use types
 class TableRepositories extends React.Component<any, any> {
@@ -26,11 +26,11 @@ class TableRepositories extends React.Component<any, any> {
         </thead>
         <tbody>
         {this.props.repositories.map(function(repository: GithubRepo){
-          return <tr key={repository.getRepoDetails().details.id}className={repository.getRepoDetails().issues && repository.getRepoDetails().issues.getIssueDetails().hasAssignedIssues ? 'bg-danger' : ''}>
-            <td><a target="_blank" href={repository.getRepoDetails().details.html_url}>{repository.getRepoDetails().details.name}</a></td>
-            <td>{repository.getRepoDetails().issues ? repository.getRepoDetails().issues.getIssueDetails().count : ''} </td>
-            <td>{repository.getRepoDetails().issues ? repository.getRepoDetails().issues.getIssueDetails().pullRequests : ''}</td>
-            <td>{repository.getRepoDetails().issues ? repository.getRepoDetails().issues.getIssueDetails().openIssues : ''}</td>
+          return <tr key={repository.details.id}className={repository.issues && repository.issues.hasAssignedIssues ? 'bg-danger' : ''}>
+            <td><a target="_blank" href={repository.details.html_url}>{repository.details.name}</a></td>
+            <td>{repository.issues ? repository.issues.count : ''} </td>
+            <td>{repository.issues ? repository.issues.pullRequests : ''}</td>
+            <td>{repository.issues ? repository.issues.openIssues : ''}</td>
           </tr>
         })}
         </tbody>

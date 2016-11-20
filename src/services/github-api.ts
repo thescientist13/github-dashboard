@@ -21,7 +21,7 @@ export interface GithubIssues {
 export interface GithubRepo {
   details: any,
   id: number,
-  issues?: Array<GithubIssues>
+  issues?: GithubIssues
 }
 
 export class GithubApi {
@@ -95,7 +95,7 @@ export class GithubApi {
     });
   }
 
-  getIssuesForRepository(repositoryName: string, username?: string) {
+  getIssuesForRepository(repositoryName: string, username?: string): any {
     let user = username || this.credentials.username;
 
     return this.$.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
@@ -119,8 +119,7 @@ export class GithubApi {
       response.data.map(repository => {
         modeledRepos.push({
           details: repository,
-          id: new Date().getTime(),
-          issues: []
+          id: new Date().getTime()
         });
       });
 
@@ -140,8 +139,7 @@ export class GithubApi {
       response.data.map(repository => {
         modeledRepos.push({
           details: repository,
-          id: new Date().getTime(),
-          issues: []
+          id: new Date().getTime()
         });
       });
 
