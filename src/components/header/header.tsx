@@ -1,8 +1,5 @@
-'use strict';
-
 import * as React from 'react';
-
-import './header.css!';
+import './header.css';
 
 // TODO make this DRY?
 interface MyProps {}

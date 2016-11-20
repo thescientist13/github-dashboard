@@ -1,6 +1,4 @@
-'use strict';
-
-import './table-repositories.css!';
+import './table-repositories.css';
 import * as React from 'react';
 import { GithubRepo } from "../../stores/github/github-repos";
 

@@ -8,7 +8,7 @@ import { GithubStore } from '../../stores/github/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
 
 //TODO change use any, any to use types
-class RepositoriesPersonal extends React.Component<any, any >{
+class RepositoriesPersonal extends React.Component<any, any>{
   state = {
     repositories: []
   };

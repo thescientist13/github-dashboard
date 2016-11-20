@@ -1,9 +1,7 @@
-'use strict';
-
 import * as React from 'react';
 import { Link } from 'react-router';
 
-import './navigation.css!';
+import './navigation.css';
 
 // TODO make this DRY?
 interface MyProps {}

@@ -23,8 +23,8 @@ export class GithubStore {
     }
   });
 
-  getUserDetails() {
-    return this.$.get(this.baseUrl + 'user').then(function(response) {
+  getUserDetails(): any {
+    return this.$.get(this.baseUrl + 'user').then(function(response: any) {
       let data = response.data;
 
       return new GithubUser(data.login, data.avatar_url);
@@ -33,7 +33,7 @@ export class GithubStore {
     });;
   }
 
-  getIssuesForRepository(repositoryName: string, username?: string) {
+  getIssuesForRepository(repositoryName: string, username?: string): any {
     let user = username || this.credentials.username;
 
     return this.$.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
@@ -47,7 +47,7 @@ export class GithubStore {
     });
   }
 
-  getUserRepositories (username?: string) {
+  getUserRepositories (username?: string): any {
     // TODO should this even be required since its a call specifically for the user?
     let user = username || this.credentials.username;
 
@@ -60,7 +60,7 @@ export class GithubStore {
     });
   }
 
-  getUserSubscriptions (username?: string) {
+  getUserSubscriptions (username?: string): any {
     // TODO should this even be required since its a call specifically for the user?
     let user = username || this.credentials.username;
 

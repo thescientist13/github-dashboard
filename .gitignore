@@ -1,6 +1,6 @@
-.idea
+npm-debug.log
+.idea/
+.vscode/
 src/credentials.ts
-dest/
-typings/
-jspm_packages
-node_modules
+build/
+node_modules/
