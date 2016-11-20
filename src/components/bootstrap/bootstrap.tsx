@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
+import { Credentials, CredentialsInterface } from '../../services/credentials';
 import Footer from '../footer/footer';
 import { GithubApi } from '../../services/github-api';
 import { GITHUB_STORE_ACTIONS } from '../../stores/github-store';
@@ -14,11 +15,12 @@ interface MyProps {}
 interface MyState {}
 
 class Bootstrap extends React.Component<MyProps, MyState> {
+
   constructor() {
     super();
 
-    //TODO credenitals here?
-    const api = new GithubApi();
+    const credentials: CredentialsInterface = new Credentials().getCredentials();
+    const api = new GithubApi(credentials);
 
     api.getUserDetails().then((response: any) => {
       GithubStore.dispatch({

@@ -1,19 +1,19 @@
 import * as axios from 'axios';
-import Credentials from '../credentials';
+import { CredentialsInterface } from '../services/credentials';
 
-export interface GithubUser {
+export interface GithubUserInterface {
   avatar: string,
   username: string
 }
 
-export interface GithubIssue {
+export interface GithubIssueInterface {
   details: any
 }
 
-export interface GithubIssues {
+export interface GithubIssuesInterface {
   count: number,
   hasAssignedIssues: boolean,
-  issues: Array<GithubIssue>,
+  issues: Array<GithubIssueInterface>,
   openIssues: number,
   pullRequests: number
 }
@@ -21,21 +21,27 @@ export interface GithubIssues {
 export interface GithubRepo {
   details: any,
   id: number,
-  issues?: GithubIssues
+  issues?: GithubIssuesInterface
 }
 
 export class GithubApi {
-  private credentials = Credentials.getCredentials();
   private baseUrl:string = 'https://api.github.com/';
-  private $ = axios.create({
-    headers: {
-      'Accept': 'application/vnd.github.v3+json',
-      'Authorization': 'token ' +  this.credentials.accessToken
-    }
-  });
+  private $: any;
+  private credentials: CredentialsInterface;
+
+  constructor(credentials: CredentialsInterface){
+    this.credentials = credentials;
+    this.$ = axios.create({
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+        'Authorization': 'token ' + this.credentials.accessToken
+      }
+    });
+
+  }
 
   private modelIssuesAndGetPullRequests(issues): any {
-    let modeledIssues: Array<GithubIssue> = [];
+    let modeledIssues: Array<GithubIssueInterface> = [];
     let pullRequests: number = 0;
 
     issues.map(issue => {
@@ -54,7 +60,7 @@ export class GithubApi {
     };
   }
 
-  private getUserHasAssignedIssues(issues: Array<GithubIssue>, username: string) {
+  private getUserHasAssignedIssues(issues: Array<GithubIssueInterface>, username: string) {
     let hasAssignedIssues = false;
 
     issues.forEach(function (issue) {
@@ -68,7 +74,7 @@ export class GithubApi {
     return hasAssignedIssues;
   }
 
-  private modelGithubIssuesForRepository(issues, currentUser: string): GithubIssues {
+  private modelGithubIssuesForRepository(issues, currentUser: string): GithubIssuesInterface {
     let modeledIssuesAndPullRequests = this.modelIssuesAndGetPullRequests(issues);
     let modeledIssues: any = modeledIssuesAndPullRequests.modeledIssues;
 
@@ -84,7 +90,7 @@ export class GithubApi {
   getUserDetails(): any {
     return this.$.get(this.baseUrl + 'user').then((response: any) => {
       let data = response.data;
-      let user: GithubUser = {
+      let user: GithubUserInterface = {
         avatar: data.avatar_url,
         username: data.login
       };
