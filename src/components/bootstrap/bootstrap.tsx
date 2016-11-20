@@ -33,6 +33,20 @@ class Bootstrap extends React.Component<MyProps, MyState> {
         userDetails: response
       })
     });
+
+    this.githubApi.getUserRepositories().then((response: any) => {
+      GithubStore.dispatch({
+        type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
+        userRepositories: response
+      })
+    });
+
+    this.githubApi.getUserSubscriptions().then((response: any) => {
+      GithubStore.dispatch({
+        type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
+        userSubscriptions: response
+      })
+    });
   }
 
   render() {
