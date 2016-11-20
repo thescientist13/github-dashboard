@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import { Credentials, CredentialsInterface } from '../../services/credentials';
@@ -15,14 +16,18 @@ interface MyProps {}
 interface MyState {}
 
 class Bootstrap extends React.Component<MyProps, MyState> {
+  private credentials: CredentialsInterface;
+  private githubApi: any;
 
   constructor() {
     super();
 
-    const credentials: CredentialsInterface = new Credentials().getCredentials();
-    const api = new GithubApi(credentials);
+    this.credentials = new Credentials().getCredentials();
+    this.githubApi = new GithubApi(this.credentials);
+  }
 
-    api.getUserDetails().then((response: any) => {
+  componentDidMount() {
+    this.githubApi.getUserDetails().then((response: any) => {
       GithubStore.dispatch({
         type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
         userDetails: response
@@ -68,3 +73,4 @@ class Bootstrap extends React.Component<MyProps, MyState> {
 }
 
 export default Bootstrap;
+

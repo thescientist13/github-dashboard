@@ -5,17 +5,22 @@ export const GITHUB_STORE_ACTIONS = {
 };
 
 const githubReducer = function(state: any, action: any) {
-
   if(state === undefined){
     state = {};
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_DETAILS) {
-    console.log('storeAction', GITHUB_STORE_ACTIONS.GET_USER_DETAILS);
-    state.userDertails = action.userDetails;
+    //TODO state should be immutable!
+    let newState = state;
+
+    newState.userDetails = {
+      avatar: action.userDetails.avatar,
+      username: action.userDetails.username
+    };
+
+    return newState;
   }
 
-  console.log('storeState', state);
   return state;
 };
 

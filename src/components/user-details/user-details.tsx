@@ -11,13 +11,13 @@ class UserDetails extends React.Component<any, any> {
   constructor() {
     super();
 
-    console.log('constructor!!!');
     GithubStore.subscribe(() => {
-      console.log('GithubStore.state', GithubStore.getState().userDetails);
-      // this.setState({
-      //   avatar: userDetailsState.avatar,
-      //   username: userDetailsState.username
-      // });
+      const state: any = GithubStore.getState();
+
+      this.setState({
+        avatar: state.userDetails.avatar,
+        username: state.userDetails.username
+      });
     });
   }
 
