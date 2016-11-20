@@ -1,8 +1,10 @@
-'use strict';
-
 import * as React from 'react';
 
+import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import Footer from '../footer/footer';
+import { GithubApi } from '../../services/github-api';
+import { GITHUB_STORE_ACTIONS } from '../../stores/github-store';
+import GithubStore from '../../stores/github-store';
 import Header from '../header/header';
 import Navigation from '../navigation/navigation';
 import UserDetails from '../user-details/user-details';
@@ -11,7 +13,20 @@ import UserDetails from '../user-details/user-details';
 interface MyProps {}
 interface MyState {}
 
-class Layout extends React.Component<MyProps, MyState> {
+class Bootstrap extends React.Component<MyProps, MyState> {
+  constructor() {
+    super();
+
+    //TODO credenitals here?
+    const api = new GithubApi();
+
+    api.getUserDetails().then((response: any) => {
+      GithubStore.dispatch({
+        type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
+        userDetails: response
+      })
+    });
+  }
 
   render() {
     return (
@@ -50,4 +65,4 @@ class Layout extends React.Component<MyProps, MyState> {
 
 }
 
-export default Layout;
+export default Bootstrap;

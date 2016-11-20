@@ -1,5 +1,3 @@
-'use strict';
-
 import * as React from 'react';
 import { GithubApi, GithubIssues, GithubRepo } from '../../services/github-api';
 import TableRepositories from '../table-repositories/table-repositories';
