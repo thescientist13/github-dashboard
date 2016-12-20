@@ -27,6 +27,7 @@ This project is intended to be as closely aligned with modern day JavaScript sta
 much from the ES6 / ES7 language specification.  The tools being used in the application are:
 
 - [React][] - Component first UI library by Facebook.  This project will leverage [JSX].
+- [Redux][] - [Flux][] inspired state-management library
 - [Webpack][]  Module bundler and build tool
 - [SystemJS][] - Universal module loader, coming in ES7.  Polyfilled for now so we can use ES6 `import` for JS, with
 a plugin installed to allow us to load CSS too.  _**deprecated**_
@@ -35,19 +36,13 @@ from Github or NPM and prepares them for being used in the browser. _**deprecate
 - [TypeScript][] - Super set of JavaScript, providing type support and more.  Added in version 0.4.0
 - [NPM Scripts][] - exposed "userland" tasks through NPM.  Formalized in version 0.4.0
 
-There is also intent to look into [Flux] and [Reactive] state management patterns, looking to libraries like [Redux]
-and [Mobx].
-
 [React]: https://facebook.github.io/react/
 [JSX]: https://facebook.github.io/react/docs/jsx-in-depth.html
 [Webpack]: https://webpack.github.io/
 [SystemJS]: https://github.com/systemjs/systemjs
 [JSPM]: http://jspm.io/
-[Bower]: http://bower.io/
 [Flux]: https://facebook.github.io/flux/
-[Reactive]: https://github.com/Reactive-Extensions/RxJS
 [Redux]: https://github.com/reactjs/redux
-[Mobx]: https://github.com/mobxjs/mobx
 [TypeScript]: https://www.typescriptlang.org/
 [NPM Scripts]: https://docs.npmjs.com/misc/scripts
 
@@ -64,6 +59,8 @@ The _src_ directory contains all relevant source code needed to run the app
 
 #### Local Development
 `npm run develop`
+
+You can run the app from `localhost:4567`
 
 **Note: For development, it is recommended to use an IDE like [Webstorm][], and install React / JSX plugins, as well
 as setting any JavaScript language version settings to recognize ES6 or JSX syntax.**

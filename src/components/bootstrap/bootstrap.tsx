@@ -26,7 +26,6 @@ class Bootstrap extends React.Component<MyProps, MyState> {
     this.githubApi = new GithubApi(this.credentials);
   }
 
-  //TODO dispatch IDE warning
   componentDidMount() {
     this.githubApi.getUserDetails().then((response: any) => {
       GithubStore.dispatch({
@@ -88,4 +87,3 @@ class Bootstrap extends React.Component<MyProps, MyState> {
 }
 
 export default Bootstrap;
-

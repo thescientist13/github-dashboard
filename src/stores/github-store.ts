@@ -1,4 +1,5 @@
 import { createStore } from 'redux';
+//import { GithubIssueInterface } from '../services/github-api';
 
 export const GITHUB_STORE_ACTIONS = {
   GET_USER_DETAILS: 'GET_USER_DETAILS',
@@ -36,10 +37,17 @@ const githubReducer = function(state: any, action: any) {
       newState.userRepositories.push({
         details: item.details,
         id: item.id,
-        issues: []
+        issues: {
+          count: '',
+          hasAssignedIssues: '',
+          issues: [],
+          openIssues: '',
+          pullRequests: ''
+        }
       })
     });
 
+    console.log('GET_USER_REPOSITORIES', newState);
     return newState;
   }
 
@@ -52,10 +60,16 @@ const githubReducer = function(state: any, action: any) {
       newState.userSubscriptions.push({
         details: item.details,
         id: item.id,
-        issues: []
+        issues: {
+          count: '',
+          hasAssignedIssues: '',
+          issues: [],
+          openIssues: '',
+          pullRequests: ''
+        }
       })
     });
-
+    console.log('GET_USER_SUBSCRIPTIONS', newState);
     return newState;
   }
 
@@ -69,6 +83,10 @@ const githubReducer = function(state: any, action: any) {
   return state;
 };
 
-let GithubStore = createStore(githubReducer);
+let GithubStore = createStore(githubReducer, {
+  userDetails: {},
+  userRepositories: [],
+  userSubscriptions: []
+});
 
 export default GithubStore;

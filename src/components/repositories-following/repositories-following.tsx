@@ -13,7 +13,7 @@ class RepositoriesFollowing extends React.Component<any, any> {
 
     GithubStore.subscribe(() => {
       const state: any = GithubStore.getState();
-      console.log('userSubs', state.userSubscriptions);
+      console.log('subscribe userSubscriptions', state.userSubscriptions);
       this.setState({
         repositories: state.userSubscriptions
       });

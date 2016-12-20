@@ -1,15 +1,12 @@
-import './table-repositories.css';
 import * as React from 'react';
 import { GithubRepo } from '../../services/github-api';
 
 //TODO change use any, any to use types
 class TableRepositories extends React.Component<any, any> {
-  props = {
-    repositories: []
-  };
 
   constructor(props){
     super(props);
+    console.log('TableRepositories', this.props);
   }
 
   render() {
@@ -26,7 +23,7 @@ class TableRepositories extends React.Component<any, any> {
         </thead>
         <tbody>
         {this.props.repositories.map(function(repository: GithubRepo){
-          return <tr key={repository.details.id}className={repository.issues && repository.issues.hasAssignedIssues ? 'bg-danger' : ''}>
+          return <tr key={repository.details.id} className={repository.issues && repository.issues.hasAssignedIssues ? 'bg-danger' : ''}>
             <td><a target="_blank" href={repository.details.html_url}>{repository.details.name}</a></td>
             <td>{repository.issues ? repository.issues.count : ''} </td>
             <td>{repository.issues ? repository.issues.pullRequests : ''}</td>
