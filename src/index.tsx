@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-//import { IndexRoute, Router, Route, browserHistory } from 'react-router';
+import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 import Bootstrap from './components/bootstrap/bootstrap';
 import RepositoriesFollowing from './components/repositories-following/repositories-following';
 import RepositoriesPersonal from './components/repositories-personal/repositories-personal';
 
 
-//import { Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 //import { createStore } from 'redux';
 //import githubStoreReducer from './stores/github-store';
 
@@ -14,7 +14,6 @@ import RepositoriesPersonal from './components/repositories-personal/repositorie
 
 render(<Bootstrap />, document.getElementById('bootstrap'));
 
-//render(<Bootstrap/>, document.getElementById('content'));
 // render((
 //   <Router history={browserHistory}>
 //     <Route path="/" component={Bootstrap}>
