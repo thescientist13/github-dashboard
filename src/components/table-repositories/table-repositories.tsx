@@ -6,11 +6,9 @@ class TableRepositories extends React.Component<any, any> {
 
   constructor(props){
     super(props);
-    console.log('TableRepositories', this.props);
   }
 
   render() {
-
     return (
       <table className="table table-bordered table-striped table-hover">
         <thead>
@@ -34,6 +32,7 @@ class TableRepositories extends React.Component<any, any> {
       </table>
     )
   }
+
 }
 
 export default TableRepositories;

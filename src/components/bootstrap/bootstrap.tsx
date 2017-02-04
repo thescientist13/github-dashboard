@@ -46,6 +46,20 @@ let repositoriesPersonal = [{
   }
 }];
 
+let repositoriesFollowing = [{
+  details: {
+    id: 3,
+    name: 'Keystone',
+    html_url: 'https://github.com/kenzanlabs/keystone/',
+  },
+  issues: {
+    hasAssignedIssues: true,
+    count: 16,
+    pullRequests: 1,
+    openIssues: 15
+  }
+}];
+
 class Bootstrap extends React.Component<MyProps, MyState> {
   //private credentials: CredentialsInterface;
   //private githubApi: any;
@@ -95,11 +109,17 @@ class Bootstrap extends React.Component<MyProps, MyState> {
 
           <div className="col-md-3">
             <UserDetails user={userDetails}/>
-            <Navigation/>
+            {/*<Navigation/>*/}
           </div>
 
           <div className="col-md-9">
+            <h3>Personal Repositories</h3>
             <TableRepositories repositories={repositoriesPersonal}/>
+
+            <hr/>
+
+            <h3>Following Repositories</h3>
+            <TableRepositories repositories={repositoriesFollowing}/>
           </div>
 
         </section>
