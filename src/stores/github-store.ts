@@ -1,13 +1,15 @@
 import { createStore } from 'redux';
-//import { GithubIssueInterface } from '../services/github-api';
+import { GithubRepoInterface } from '../services/github-api';
 
 const initialState = {
   userDetails: {},
-  userRepositories: {},
-  userSubscriptions: {}
+  userRepositories: [],
+  userSubscriptions: []
 };
 
 export const GITHUB_STORE_ACTIONS = {
+  GET_ISSUES_FOR_USER_REPOSITORY: 'GET_ISSUES_FOR_USER_REPOSITORY',
+  GET_ISSUES_FOR_USER_SUBSCRIPTION: 'GET_ISSUES_FOR_USER_SUBSCRIPTION',
   GET_USER_DETAILS: 'GET_USER_DETAILS',
   GET_USER_REPOSITORIES: 'GET_USER_REPOSITORIES',
   GET_USER_SUBSCRIPTIONS: 'GET_USER_SUBSCRIPTIONS'
@@ -21,6 +23,7 @@ const githubStoreReducer = function(state: any, action: any) {
     return initialState;
   }
 
+  // user details
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_DETAILS) {
     let newState = state;
 
@@ -32,11 +35,12 @@ const githubStoreReducer = function(state: any, action: any) {
     return newState;
   }
 
+  //repositories
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES) {
     let newState = state;
     newState.userRepositories = [];
 
-    action.userRepositories.forEach(item => {
+    action.userRepositories.forEach((item: GithubRepoInterface) => {
       newState.userRepositories.push({
         details: item.details,
         id: item.id,
@@ -57,7 +61,7 @@ const githubStoreReducer = function(state: any, action: any) {
     let newState = state;
     newState.userSubscriptions = [];
 
-    action.userSubscriptions.forEach(item => {
+    action.userSubscriptions.forEach((item: GithubRepoInterface) => {
       newState.userSubscriptions.push({
         details: item.details,
         id: item.id,
@@ -74,21 +78,26 @@ const githubStoreReducer = function(state: any, action: any) {
     return newState;
   }
 
+  //issues
+  if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY) {
+    let newState = state;
+
+    newState.userRepositories[action.index].issues = action.issues;
+
+    return newState;
+  }
+
+  if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION) {
+    let newState = state;
+
+    newState.userSubscriptions[action.index].issues = action.issues;
+
+    return newState;
+  }
+
   return state;
 };
 
-//     api.getIssuesForRepository(repoInfo.details.name, repoInfo.details.owner.login).then((response: GithubIssuesInterface) => {
-//       repos[index].issues = response;
-//
-//       this.setState({
-//         repositories: repos
-//       });
-
-let GithubStore = createStore(githubStoreReducer, {
-  userDetails: {},
-  userRepositories: [],
-  userSubscriptions: []
-});
+let GithubStore = createStore(githubStoreReducer, initialState);
 
 export default GithubStore;
-//export default githubStoreReducer;
