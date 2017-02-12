@@ -66,28 +66,3 @@ You can run the app from `localhost:4567`
 as setting any JavaScript language version settings to recognize ES6 or JSX syntax.**
 
 [Webstorm]: https://www.jetbrains.com/webstorm/
-
-
-
-|-- Bootstrap: get's data, renders the layout (as its own component?)
-  |-- Row 1 
-      |-- Header (P)
-  |-- Row 2 
-        |-- User Details (C)  
-        |-- Navigation (P)
-        |-- Repos Personal (C)
-            |-- Table (P)
-        |-- Repos Following (C)
-            |-- Table (P) 
-  |-- Row 3
-      |-- Footer (P)
-      
-      
-      
-== Data ==
-- User Details
-- Repositories
--- Personal
----- Issues
--- Following
------ Issues
