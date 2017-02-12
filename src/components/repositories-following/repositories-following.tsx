@@ -13,7 +13,7 @@ class RepositoriesFollowing extends React.Component<any, any> {
 
     GithubStore.subscribe(() => {
       const state: any = GithubStore.getState();
-      console.log('subscribe userSubscriptions', state.userSubscriptions);
+
       this.setState({
         repositories: state.userSubscriptions
       });
@@ -22,7 +22,10 @@ class RepositoriesFollowing extends React.Component<any, any> {
 
   render() {
     return (
-      <TableRepositories repositories={this.state.repositories}></TableRepositories>
+      <div>
+        <h3>Following Repositories</h3>
+        <TableRepositories repositories={this.state.repositories}/>
+      </div>
     )
   }
 

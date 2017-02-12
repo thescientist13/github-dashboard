@@ -1,5 +1,5 @@
 import * as axios from 'axios';
-import { CredentialsInterface } from '../services/credentials';
+import { CredentialsInterface } from './credentials';
 
 export interface GithubUserInterface {
   avatar: string,
@@ -18,7 +18,7 @@ export interface GithubIssuesInterface {
   pullRequests: number
 }
 
-export interface GithubRepo {
+export interface GithubRepoInterface {
   details: any,
   id: number,
   issues?: GithubIssuesInterface
@@ -120,7 +120,7 @@ export class GithubApi {
     let user = username || this.credentials.username;
 
     return this.$.get(this.baseUrl + 'users/' + user + '/repos').then((response: any) => {
-      let modeledRepos: Array<GithubRepo> = [];
+      let modeledRepos: Array<GithubRepoInterface> = [];
 
       response.data.map(repository => {
         modeledRepos.push({
@@ -140,7 +140,7 @@ export class GithubApi {
     let user = username || this.credentials.username;
 
     return this.$.get(this.baseUrl + 'users/' + user + '/subscriptions').then((response: any) => {
-      let modeledRepos: Array<GithubRepo> = [];
+      let modeledRepos: Array<GithubRepoInterface> = [];
 
       response.data.map(repository => {
         modeledRepos.push({
