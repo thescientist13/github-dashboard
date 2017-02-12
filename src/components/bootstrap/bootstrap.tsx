@@ -7,7 +7,6 @@ import GithubStore from '../../stores/github-store';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import UserDetails from '../user-details/user-details';
-import Navigation from '../navigation/navigation';
 import RepositoriesPersonal from '../repositories-personal/repositories-personal';
 import RepositoriesFollowing from '../repositories-following/repositories-following';
 
