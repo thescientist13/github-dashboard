@@ -11,7 +11,7 @@ npm cache clean
 npm install
 
 //build prep
-cp src/credentials.ts.tmpl src/credentials.ts
+cp src/services/credentials.ts.tmpl src/services/credentials.ts
 
 //build
 npm run ci
