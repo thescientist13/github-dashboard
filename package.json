@@ -38,7 +38,7 @@
     "@types/axios": "0.9.33",
     "@types/react": "0.14.49",
     "@types/react-dom": "0.14.18",
-    "@types/react-redux": "4.4.32",
+    "@types/react-redux": "^4.4.32",
     "@types/redux": "3.6.31",
     "awesome-typescript-loader": "2.2.4",
     "css-loader": "0.26.0",
