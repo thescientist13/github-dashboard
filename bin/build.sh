@@ -10,8 +10,8 @@ rm -rf node_modules/ > /dev/null 2>&1
 npm cache clean
 npm install
 
-//build prep
+# build prep
 cp src/services/credentials.ts.tmpl src/services/credentials.ts
 
-//build
-npm run ci
+# build
+npm run build

@@ -23,9 +23,8 @@
   "homepage": "https://github.com/thescientist13/github-dashboard#readme",
   "scripts": {
     "build": "rimraf ./build && webpack --config ./webpack.config.prod.js -p --progress --profile --bail",
-    "ci": "export NODE_ENV=production && npm run build",
-    "develop": "export NODE_ENV=development && rimraf ./build && webpack-dev-server --config ./webpack.config.dev.js --inline --progress --port 4567",
-    "demo": "npm run build && ./node_modules/.bin/gulp serve"
+    "develop": "webpack-dev-server --config ./webpack.config.dev.js --inline --progress",
+    "serve": "npm run build && gulp serve"
   },
   "dependencies": {
     "axios": "0.15.2",

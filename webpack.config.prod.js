@@ -8,15 +8,8 @@ const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 
-const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
-const HOST = process.env.HOST || 'localhost';
-const PORT = process.env.PORT || 8080;
-const METADATA = webpackMerge(commonConfig.metadata, {
-  host: HOST,
-  port: PORT,
-  ENV: ENV,
-  HMR: false
-});
+const ENVIRONMENT = process.env.NODE_ENV = process.env.ENV = 'production';
+
 
 module.exports = webpackMerge(commonConfig, {
 
@@ -37,12 +30,10 @@ module.exports = webpackMerge(commonConfig, {
     new DedupePlugin(),
 
     new DefinePlugin({
-      'ENV': JSON.stringify(METADATA.ENV),
-      'HMR': METADATA.HMR,
+      'ENV': JSON.stringify(ENVIRONMENT),
       'process.env': {
-        'ENV': JSON.stringify(METADATA.ENV),
-        'NODE_ENV': JSON.stringify(METADATA.ENV),
-        'HMR': METADATA.HMR,
+        'ENV': JSON.stringify(ENVIRONMENT),
+        'NODE_ENV': JSON.stringify(ENVIRONMENT)
       }
     }),
 
@@ -58,16 +49,6 @@ module.exports = webpackMerge(commonConfig, {
     emitErrors: true,
     failOnHint: true,
     resourcePath: 'src'
-  },
-
-  //TODO is this needed?
-  node: {
-    global: 'window',
-    crypto: 'empty',
-    process: false,
-    module: false,
-    clearImmediate: false,
-    setImmediate: false
   }
 
 });
