@@ -55,7 +55,7 @@ The _src_ directory contains all relevant source code needed to run the app
 
 ## Tasks
 #### Running the app
-`npm run demo`
+`npm run serve`
 
 #### Local Development
 `npm run develop`
