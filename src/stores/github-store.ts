@@ -83,19 +83,35 @@ const githubStoreReducer = function(state: any, action: any) {
 
   //issues
   if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY) {
-    let newState = state;
+    let newState = [];
 
-    newState.userRepositories[action.index].issues = action.issues;
+    state.userRepositories.forEach((item: GithubRepoInterface, index: number) => {
+      newState.push(state.userRepositories[index]);
 
-    return newState;
+      if(action.index === index){
+        newState[action.index].issues = action.issues;
+      }
+    });
+
+    return (<any>Object).assign({}, state, {
+      userRepositories: newState
+    });
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION) {
-    let newState = state;
+    let newState = [];
 
-    newState.userSubscriptions[action.index].issues = action.issues;
+    state.userSubscriptions.forEach((item: GithubRepoInterface, index: number) => {
+      newState.push(state.userSubscriptions[index]);
 
-    return newState;
+      if(action.index === index){
+        newState[action.index].issues = action.issues;
+      }
+    });
+
+    return (<any>Object).assign({}, state, {
+      userSubscriptions: newState
+    });
   }
 
   return state;
