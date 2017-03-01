@@ -25,15 +25,12 @@ const githubStoreReducer = function(state: any, action: any) {
 
   // user details
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_DETAILS) {
-    console.log('new user details', action);
-    let newState = state;
-
-    newState.userDetails = {
-      avatar: action.userDetails.avatar,
-      username: action.userDetails.username
-    };
-
-    return newState;
+    return (<any>Object).assign({}, state, {
+      userDetails: {
+        username: action.userDetails.username,
+        avatar: action.userDetails.avatar
+      }
+    })
   }
 
   //repositories

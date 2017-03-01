@@ -3,7 +3,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 function mapStateToProps(state) {
-  console.log('mapStateToProps', state);
   return {
     avatar: state.userDetails.avatar,
     username: state.userDetails.username
@@ -23,12 +22,10 @@ class UserDetails extends React.Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps', nextProps);
-  }
-
-  componentDidMount(){
-    console.log('componentDidMount props', this.props);
-    console.log('componentDidMount state', this.state);
+    this.setState({
+      avatar: nextProps.avatar,
+      username: nextProps.username
+    });
   }
 
   render() {
