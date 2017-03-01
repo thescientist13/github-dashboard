@@ -1,23 +1,30 @@
 import * as React from 'react';
-import GithubStore from '../../stores/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
+import { connect } from 'react-redux';
+
+function mapStateToProps(state) {
+  console.log('mapStateToProps', state);
+  return {
+    repositories: state.userRepositories
+  };
+}
 
 //TODO change use any, any to use types
 class RepositoriesPersonal extends React.Component<any, any>{
-  state = {
-    repositories: []
-  };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    // GithubStore.subscribe(() => {
-    //   const state: any = GithubStore.getState();
-    //
-    //   this.setState({
-    //     repositories: state.userRepositories
-    //   });
-    // });
+    this.state = {
+      repositories: []
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps', nextProps);
+    this.setState({
+      repositories: nextProps.repositories || []
+    });
   }
 
   render() {
@@ -31,4 +38,4 @@ class RepositoriesPersonal extends React.Component<any, any>{
 
 }
 
-export default RepositoriesPersonal;
+export default connect(mapStateToProps)(RepositoriesPersonal);

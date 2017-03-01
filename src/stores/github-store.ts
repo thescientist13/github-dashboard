@@ -25,21 +25,22 @@ const githubStoreReducer = function(state: any, action: any) {
 
   // user details
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_DETAILS) {
+    let newState = {
+      username: action.userDetails.username,
+      avatar: action.userDetails.avatar
+    };
+
     return (<any>Object).assign({}, state, {
-      userDetails: {
-        username: action.userDetails.username,
-        avatar: action.userDetails.avatar
-      }
-    })
+      userDetails: newState
+    });
   }
 
   //repositories
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES) {
-    let newState = state;
-    newState.userRepositories = [];
+    let newState = [];
 
     action.userRepositories.forEach((item: GithubRepoInterface) => {
-      newState.userRepositories.push({
+      newState.push({
         details: item.details,
         id: item.id,
         issues: {
@@ -52,15 +53,17 @@ const githubStoreReducer = function(state: any, action: any) {
       })
     });
 
-    return newState;
+    return (<any>Object).assign({}, state, {
+      userRepositories: newState
+    })
+
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS) {
-    let newState = state;
-    newState.userSubscriptions = [];
+    let newState = [];
 
     action.userSubscriptions.forEach((item: GithubRepoInterface) => {
-      newState.userSubscriptions.push({
+      newState.push({
         details: item.details,
         id: item.id,
         issues: {
@@ -73,7 +76,9 @@ const githubStoreReducer = function(state: any, action: any) {
       })
     });
 
-    return newState;
+    return (<any>Object).assign({}, state, {
+      userSubscriptions: newState
+    })
   }
 
   //issues
