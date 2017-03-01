@@ -49,13 +49,11 @@ export class GithubApi {
         details: issue
       });
 
-      console.log('modelIssuesAndGetPullRequests', issue);
       if (issue.pull_request) {
         pullRequests += 1;
       }
     });
 
-    console.log('pullRequests', pullRequests)
     return {
       modeledIssues: modeledIssues,
       pullRequests: pullRequests
