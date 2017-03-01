@@ -11,19 +11,19 @@ class RepositoriesPersonal extends React.Component<any, any>{
   constructor() {
     super();
 
-    GithubStore.subscribe(() => {
-      const state: any = GithubStore.getState();
-
-      this.setState({
-        repositories: state.userRepositories
-      });
-    });
+    // GithubStore.subscribe(() => {
+    //   const state: any = GithubStore.getState();
+    //
+    //   this.setState({
+    //     repositories: state.userRepositories
+    //   });
+    // });
   }
 
   render() {
     return (
       <div>
-        <h3>Following Repositories</h3>
+        <h3>Personal Repositories</h3>
         <TableRepositories repositories={this.state.repositories}/>
       </div>
     )

@@ -1,24 +1,34 @@
-import * as React from 'react';
 import './user-details.css';
-import GithubStore from '../../stores/github-store';
+import * as React from 'react';
+import { connect } from 'react-redux';
 
-class UserDetails extends React.Component<any, any> {
-  state = {
-    avatar: '',
-    username: ''
+function mapStateToProps(state) {
+  console.log('mapStateToProps', state);
+  return {
+    avatar: state.userDetails.avatar,
+    username: state.userDetails.username
   };
+}
 
-  constructor() {
-    super();
+//TODO any
+class UserDetails extends React.Component<any, any> {
 
-    GithubStore.subscribe(() => {
-      const state: any = GithubStore.getState();
+  constructor(props) {
+    super(props);
 
-      this.setState({
-        avatar: state.userDetails.avatar,
-        username: state.userDetails.username
-      });
-    });
+    this.state = {
+      avatar: '',
+      username: ''
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps', nextProps);
+  }
+
+  componentDidMount(){
+    console.log('componentDidMount props', this.props);
+    console.log('componentDidMount state', this.state);
   }
 
   render() {
@@ -32,4 +42,4 @@ class UserDetails extends React.Component<any, any> {
 
 }
 
-export default UserDetails;
+export default connect(mapStateToProps)(UserDetails);

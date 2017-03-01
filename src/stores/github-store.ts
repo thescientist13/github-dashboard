@@ -25,6 +25,7 @@ const githubStoreReducer = function(state: any, action: any) {
 
   // user details
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_DETAILS) {
+    console.log('new user details', action);
     let newState = state;
 
     newState.userDetails = {
@@ -98,6 +99,4 @@ const githubStoreReducer = function(state: any, action: any) {
   return state;
 };
 
-let GithubStore = createStore(githubStoreReducer, initialState);
-
-export default GithubStore;
+export default githubStoreReducer;
