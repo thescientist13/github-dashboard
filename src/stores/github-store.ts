@@ -25,23 +25,22 @@ const githubStoreReducer = function(state: any, action: any) {
 
   // user details
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_DETAILS) {
-    let newState = state;
-
-    newState.userDetails = {
-      avatar: action.userDetails.avatar,
-      username: action.userDetails.username
+    let newState = {
+      username: action.userDetails.username,
+      avatar: action.userDetails.avatar
     };
 
-    return newState;
+    return (<any>Object).assign({}, state, {
+      userDetails: newState
+    });
   }
 
   //repositories
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES) {
-    let newState = state;
-    newState.userRepositories = [];
+    let newState = [];
 
     action.userRepositories.forEach((item: GithubRepoInterface) => {
-      newState.userRepositories.push({
+      newState.push({
         details: item.details,
         id: item.id,
         issues: {
@@ -54,15 +53,17 @@ const githubStoreReducer = function(state: any, action: any) {
       })
     });
 
-    return newState;
+    return (<any>Object).assign({}, state, {
+      userRepositories: newState
+    })
+
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS) {
-    let newState = state;
-    newState.userSubscriptions = [];
+    let newState = [];
 
     action.userSubscriptions.forEach((item: GithubRepoInterface) => {
-      newState.userSubscriptions.push({
+      newState.push({
         details: item.details,
         id: item.id,
         issues: {
@@ -75,29 +76,45 @@ const githubStoreReducer = function(state: any, action: any) {
       })
     });
 
-    return newState;
+    return (<any>Object).assign({}, state, {
+      userSubscriptions: newState
+    })
   }
 
   //issues
   if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY) {
-    let newState = state;
+    let newState = [];
 
-    newState.userRepositories[action.index].issues = action.issues;
+    state.userRepositories.forEach((item: GithubRepoInterface, index: number) => {
+      newState.push(state.userRepositories[index]);
 
-    return newState;
+      if(action.index === index){
+        newState[action.index].issues = action.issues;
+      }
+    });
+
+    return (<any>Object).assign({}, state, {
+      userRepositories: newState
+    });
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION) {
-    let newState = state;
+    let newState = [];
 
-    newState.userSubscriptions[action.index].issues = action.issues;
+    state.userSubscriptions.forEach((item: GithubRepoInterface, index: number) => {
+      newState.push(state.userSubscriptions[index]);
 
-    return newState;
+      if(action.index === index){
+        newState[action.index].issues = action.issues;
+      }
+    });
+
+    return (<any>Object).assign({}, state, {
+      userSubscriptions: newState
+    });
   }
 
   return state;
 };
 
-let GithubStore = createStore(githubStoreReducer, initialState);
-
-export default GithubStore;
+export default githubStoreReducer;

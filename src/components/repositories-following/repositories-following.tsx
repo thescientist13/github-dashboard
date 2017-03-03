@@ -1,29 +1,40 @@
 import * as React from 'react';
-import GithubStore from '../../stores/github-store';
 import TableRepositories from '../table-repositories/table-repositories';
+import { connect } from 'react-redux';
+
+function mapStateToProps(state) {
+  return {
+    repositories: state.userSubscriptions
+  };
+}
 
 //TODO change use any, any to use types
 class RepositoriesFollowing extends React.Component<any, any> {
-  state = {
-    repositories: []
-  };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    GithubStore.subscribe(() => {
-      const state: any = GithubStore.getState();
+    this.state = {
+      repositories: []
+    };
+  }
 
-      this.setState({
-        repositories: state.userSubscriptions
-      });
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      repositories: nextProps.repositories || []
+    });
+  }
+
+  componentWillMount() {
+    this.setState({
+      repositories: this.props.repositories
     });
   }
 
   render() {
     return (
       <div>
-        <h3>Following Repositories</h3>
+        <h3>Subscribed Repositories</h3>
         <TableRepositories repositories={this.state.repositories}/>
       </div>
     )
@@ -31,4 +42,4 @@ class RepositoriesFollowing extends React.Component<any, any> {
 
 }
 
-export default RepositoriesFollowing;
+export default connect(mapStateToProps)(RepositoriesFollowing);

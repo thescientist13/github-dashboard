@@ -1,26 +1,24 @@
-import * as React from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
+import * as React from 'react';
+import { connect } from 'react-redux';
 import { Credentials, CredentialsInterface } from '../../services/credentials';
 import { GithubApi, GithubIssuesInterface, GithubRepoInterface } from '../../services/github-api';
 import { GITHUB_STORE_ACTIONS } from '../../stores/github-store';
-import GithubStore from '../../stores/github-store';
 import Header from '../header/header';
 import Footer from '../footer/footer';
+import Navigation from '../navigation/navigation';
 import UserDetails from '../user-details/user-details';
-import RepositoriesPersonal from '../repositories-personal/repositories-personal';
-import RepositoriesFollowing from '../repositories-following/repositories-following';
 
-// TODO make this DRY?
-interface MyProps {}
-interface MyState {}
-
-class Bootstrap extends React.Component<MyProps, MyState> {
+// TODO any
+class Bootstrap extends React.Component<any, any> {
   private credentials: CredentialsInterface;
   private githubApi: any;
 
   private getUserDetails() {
+    let dispatch = this.props.dispatch;
+
     this.githubApi.getUserDetails().then((response: any) => {
-      GithubStore.dispatch({
+      dispatch({
         type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
         userDetails: response
       })
@@ -28,15 +26,17 @@ class Bootstrap extends React.Component<MyProps, MyState> {
   }
 
   private getUserRepositoriesWithIssues() {
+    let dispatch = this.props.dispatch;
+
     this.githubApi.getUserRepositories().then((response: any) => {
-      GithubStore.dispatch({
+      dispatch({
         type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
         userRepositories: response
       });
 
       response.map((repo: GithubRepoInterface, index: number) => {
         this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
-          GithubStore.dispatch({
+          dispatch({
             type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
             index: index,
             issues: response
@@ -47,15 +47,17 @@ class Bootstrap extends React.Component<MyProps, MyState> {
   }
 
   private getUserSubscriptionsWithIssues() {
+    let dispatch = this.props.dispatch;
+
     this.githubApi.getUserSubscriptions().then((response: any) => {
-      GithubStore.dispatch({
+      dispatch({
         type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
         userSubscriptions: response
       });
 
       response.map((repo: GithubRepoInterface, index: number) => {
         this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
-          GithubStore.dispatch({
+          dispatch({
             type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION,
             index: index,
             issues: response
@@ -65,14 +67,12 @@ class Bootstrap extends React.Component<MyProps, MyState> {
     });
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.credentials = new Credentials().getCredentials();
     this.githubApi = new GithubApi(this.credentials);
-  }
 
-  componentDidMount() {
     this.getUserDetails();
     this.getUserRepositoriesWithIssues();
     this.getUserSubscriptionsWithIssues();
@@ -93,15 +93,11 @@ class Bootstrap extends React.Component<MyProps, MyState> {
 
           <div className="col-md-3">
             <UserDetails/>
-            {/*<Navigation/>*/}
+            <Navigation/>
           </div>
 
           <div className="col-md-9">
-            <RepositoriesPersonal/>
-
-            <hr/>
-
-            <RepositoriesFollowing/>
+            {this.props.children}
           </div>
 
         </section>
@@ -119,4 +115,4 @@ class Bootstrap extends React.Component<MyProps, MyState> {
   }
 }
 
-export default Bootstrap;
+export default connect()(Bootstrap);

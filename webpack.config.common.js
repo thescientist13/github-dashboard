@@ -4,7 +4,7 @@ const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin
 
 module.exports = {
   entry: {
-    'main':      './src/index.tsx'
+    main: './src/index.tsx'
   },
   output: {
     filename: "./build/bundle.js",
