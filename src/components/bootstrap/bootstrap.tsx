@@ -8,8 +8,6 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import Navigation from '../navigation/navigation';
 import UserDetails from '../user-details/user-details';
-import RepositoriesPersonal from '../repositories-personal/repositories-personal';
-import RepositoriesFollowing from '../repositories-following/repositories-following';
 
 // TODO any
 class Bootstrap extends React.Component<any, any> {
@@ -99,11 +97,7 @@ class Bootstrap extends React.Component<any, any> {
           </div>
 
           <div className="col-md-9">
-            <RepositoriesPersonal/>
-
-            <hr/>
-
-            <RepositoriesFollowing/>
+            {this.props.children}
           </div>
 
         </section>

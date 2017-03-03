@@ -25,6 +25,12 @@ class RepositoriesFollowing extends React.Component<any, any> {
     });
   }
 
+  componentWillMount() {
+    this.setState({
+      repositories: this.props.repositories
+    });
+  }
+
   render() {
     return (
       <div>

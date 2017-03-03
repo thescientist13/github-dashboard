@@ -20,9 +20,14 @@ class RepositoriesPersonal extends React.Component<any, any>{
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps', nextProps);
     this.setState({
       repositories: nextProps.repositories
+    });
+  }
+
+  componentWillMount () {
+    this.setState({
+      repositories: this.props.repositories
     });
   }
 
