@@ -12,6 +12,8 @@ const initialState = {
 export const GITHUB_STORE_ACTIONS = {
   GET_ISSUES_FOR_USER_REPOSITORY: 'GET_ISSUES_FOR_USER_REPOSITORY',
   GET_ISSUES_FOR_USER_SUBSCRIPTION: 'GET_ISSUES_FOR_USER_SUBSCRIPTION',
+  GET_NEXT_USER_REPOSITORIES: 'GET_NEXT_USER_REPOSITORIES',
+  GET_NEXT_USER_SUBSCRIPTIONS: 'GET_NEXT_USER_SUBSCRIPTIONS',
   GET_USER_DETAILS: 'GET_USER_DETAILS',
   GET_USER_REPOSITORIES: 'GET_USER_REPOSITORIES',
   GET_USER_SUBSCRIPTIONS: 'GET_USER_SUBSCRIPTIONS'
@@ -82,6 +84,54 @@ const githubStoreReducer = function(state: any, action: any) {
 
     return (<any>Object).assign({}, state, {
       userSubscriptions: newState,
+      hasMoreRepos: action.hasMoreRepos,
+      nextReposUrl: action.nextReposUrl
+    })
+  }
+
+  if(action.type === GITHUB_STORE_ACTIONS.GET_NEXT_USER_REPOSITORIES){
+    let newState = [];
+
+    action.userRepositories.forEach((item: GithubRepoInterface) => {
+      newState.push({
+        details: item.details,
+        id: item.id,
+        issues: {
+          count: '',
+          hasAssignedIssues: '',
+          issues: [],
+          openIssues: '',
+          pullRequests: ''
+        }
+      })
+    });
+
+    return (<any>Object).assign({}, state, {
+      userRepositories: state.userRepositories.concat(newState),
+      hasMoreRepos: action.hasMoreRepos,
+      nextReposUrl: action.nextReposUrl
+    })
+  }
+
+  if(action.type === GITHUB_STORE_ACTIONS.GET_NEXT_USER_SUBSCRIPTIONS){
+    let newState = [];
+
+    action.userSubscriptions.forEach((item: GithubRepoInterface) => {
+      newState.push({
+        details: item.details,
+        id: item.id,
+        issues: {
+          count: '',
+          hasAssignedIssues: '',
+          issues: [],
+          openIssues: '',
+          pullRequests: ''
+        }
+      })
+    });
+
+    return (<any>Object).assign({}, state, {
+      userSubscriptions: state.userSubscriptions.concat(newState),
       hasMoreRepos: action.hasMoreRepos,
       nextReposUrl: action.nextReposUrl
     })

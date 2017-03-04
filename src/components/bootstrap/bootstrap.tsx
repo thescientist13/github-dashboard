@@ -14,6 +14,16 @@ class Bootstrap extends React.Component<any, any> {
   private credentials: CredentialsInterface;
   private githubApi: any;
 
+  constructor(props) {
+    super(props);
+
+    this.credentials = new Credentials().getCredentials();
+    this.githubApi = new GithubApi(this.credentials);
+
+    this.getUserDetails();
+  }
+
+
   private getUserDetails() {
     let dispatch = this.props.dispatch;
 
@@ -23,63 +33,6 @@ class Bootstrap extends React.Component<any, any> {
         userDetails: response
       })
     });
-  }
-
-  private getUserRepositoriesWithIssues() {
-    let dispatch = this.props.dispatch;
-
-    this.githubApi.getUserRepositories().then((response: any) => {
-      dispatch({
-        type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
-        userRepositories: response.repos,
-        hasMoreRepos: response.hasMoreRepos,
-        nextReposUrl: response.nextReposUrl
-      });
-
-      response.repos.map((repo: GithubRepoInterface, index: number) => {
-        this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
-          dispatch({
-            type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
-            index: index,
-            issues: response
-          });
-        })
-      })
-    });
-  }
-
-  private getUserSubscriptionsWithIssues() {
-    let dispatch = this.props.dispatch;
-
-    this.githubApi.getUserSubscriptions().then((response: any) => {
-      dispatch({
-        type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
-        userSubscriptions: response.repos,
-        hasMoreRepos: response.hasMoreRepos,
-        nextReposUrl: response.nextReposUrl
-      });
-
-      response.repos.map((repo: GithubRepoInterface, index: number) => {
-        this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
-          dispatch({
-            type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION,
-            index: index,
-            issues: response
-          });
-        })
-      })
-    });
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.credentials = new Credentials().getCredentials();
-    this.githubApi = new GithubApi(this.credentials);
-
-    this.getUserDetails();
-    this.getUserRepositoriesWithIssues();
-    this.getUserSubscriptionsWithIssues();
   }
 
   render() {

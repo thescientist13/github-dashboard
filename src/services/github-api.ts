@@ -91,6 +91,10 @@ export class GithubApi {
     return linkHeader ? linkHeader.split(';')[0].replace('<', '').replace('>', '') : null;
   }
 
+  private generateUniqueRepoId(): number {
+    return new Date().getTime() * (Math.floor((Math.random() * 9999) + 1));
+  }
+
   getUserDetails(): any {
     return this.$.get(this.baseUrl + 'user').then((response: any) => {
       let data = response.data;
@@ -134,7 +138,7 @@ export class GithubApi {
 
         modeledRepos.push({
           details: repository,
-          id: new Date().getTime()
+          id: this.generateUniqueRepoId()
         });
       });
 
@@ -151,8 +155,10 @@ export class GithubApi {
   getUserSubscriptions (username?: string, nextUrl?: string): any {
     // TODO should this even be required since its a call specifically for the user?
     let user = username || this.credentials.username;
+    let url = nextUrl || this.baseUrl + 'users/' + user + '/subscriptions';
+    console.log('getUserSubscriptions URL', url);
 
-    return this.$.get(this.baseUrl + 'users/' + user + '/subscriptions').then((response: any) => {
+    return this.$.get(url).then((response: any) => {
       let modeledRepos: Array<GithubRepoInterface> = [];
       let nextRepoUrl: string = this.parseNextReposUrl(response.headers.link);
       let moreReposExist: boolean = !!nextRepoUrl;
@@ -162,7 +168,7 @@ export class GithubApi {
       response.data.map(repository => {
         modeledRepos.push({
           details: repository,
-          id: new Date().getTime()
+          id: this.generateUniqueRepoId()
         });
       });
 

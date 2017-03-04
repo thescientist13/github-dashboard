@@ -8,11 +8,8 @@ class TableRepositories extends React.Component<any, any> {
     super(props);
   }
 
-  handleMoreButtonClick(url) {
-    console.log('handleMoreButtonClick', url);
-  }
-
   render() {
+    let props = this.props;
     return (
       <div>
         <table className="table table-bordered table-striped table-hover">
@@ -37,7 +34,7 @@ class TableRepositories extends React.Component<any, any> {
         </table>
 
         {/*XXX show conditionally*/}
-        <button className="btn btn-primary" onClick={() => this.handleMoreButtonClick(this.props.nextReposUrl)}>Load More</button>
+        <button className="btn btn-primary" onClick={function () { props.getNextRepos(props.nextReposUrl) }}>Load More</button>
 
       </div>
     )
