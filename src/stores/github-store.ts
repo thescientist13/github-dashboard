@@ -1,4 +1,3 @@
-import { createStore } from 'redux';
 import { GithubRepoInterface } from '../services/github-api';
 
 const initialState = {

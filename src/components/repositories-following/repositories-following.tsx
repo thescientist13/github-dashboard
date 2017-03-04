@@ -33,7 +33,6 @@ class RepositoriesFollowing extends React.Component<any, any> {
   }
 
   private getUserSubscriptionsWithIssues(nextReposUrl?: string) {
-    console.log('getUserSubscriptionsWithIssues', nextReposUrl);
     let dispatch = this.props.dispatch;
 
     this.githubApi.getUserSubscriptions(null, nextReposUrl).then((response: any) => {
@@ -44,15 +43,15 @@ class RepositoriesFollowing extends React.Component<any, any> {
         nextReposUrl: response.nextReposUrl
       });
 
-      // response.repos.map((repo: GithubRepoInterface, index: number) => {
-      //   this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
-      //     dispatch({
-      //       type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION,
-      //       index: index,
-      //       issues: response
-      //     });
-      //   })
-      // })
+      response.repos.map((repo: GithubRepoInterface, index: number) => {
+        this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
+          dispatch({
+            type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION,
+            index: index,
+            issues: response
+          });
+        })
+      })
     });
   }
 
