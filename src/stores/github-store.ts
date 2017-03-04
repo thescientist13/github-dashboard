@@ -154,12 +154,18 @@ const githubStoreReducer = function(state: any, action: any) {
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION) {
-    let newState = [];
+    let newState = new Array(state.userSubscriptions.length);
+    //let offset = state.userSubscriptions.length;
+    //console.log(newState.length);
 
     state.userSubscriptions.forEach((item: GithubRepoInterface, index: number) => {
-      newState.push(state.userSubscriptions[index]);
+      //console.log('current index', index);
+      //console.log('offset', offset);
+      //console.log('action.index', action.index);
+      newState[index] = state.userSubscriptions[index];
 
       if(action.index === index){
+        //console.log('UPDATE ISSUES HERE');
         newState[action.index].issues = action.issues;
       }
     });

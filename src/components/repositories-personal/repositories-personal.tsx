@@ -44,10 +44,12 @@ class RepositoriesPersonal extends React.Component<any, any>{
       });
 
       response.repos.map((repo: GithubRepoInterface, index: number) => {
+        let idx = nextReposUrl ? response.repos.length + index : index;
+
         this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
           dispatch({
             type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
-            index: index,
+            index: idx,
             issues: response
           });
         })
