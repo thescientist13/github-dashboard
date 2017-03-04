@@ -162,8 +162,6 @@ export class GithubApi {
       let modeledRepos: Array<GithubRepoInterface> = [];
       let nextRepoUrl: string = this.parseNextReposUrl(response.headers.link);
       let moreReposExist: boolean = !!nextRepoUrl;
-      //console.log('headers', response.headers);
-      //console.log(response.headers.link.split(';')[0].replace('<', '').replace('>', ''));
 
       response.data.map(repository => {
         modeledRepos.push({

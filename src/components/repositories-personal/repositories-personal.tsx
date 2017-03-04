@@ -55,11 +55,6 @@ class RepositoriesPersonal extends React.Component<any, any>{
       })
     });
   }
-  //
-  // getNextRepos(url) {
-  //   console.log('get next repos', url);
-  //   this.getUserRepositoriesWithIssues(url);
-  // }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
