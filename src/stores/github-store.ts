@@ -4,7 +4,9 @@ import { GithubRepoInterface } from '../services/github-api';
 const initialState = {
   userDetails: {},
   userRepositories: [],
-  userSubscriptions: []
+  userSubscriptions: [],
+  hasMoreRepos: false,
+  nextReposUrl: ''
 };
 
 export const GITHUB_STORE_ACTIONS = {
@@ -54,7 +56,9 @@ const githubStoreReducer = function(state: any, action: any) {
     });
 
     return (<any>Object).assign({}, state, {
-      userRepositories: newState
+      userRepositories: newState,
+      hasMoreRepos: action.hasMoreRepos,
+      nextReposUrl: action.nextReposUrl
     })
 
   }
@@ -77,7 +81,9 @@ const githubStoreReducer = function(state: any, action: any) {
     });
 
     return (<any>Object).assign({}, state, {
-      userSubscriptions: newState
+      userSubscriptions: newState,
+      hasMoreRepos: action.hasMoreRepos,
+      nextReposUrl: action.nextReposUrl
     })
   }
 

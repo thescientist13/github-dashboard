@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 
 function mapStateToProps(state) {
   return {
-    repositories: state.userSubscriptions
+    repositories: state.userSubscriptions,
+    hasMoreRepos: state.hasMoreRepos,
+    nextReposUrl: state.nextReposUrl
   };
 }
 
@@ -15,19 +17,27 @@ class RepositoriesFollowing extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      repositories: []
+      repositories: [],
+      hasMoreRepos: false,
+      nextReposUrl: ''
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      repositories: nextProps.repositories || []
+      repositories: nextProps.repositories || [],
+      hasMoreRepos: nextProps.hasMoreRepos,
+      nextReposUrl: nextProps.nextReposUrl
     });
   }
 
+  //this is here since if a component isnt mounted when dispatches to the store happen
+  //the component will need to manually query the store to hydrate itself into state
   componentWillMount() {
     this.setState({
-      repositories: this.props.repositories
+      repositories: this.props.repositories,
+      hasMoreRepos: this.props.hasMoreRepos,
+      nextReposUrl: this.props.nextReposUrl
     });
   }
 
@@ -35,7 +45,11 @@ class RepositoriesFollowing extends React.Component<any, any> {
     return (
       <div>
         <h3>Subscribed Repositories</h3>
-        <TableRepositories repositories={this.state.repositories}/>
+        <TableRepositories
+          repositories={this.state.repositories}
+          hasMoreRepos={this.state.hasMoreRepos}
+          nextReposUrl={this.state.nextReposUrl}
+        />
       </div>
     )
   }

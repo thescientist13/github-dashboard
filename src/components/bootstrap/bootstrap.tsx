@@ -31,10 +31,12 @@ class Bootstrap extends React.Component<any, any> {
     this.githubApi.getUserRepositories().then((response: any) => {
       dispatch({
         type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
-        userRepositories: response
+        userRepositories: response.repos,
+        hasMoreRepos: response.hasMoreRepos,
+        nextReposUrl: response.nextReposUrl
       });
 
-      response.map((repo: GithubRepoInterface, index: number) => {
+      response.repos.map((repo: GithubRepoInterface, index: number) => {
         this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
           dispatch({
             type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
@@ -52,10 +54,12 @@ class Bootstrap extends React.Component<any, any> {
     this.githubApi.getUserSubscriptions().then((response: any) => {
       dispatch({
         type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
-        userSubscriptions: response
+        userSubscriptions: response.repos,
+        hasMoreRepos: response.hasMoreRepos,
+        nextReposUrl: response.nextReposUrl
       });
 
-      response.map((repo: GithubRepoInterface, index: number) => {
+      response.repos.map((repo: GithubRepoInterface, index: number) => {
         this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
           dispatch({
             type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION,
@@ -81,12 +85,12 @@ class Bootstrap extends React.Component<any, any> {
   render() {
     return (
       <section>
-
         <section className="row">
+
           <div className="col-md-*">
             <Header/>
-
           </div>
+
         </section>
 
         <section className="row">
@@ -103,13 +107,12 @@ class Bootstrap extends React.Component<any, any> {
         </section>
 
         <section className="row">
+
           <div className="col-md-12">
-
             <Footer/>
-
           </div>
-        </section>
 
+        </section>
       </section>
     )
   }

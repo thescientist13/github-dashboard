@@ -87,6 +87,10 @@ export class GithubApi {
     };
   }
 
+  private parseNextReposUrl(linkHeader: string): string{
+    return linkHeader ? linkHeader.split(';')[0].replace('<', '').replace('>', '') : null;
+  }
+
   getUserDetails(): any {
     return this.$.get(this.baseUrl + 'user').then((response: any) => {
       let data = response.data;
@@ -115,32 +119,45 @@ export class GithubApi {
     });
   }
 
-  getUserRepositories (username?: string): any {
+  getUserRepositories (username?: string, nextUrl?: string): any {
     // TODO should this even be required since its a call specifically for the user?
     let user = username || this.credentials.username;
+    let url = nextUrl || this.baseUrl + 'users/' + user + '/repos';
 
-    return this.$.get(this.baseUrl + 'users/' + user + '/repos').then((response: any) => {
+    return this.$.get(url).then((response: any) => {
       let modeledRepos: Array<GithubRepoInterface> = [];
+      let nextRepoUrl: string = this.parseNextReposUrl(response.headers.link);
+      let moreReposExist: boolean = !!nextRepoUrl;
 
       response.data.map(repository => {
+        //console.log('repository', repository);
+
         modeledRepos.push({
           details: repository,
           id: new Date().getTime()
         });
       });
 
-      return modeledRepos;
+      return {
+        repos: modeledRepos,
+        hasMoreRepos: moreReposExist,
+        nextReposUrl: nextRepoUrl
+      };
     }).catch(function(response) {
       console.error('UNHANDLED ERROR', response);
     });
   }
 
-  getUserSubscriptions (username?: string): any {
+  getUserSubscriptions (username?: string, nextUrl?: string): any {
     // TODO should this even be required since its a call specifically for the user?
     let user = username || this.credentials.username;
 
     return this.$.get(this.baseUrl + 'users/' + user + '/subscriptions').then((response: any) => {
       let modeledRepos: Array<GithubRepoInterface> = [];
+      let nextRepoUrl: string = this.parseNextReposUrl(response.headers.link);
+      let moreReposExist: boolean = !!nextRepoUrl;
+      //console.log('headers', response.headers);
+      //console.log(response.headers.link.split(';')[0].replace('<', '').replace('>', ''));
 
       response.data.map(repository => {
         modeledRepos.push({
@@ -149,7 +166,11 @@ export class GithubApi {
         });
       });
 
-      return modeledRepos;
+      return {
+        repos: modeledRepos,
+        hasMoreRepos: moreReposExist,
+        nextReposUrl: nextRepoUrl
+      };
     }).catch(function(response) {
       console.error('UNHANDLED ERROR', response);
     });
