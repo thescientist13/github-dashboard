@@ -77,12 +77,13 @@ export class GithubApi {
   private modelGithubIssuesForRepository(issues, currentUser: string): GithubIssuesInterface {
     let modeledIssuesAndPullRequests = this.modelIssuesAndGetPullRequests(issues);
     let modeledIssues: any = modeledIssuesAndPullRequests.modeledIssues;
+    let pullRequests: any = modeledIssuesAndPullRequests.pullRequests;
 
     return {
-      pullRequests: 0,
+      pullRequests: pullRequests,
       issues: modeledIssues,
       count: modeledIssues.length,
-      openIssues: modeledIssues.length - modeledIssuesAndPullRequests.pullRequests,
+      openIssues: modeledIssues.length - pullRequests,
       hasAssignedIssues: this.getUserHasAssignedIssues(modeledIssues, currentUser)
     };
   }
