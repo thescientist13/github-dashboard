@@ -22,8 +22,8 @@ class TableRepositories extends React.Component<any, any> {
           </tr>
           </thead>
           <tbody>
-          {this.props.repositories.map(function(repository: GithubRepoInterface){
-            return <tr key={repository.details.id} className={repository.issues && repository.issues.hasAssignedIssues ? 'bg-danger' : ''}>
+          {this.props.repositories.map(function(repository: GithubRepoInterface, index: number){
+            return <tr key={index} className={repository.issues && repository.issues.hasAssignedIssues ? 'bg-danger' : ''}>
               <td><a target="_blank" href={repository.details.html_url}>{repository.details.name}</a></td>
               <td>{repository.issues ? repository.issues.count : ''} </td>
               <td>{repository.issues ? repository.issues.pullRequests : ''}</td>
