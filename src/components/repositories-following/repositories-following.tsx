@@ -21,14 +21,14 @@ class RepositoriesFollowing extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
+    this.credentials = new Credentials().getCredentials();
+    this.githubApi = new GithubApi(this.credentials);
     this.state = {
       repositories: [],
       hasMoreRepos: false,
       nextReposUrl: ''
     };
 
-    this.credentials = new Credentials().getCredentials();
-    this.githubApi = new GithubApi(this.credentials);
     this.getUserSubscriptionsWithIssues();
   }
 

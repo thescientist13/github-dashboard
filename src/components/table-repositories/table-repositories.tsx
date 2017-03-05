@@ -33,9 +33,11 @@ class TableRepositories extends React.Component<any, any> {
           </tbody>
         </table>
 
-        {/*XXX show conditionally*/}
-        <button className="btn btn-primary" onClick={function () { props.getNextRepos(props.nextReposUrl) }}>Load More</button>
-
+        {
+          this.props.nextReposUrl
+            ? <button className="btn btn-primary" onClick={function () { props.getNextRepos(props.nextReposUrl) }}>Load More</button>
+            : ''
+        }
       </div>
     )
   }
