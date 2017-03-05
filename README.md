@@ -31,6 +31,7 @@ much from the ES6 / ES7 language specification.  The tools being used in the app
 - [Webpack][]  Module bundler and build tool
 - [TypeScript][] - Super set of JavaScript, providing type support and more.  Added in version 0.4.0
 - [NPM Scripts][] - exposed "userland" tasks through NPM.  Formalized in version 0.4.0
+- [Jest][] and [Enzyme][] - unit testing framework and React testing utility library
 
 [React]: https://facebook.github.io/react/
 [JSX]: https://facebook.github.io/react/docs/jsx-in-depth.html
@@ -39,6 +40,8 @@ much from the ES6 / ES7 language specification.  The tools being used in the app
 [Redux]: https://github.com/reactjs/redux
 [TypeScript]: https://www.typescriptlang.org/
 [NPM Scripts]: https://docs.npmjs.com/misc/scripts
+[Jest]: https://facebook.github.io/jest/
+[Enzyme]: http://airbnb.io/enzyme/
 
 ## Project Layout
 The _src_ directory contains all relevant source code needed to run the app
