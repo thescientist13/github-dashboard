@@ -1,8 +1,7 @@
 import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import * as React from 'react';
-import { connect } from 'react-redux';
-import Header from '../header/header';
 import Footer from '../footer/footer';
+import Header from '../header/header';
 import Navigation from '../navigation/navigation';
 import UserDetails from '../user-details/user-details';
 
@@ -49,4 +48,4 @@ class Bootstrap extends React.Component<any, any> {
   }
 }
 
-export default connect()(Bootstrap);
+export default Bootstrap;

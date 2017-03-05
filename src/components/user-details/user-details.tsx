@@ -31,7 +31,7 @@ class UserDetails extends React.Component<any, any> {
   }
 
 
-  getUserDetails() {
+  private getUserDetails() {
     let dispatch = this.props.dispatch;
 
     this.githubApi.getUserDetails().then((response: any) => {

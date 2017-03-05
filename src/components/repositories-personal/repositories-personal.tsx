@@ -32,7 +32,7 @@ class RepositoriesPersonal extends React.Component<any, any>{
     this.getUserRepositoriesWithIssues();
   }
 
-  getUserRepositoriesWithIssues(nextReposUrl?: string) {
+  private getUserRepositoriesWithIssues(nextReposUrl?: string) {
     let dispatch = this.props.dispatch;
 
     this.githubApi.getUserRepositories(null, nextReposUrl).then((response: any) => {
