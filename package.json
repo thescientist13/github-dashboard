@@ -22,9 +22,10 @@
   },
   "homepage": "https://github.com/thescientist13/github-dashboard#readme",
   "scripts": {
-    "build": "rimraf ./build && webpack --config ./webpack.config.prod.js -p --progress --profile --bail",
+    "build": "rimraf ./build && npm run test && webpack --config ./webpack.config.prod.js -p --progress --profile --bail",
     "develop": "webpack-dev-server --config ./webpack.config.dev.js --inline --progress",
-    "serve": "npm run build && http-server ./build -o"
+    "serve": "npm run build && http-server ./build -o",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "0.15.2",
@@ -43,14 +44,19 @@
     "@types/react-router": "3.0.5",
     "@types/redux": "3.6.31",
     "awesome-typescript-loader": "2.2.4",
+    "babel-jest": "^19.0.0",
+    "babel-preset-es2015": "6.22.0",
+    "babel-preset-react": "6.23.0",
     "css-loader": "0.26.0",
     "file-loader": "0.9.0",
     "html-loader": "0.4.4",
     "html-webpack-plugin": "2.22.0",
     "http-server": "0.9.0",
+    "jest": "19.0.2",
     "rimraf": "2.5.4",
     "source-map-loader": "0.1.5",
     "style-loader": "0.13.1",
+    "ts-jest": "19.0.0",
     "ts-loader": "0.8.2",
     "typescript": "2.0.10",
     "typings": "1.4.0",
@@ -59,5 +65,17 @@
     "webpack-dev-server": "1.16.1",
     "webpack-md5-hash": "0.0.5",
     "webpack-merge": "0.14.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/mocks/file-mock.js",
+      "\\.(css|less)$": "<rootDir>/test/mocks/style-mock.js"
+    }
   }
 }
