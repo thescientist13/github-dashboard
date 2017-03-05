@@ -88,7 +88,10 @@ export class GithubApi {
   }
 
   private parseNextReposUrl(linkHeader: string): string{
-    return linkHeader ? linkHeader.split(';')[0].replace('<', '').replace('>', '') : null;
+    let url = linkHeader ? linkHeader.split(';')[0].replace('<', '').replace('>', '') : null;
+
+    //stop paging if all repos have been requested
+    return url && url.search('page=1') >= 0 ? null : url;
   }
 
   private generateUniqueRepoId(): number {
