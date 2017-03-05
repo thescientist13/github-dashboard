@@ -1,4 +1,4 @@
-/* quick hack to make sure highlight supercedes default table styles */
+/* TODO quick hack to make sure highlight supercedes default table styles */
 .bg-danger {
   background-color: #f2dede!important;
 }
