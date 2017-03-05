@@ -29,18 +29,12 @@ much from the ES6 / ES7 language specification.  The tools being used in the app
 - [React][] - Component first UI library by Facebook.  This project will leverage [JSX].
 - [Redux][] - [Flux][] inspired state-management library
 - [Webpack][]  Module bundler and build tool
-- [SystemJS][] - Universal module loader, coming in ES7.  Polyfilled for now so we can use ES6 `import` for JS, with
-a plugin installed to allow us to load CSS too.  _**deprecated**_
-- [JSPM][] - ES6 forward thinking package manager to support SyatemJS instead of using [Bower][].  It can install packages
-from Github or NPM and prepares them for being used in the browser. _**deprecated**_
 - [TypeScript][] - Super set of JavaScript, providing type support and more.  Added in version 0.4.0
 - [NPM Scripts][] - exposed "userland" tasks through NPM.  Formalized in version 0.4.0
 
 [React]: https://facebook.github.io/react/
 [JSX]: https://facebook.github.io/react/docs/jsx-in-depth.html
 [Webpack]: https://webpack.github.io/
-[SystemJS]: https://github.com/systemjs/systemjs
-[JSPM]: http://jspm.io/
 [Flux]: https://facebook.github.io/flux/
 [Redux]: https://github.com/reactjs/redux
 [TypeScript]: https://www.typescriptlang.org/
