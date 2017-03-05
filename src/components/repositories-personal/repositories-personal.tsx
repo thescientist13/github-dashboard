@@ -43,13 +43,14 @@ class RepositoriesPersonal extends React.Component<any, any>{
         nextReposUrl: response.nextReposUrl
       });
 
+      //TODO move offsetIdx logic into a central place
       response.repos.map((repo: GithubRepoInterface, index: number) => {
-        let idx = nextReposUrl ? response.repos.length + index : index;
+        let offsetIdx = nextReposUrl ? (this.state.repositories.length - 30) + index : index;
 
         this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
           dispatch({
             type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
-            index: idx,
+            index: offsetIdx,
             issues: response
           });
         })
