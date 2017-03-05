@@ -58,6 +58,12 @@ The _src_ directory contains all relevant source code needed to run the app
 
 You can run the app from `localhost:4567`
 
+#### Testing
+`npm run test`
+
+For local development, you can enable file watching like so
+`npm run test -- --watch`
+
 **Note: For development, it is recommended to use an IDE like [Webstorm][], and install React / JSX plugins, as well
 as setting any JavaScript language version settings to recognize ES6 or JSX syntax.**
 
