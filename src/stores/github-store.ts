@@ -154,7 +154,7 @@ const githubStoreReducer = function(state: any, action: any) {
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION) {
-    let newState = new Array(state.userSubscriptions.length);
+    let newState = [].concat(state.userSubscriptions); //new Array(state.userSubscriptions.length);
     //let offset = state.userSubscriptions.length;
     //console.log(newState.length);
 
@@ -162,8 +162,8 @@ const githubStoreReducer = function(state: any, action: any) {
       //console.log('current index', index);
       //console.log('offset', offset);
       //console.log('action.index', action.index);
-      newState[index] = state.userSubscriptions[index];
-
+      newState[action.index] = state.userSubscriptions[action.index];
+      //newState[]
       if(action.index === index){
         //console.log('UPDATE ISSUES HERE');
         newState[action.index].issues = action.issues;
