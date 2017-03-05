@@ -1,3 +1,4 @@
+import './table-repositories.css';
 import * as React from 'react';
 import { GithubRepoInterface } from '../../services/github-api';
 
