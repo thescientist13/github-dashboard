@@ -18,6 +18,14 @@ export const GITHUB_STORE_ACTIONS = {
   GET_USER_SUBSCRIPTIONS: 'GET_USER_SUBSCRIPTIONS'
 };
 
+const DEFAULT_ISSUES_MODEL = {
+  count: 0,
+  hasAssignedIssues: false,
+  issues: [],
+  openIssues: 0,
+  pullRequests: 0
+};
+
 //TODO state should be immutable!
 const githubStoreReducer = function(state: any, action: any) {
 
@@ -46,13 +54,7 @@ const githubStoreReducer = function(state: any, action: any) {
       newState.push({
         details: item.details,
         id: item.id,
-        issues: {
-          count: '',
-          hasAssignedIssues: '',
-          issues: [],
-          openIssues: '',
-          pullRequests: ''
-        }
+        issues: DEFAULT_ISSUES_MODEL
       })
     });
 
@@ -71,13 +73,7 @@ const githubStoreReducer = function(state: any, action: any) {
       newState.push({
         details: item.details,
         id: item.id,
-        issues: {
-          count: '',
-          hasAssignedIssues: '',
-          issues: [],
-          openIssues: '',
-          pullRequests: ''
-        }
+        issues: DEFAULT_ISSUES_MODEL
       })
     });
 
@@ -95,13 +91,7 @@ const githubStoreReducer = function(state: any, action: any) {
       newState.push({
         details: item.details,
         id: item.id,
-        issues: {
-          count: '',
-          hasAssignedIssues: '',
-          issues: [],
-          openIssues: '',
-          pullRequests: ''
-        }
+        issues: DEFAULT_ISSUES_MODEL
       })
     });
 
@@ -119,13 +109,7 @@ const githubStoreReducer = function(state: any, action: any) {
       newState.push({
         details: item.details,
         id: item.id,
-        issues: {
-          count: '',
-          hasAssignedIssues: '',
-          issues: [],
-          openIssues: '',
-          pullRequests: ''
-        }
+        issues: DEFAULT_ISSUES_MODEL
       })
     });
 
@@ -138,11 +122,10 @@ const githubStoreReducer = function(state: any, action: any) {
 
   //issues
   if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY) {
-    let newState = [];
+    //TODO define type
+    let newState = [].concat(state.userRepositories);
 
     state.userRepositories.forEach((item: GithubRepoInterface, index: number) => {
-      newState.push(state.userRepositories[index]);
-
       if(action.index === index){
         newState[action.index].issues = action.issues;
       }
@@ -154,19 +137,12 @@ const githubStoreReducer = function(state: any, action: any) {
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION) {
-    let newState = [].concat(state.userSubscriptions); //new Array(state.userSubscriptions.length);
-    //let offset = state.userSubscriptions.length;
-    //console.log(newState.length);
+    //TODO define type
+    let newState = [].concat(state.userSubscriptions);
 
     state.userSubscriptions.forEach((item: GithubRepoInterface, index: number) => {
-      //console.log('current index', index);
-      //console.log('offset', offset);
-      //console.log('action.index', action.index);
-      newState[action.index] = state.userSubscriptions[action.index];
-      //newState[]
       if(action.index === index){
-        //console.log('UPDATE ISSUES HERE');
-        newState[action.index].issues = action.issues;
+        newState[index].issues = action.issues;
       }
     });
 
