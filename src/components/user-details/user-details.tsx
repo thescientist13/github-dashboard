@@ -1,6 +1,9 @@
 import './user-details.css';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Credentials, CredentialsInterface } from '../../services/credentials';
+import { GithubApi, GithubIssuesInterface, GithubRepoInterface } from '../../services/github-api';
+import { GITHUB_STORE_ACTIONS } from '../../stores/github-store';
 
 function mapStateToProps(state) {
   return {
@@ -11,6 +14,8 @@ function mapStateToProps(state) {
 
 //TODO any
 class UserDetails extends React.Component<any, any> {
+  private credentials: CredentialsInterface;
+  private githubApi: any;
 
   constructor(props) {
     super(props);
@@ -19,6 +24,22 @@ class UserDetails extends React.Component<any, any> {
       avatar: '',
       username: ''
     };
+
+    this.credentials = new Credentials().getCredentials();
+    this.githubApi = new GithubApi(this.credentials);
+    this.getUserDetails();
+  }
+
+
+  private getUserDetails() {
+    let dispatch = this.props.dispatch;
+
+    this.githubApi.getUserDetails().then((response: any) => {
+      dispatch({
+        type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
+        userDetails: response
+      })
+    });
   }
 
   componentWillReceiveProps(nextProps) {

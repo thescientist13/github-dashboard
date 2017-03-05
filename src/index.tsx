@@ -14,7 +14,7 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={Bootstrap}>
-        <IndexRoute component={RepositoriesPersonal} />
+        <IndexRoute component={RepositoriesFollowing} />
         <Route path="personal" component={RepositoriesPersonal} />
         <Route path="following" component={RepositoriesFollowing} />
       </Route>
