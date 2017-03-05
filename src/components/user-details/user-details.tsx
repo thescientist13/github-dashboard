@@ -20,13 +20,13 @@ class UserDetails extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
+    this.credentials = new Credentials().getCredentials();
+    this.githubApi = new GithubApi(this.credentials);
     this.state = {
       avatar: '',
       username: ''
     };
 
-    this.credentials = new Credentials().getCredentials();
-    this.githubApi = new GithubApi(this.credentials);
     this.getUserDetails();
   }
 
