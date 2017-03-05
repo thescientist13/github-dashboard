@@ -1,6 +1,9 @@
 import './user-details.css';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Credentials, CredentialsInterface } from '../../services/credentials';
+import { GithubApi } from '../../services/github-api';
+import { GITHUB_STORE_ACTIONS } from '../../stores/github-store';
 
 function mapStateToProps(state) {
   return {
