@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { shallow } from 'enzyme';
-import TableRepositories from './table-repositories';
+import RepositoriesTable from './repositories-table';
 
-describe('TableRepositories Component', () => {
+describe('RepositoriesTable Component', () => {
 
   xit('renders without crashing', () => {
     const div = document.createElement('div');

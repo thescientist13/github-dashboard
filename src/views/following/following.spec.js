@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { shallow } from 'enzyme';
-import RepositoriesPersonal from './repositories-personal';
+import Following from './following';
 
-describe('RepositoriesPersonal Component', () => {
+describe('Following View Component', () => {
 
   xit('renders without crashing', () => {
     const div = document.createElement('section');
 
-    render(<RepositoriesPersonal/>, div);
+    render(<Following/>, div);
   });
 
 });
