@@ -61,11 +61,16 @@ export class GithubApi {
     let hasAssignedIssues = false;
 
     issues.forEach(function (issue) {
-      let assignee = issue.details.assignee ? issue.details.assignee.login : '';
+      //let isAssignee = issue.details.assignee ? issue.details.assignee.login : '';
+      console.log('issue.details.assignees', issue.details.assignees);
+      issue.details.assignees.forEach(function(assignee) {
+        //console.log('assignee', assignee);
+        if (username === assignee.login && !hasAssignedIssues) {
+          hasAssignedIssues = true;
+        }
 
-      if (username === assignee) {
-        hasAssignedIssues = true;
-      }
+      })
+
     });
 
     return hasAssignedIssues;
