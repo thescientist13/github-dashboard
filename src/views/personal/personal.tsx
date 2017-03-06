@@ -1,5 +1,5 @@
 import * as React from 'react';
-import TableRepositories from '../../components/table-repositories/table-repositories';
+import RepositoriesTable from '../../components/repositories-table/repositories-table';
 import { connect } from 'react-redux';
 import { Credentials, CredentialsInterface } from '../../services/credentials';
 import { GithubApi, GithubIssuesInterface, GithubRepoInterface } from '../../services/github-api';
@@ -80,7 +80,7 @@ class Personal extends React.Component<any, any>{
     return (
       <div>
         <h3>Personal Repositories</h3>
-        <TableRepositories
+        <RepositoriesTable
           repositories={this.state.repositories}
           hasMoreRepos={this.state.hasMoreRepos}
           nextReposUrl={this.state.nextReposUrl}

@@ -2,7 +2,6 @@ import './user-details.css';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-
 function mapStateToProps(state) {
   return {
     avatar: state.userDetails.avatar,
