@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import { IndexRoute, Link, Router, Route, browserHistory } from 'react-router';
 import githubStoreReducer from './stores/github-store';
 import Bootstrap from './components/bootstrap/bootstrap';
-import RepositoriesPersonal from './components/repositories-personal/repositories-personal';
-import RepositoriesFollowing from './components/repositories-following/repositories-following';
+import Following from './views/following/following';
+import Personal from './views/personal/personal';
 
 const store = createStore(githubStoreReducer);
 
@@ -14,9 +14,9 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={Bootstrap}>
-        <IndexRoute component={RepositoriesFollowing} />
-        <Route path="personal" component={RepositoriesPersonal} />
-        <Route path="following" component={RepositoriesFollowing} />
+        <IndexRoute component={Following} />
+        <Route path="personal" component={Personal} />
+        <Route path="following" component={Following} />
       </Route>
     </Router>
   </Provider>,

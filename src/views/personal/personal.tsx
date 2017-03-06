@@ -1,5 +1,5 @@
 import * as React from 'react';
-import TableRepositories from '../table-repositories/table-repositories';
+import RepositoriesTable from '../../components/repositories-table/repositories-table';
 import { connect } from 'react-redux';
 import { Credentials, CredentialsInterface } from '../../services/credentials';
 import { GithubApi, GithubIssuesInterface, GithubRepoInterface } from '../../services/github-api';
@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 }
 
 //TODO change use any, any to use types
-class RepositoriesPersonal extends React.Component<any, any>{
+class Personal extends React.Component<any, any>{
   private credentials: CredentialsInterface;
   private githubApi: any;
 
@@ -80,7 +80,7 @@ class RepositoriesPersonal extends React.Component<any, any>{
     return (
       <div>
         <h3>Personal Repositories</h3>
-        <TableRepositories
+        <RepositoriesTable
           repositories={this.state.repositories}
           hasMoreRepos={this.state.hasMoreRepos}
           nextReposUrl={this.state.nextReposUrl}
@@ -92,4 +92,4 @@ class RepositoriesPersonal extends React.Component<any, any>{
 
 }
 
-export default connect(mapStateToProps)(RepositoriesPersonal);
+export default connect(mapStateToProps)(Personal);

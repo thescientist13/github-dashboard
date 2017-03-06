@@ -1,9 +1,9 @@
-import './table-repositories.css';
+import './repositories-table.css';
 import * as React from 'react';
 import { GithubRepoInterface } from '../../services/github-api';
 
 //TODO change use any, any to use types
-class TableRepositories extends React.Component<any, any> {
+class RepositoriesTable extends React.Component<any, any> {
 
   constructor(props){
     super(props);
@@ -45,4 +45,4 @@ class TableRepositories extends React.Component<any, any> {
 
 }
 
-export default TableRepositories;
+export default RepositoriesTable;
