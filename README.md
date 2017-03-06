@@ -44,7 +44,8 @@ much from the ES6 / ES7 language specification.  The tools being used in the app
 The _src_ directory contains all relevant source code needed to run the app
 - _index.tsx_ - bootstrap for the application
 - _credentials.ts_ - from a template, with Github credentials
-- _components/_ - UI components extending `React.Component` class
+- _components/_ - stateless UI components extending `React.Component` class
+- _views/_ - stateful UI components extending `React.Component` class and wired up to react-router
 - _services/_ - classes for interacting with 3rd party APIs or other non UI related functionality
 
 ## Tasks
