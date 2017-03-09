@@ -31,13 +31,10 @@ export class GithubApi {
 
   constructor(credentials: CredentialsInterface){
     this.credentials = credentials;
-    this.$ = axios.create({
-      headers: {
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': 'token ' + this.credentials.accessToken
-      }
-    });
 
+    //TODO better way to DI axios??
+    axios.defaults.headers.common['Accept'] = 'application/vnd.github.v3+json';
+    axios.defaults.headers.common['Authorization'] = 'token ' + this.credentials.accessToken;
   }
 
   private modelIssuesAndGetPullRequests(issues): any {
@@ -100,7 +97,7 @@ export class GithubApi {
   }
 
   getUserDetails(): any {
-    return this.$.get(this.baseUrl + 'user').then((response: any) => {
+    return axios.get(this.baseUrl + 'user').then((response: any) => {
       let data = response.data;
       let user: GithubUserInterface = {
         avatar: data.avatar_url,
@@ -116,7 +113,7 @@ export class GithubApi {
   getIssuesForRepository(repositoryName: string, username?: string): any {
     let user = username || this.credentials.username;
 
-    return this.$.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
+    return axios.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
       return this.modelGithubIssuesForRepository(response.data, user);
     }).catch(function(response){
       if(response.status === 404){
@@ -132,7 +129,7 @@ export class GithubApi {
     let user = username || this.credentials.username;
     let url = nextUrl || this.baseUrl + 'users/' + user + '/repos';
 
-    return this.$.get(url).then((response: any) => {
+    return axios.get(url).then((response: any) => {
       let modeledRepos: Array<GithubRepoInterface> = [];
       let nextRepoUrl: string = this.parseNextReposUrl(response.headers.link);
       let moreReposExist: boolean = !!nextRepoUrl;
@@ -161,7 +158,7 @@ export class GithubApi {
     let user = username || this.credentials.username;
     let url = nextUrl || this.baseUrl + 'users/' + user + '/subscriptions';
 
-    return this.$.get(url).then((response: any) => {
+    return axios.get(url).then((response: any) => {
       let modeledRepos: Array<GithubRepoInterface> = [];
       let nextRepoUrl: string = this.parseNextReposUrl(response.headers.link);
       let moreReposExist: boolean = !!nextRepoUrl;
