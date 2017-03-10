@@ -3,7 +3,7 @@ import RepositoriesTable from '../../components/repositories-table/repositories-
 import { connect } from 'react-redux';
 import { Credentials, CredentialsInterface } from '../../services/credentials';
 import { GithubApi, GithubIssuesInterface, GithubRepoInterface } from '../../services/github-api';
-import { GITHUB_STORE_ACTIONS } from '../../stores/github-store';
+import { getUserRepositories, getIssuesForUserRepository } from '../../stores/github-store';
 
 function mapStateToProps(state) {
   return {
@@ -36,23 +36,14 @@ class Personal extends React.Component<any, any>{
     let dispatch = this.props.dispatch;
 
     this.githubApi.getUserRepositories(null, nextReposUrl).then((response: any) => {
-      dispatch({
-        type: GITHUB_STORE_ACTIONS.GET_NEXT_USER_REPOSITORIES,
-        userRepositories: response.repos,
-        hasMoreRepos: response.hasMoreRepos,
-        nextReposUrl: response.nextReposUrl
-      });
+      dispatch(getUserRepositories(response));
 
       //TODO move offsetIdx logic into a central place
       response.repos.map((repo: GithubRepoInterface, index: number) => {
         let offsetIdx = nextReposUrl ? (this.state.repositories.length - 30) + index : index;
 
         this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
-          dispatch({
-            type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
-            index: offsetIdx,
-            issues: response
-          });
+          dispatch(getIssuesForUserRepository(response, offsetIdx));
         })
       })
     });

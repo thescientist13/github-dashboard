@@ -4,3 +4,5 @@ npm-debug.log
 src/services/credentials.ts
 build/
 node_modules/
+reports/
+test-report.xml
