@@ -1,6 +1,5 @@
 import { GithubRepoInterface } from '../services/github-api';
 
-
 const initialState = {
   userDetails: {},
   userRepositories: [],
@@ -9,7 +8,7 @@ const initialState = {
   nextReposUrl: ''
 };
 
-const GITHUB_STORE_ACTIONS = {
+export const GITHUB_STORE_ACTIONS = {
   GET_ISSUES_FOR_USER_REPOSITORY: 'GET_ISSUES_FOR_USER_REPOSITORY',
   GET_ISSUES_FOR_USER_SUBSCRIPTION: 'GET_ISSUES_FOR_USER_SUBSCRIPTION',
   GET_USER_DETAILS: 'GET_USER_DETAILS',
@@ -158,6 +157,5 @@ export function getIssuesForUserSubscription(response, offsetIdx) {
     issues: response
   }
 }
-
 
 export default githubStoreReducer;
