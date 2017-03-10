@@ -110,20 +110,6 @@ export class GithubApi {
     });
   }
 
-  getIssuesForRepository(repositoryName: string, username?: string): any {
-    let user = username || this.credentials.username;
-
-    return axios.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
-      return this.modelGithubIssuesForRepository(response.data, user);
-    }).catch(function(response){
-      if(response.status === 404){
-        console.warn('404 NOT FOUND - ' + repositoryName + '.  Repo may be private.');
-      }else{
-        console.error('UNHANDLED ERROR', response);
-      }
-    });
-  }
-
   getUserRepositories (username?: string, nextUrl?: string): any {
     // TODO should this even be required since its a call specifically for the user?
     let user = username || this.credentials.username;
@@ -135,8 +121,6 @@ export class GithubApi {
       let moreReposExist: boolean = !!nextRepoUrl;
 
       response.data.map(repository => {
-        //console.log('repository', repository);
-
         modeledRepos.push({
           details: repository,
           id: this.generateUniqueRepoId()
@@ -177,6 +161,20 @@ export class GithubApi {
       };
     }).catch(function(response) {
       console.error('UNHANDLED ERROR', response);
+    });
+  }
+
+  getIssuesForRepository(repositoryName: string, username?: string): any {
+    let user = username || this.credentials.username;
+
+    return axios.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
+      return this.modelGithubIssuesForRepository(response.data, user);
+    }).catch(function(response){
+      if(response.status === 404){
+        console.warn('404 NOT FOUND - ' + repositoryName + '.  Repo may be private.');
+      }else{
+        console.error('UNHANDLED ERROR', response);
+      }
     });
   }
 }
