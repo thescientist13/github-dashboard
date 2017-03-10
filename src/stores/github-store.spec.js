@@ -1,11 +1,11 @@
-import {GITHUB_STORE_ACTIONS, getUserDetails, getUserRepositories, getUserSubsctiptions, getIssuesForUserRepository, getIssuesForUserSubscription}   from './github-store';
+import githubStoreReducer, { GITHUB_STORE_ACTIONS, getUserDetails, getUserRepositories, getUserSubsctiptions, getIssuesForUserRepository, getIssuesForUserSubscription } from './github-store';
 import MOCK_ISSUES_USER_REPOS from '../../test/mocks/issues-user-repository.json';
 import MOCK_ISSUES_USER_SUBSCRIPTIONS from '../../test/mocks/issues-user-subscription.json';
 import MOCK_USER_DETAILS from '../../test/mocks/user-details.json';
 import MOCK_USER_REPOS from '../../test/mocks/user-repositories.json';
 import MOCK_USER_SUBSCRIPTIONS from '../../test/mocks/user-subscriptions.json';
 
-describe('Actions', () => {
+describe('GitHub Store Actions', () => {
 
   it('should get user details', () => {
     const expectedAction = {
@@ -67,5 +67,21 @@ describe('Actions', () => {
 
     expect(getIssuesForUserSubscription(MOCK_ISSUES_USER_SUBSCRIPTIONS, idx)).toEqual(expectedAction)
   });
+
+});
+
+describe('GitHub Store Reducer', () => {
+
+  it('should return the initial state', () => {
+    expect(
+      githubStoreReducer(undefined, {})
+    ).toEqual({
+      userDetails: {},
+      userRepositories: [],
+      userSubscriptions: [],
+      hasMoreRepos: false,
+      nextReposUrl: ''
+    })
+  })
 
 });

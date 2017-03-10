@@ -116,6 +116,7 @@ const githubStoreReducer = function(state: any, action: any) {
   return state;
 };
 
+//TODO move to a seperate file - github-action.ts
 export function getUserDetails(response) {
   return {
     type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
