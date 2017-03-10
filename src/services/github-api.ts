@@ -144,7 +144,7 @@ export class GithubApi {
 
     return axios.get(url).then((response: any) => {
       let modeledRepos: Array<GithubRepoInterface> = [];
-      let nextRepoUrl: string = this.parseNextReposUrl(response.headers.Link);
+      let nextRepoUrl: string = this.parseNextReposUrl(response.headers.link);
       let moreReposExist: boolean = !!nextRepoUrl;
 
       response.data.map(repository => {
