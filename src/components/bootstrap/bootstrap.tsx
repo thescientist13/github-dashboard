@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Credentials, CredentialsInterface } from '../../services/credentials';
 import { GithubApi } from '../../services/github-api';
-import { GITHUB_STORE_ACTIONS } from '../../stores/github-store';
+import { getUserDetails } from '../../stores/github-store';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import Navigation from '../navigation/navigation';
@@ -27,10 +27,7 @@ class Bootstrap extends React.Component<any, any> {
     let dispatch = this.props.dispatch;
 
     this.githubApi.getUserDetails().then((response: any) => {
-      dispatch({
-        type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
-        userDetails: response
-      })
+      dispatch(getUserDetails(response));
     });
   }
 
