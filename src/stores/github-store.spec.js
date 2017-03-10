@@ -1,4 +1,6 @@
 import {GITHUB_STORE_ACTIONS, getUserDetails, getUserRepositories, getUserSubsctiptions, getIssuesForUserRepository, getIssuesForUserSubscription}   from './github-store';
+import MOCK_ISSUES_USER_REPOS from '../../test/mocks/issues-user-repository.json';
+import MOCK_ISSUES_USER_SUBSCRIPTIONS from '../../test/mocks/issues-user-subscription.json';
 import MOCK_USER_DETAILS from '../../test/mocks/user-details.json';
 import MOCK_USER_REPOS from '../../test/mocks/user-repositories.json';
 import MOCK_USER_SUBSCRIPTIONS from '../../test/mocks/user-subscriptions.json';
@@ -42,6 +44,28 @@ describe('Actions', () => {
       hasMoreRepos: true,
       nextReposUrl: 'http://api.github.com?page=2'
     })).toEqual(expectedAction)
+  });
+
+  it('should get issues for a user repository', () => {
+    const idx = 30;
+    const expectedAction = {
+      type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
+      index: idx,
+      issues: MOCK_ISSUES_USER_REPOS
+    };
+
+    expect(getIssuesForUserRepository(MOCK_ISSUES_USER_REPOS, idx)).toEqual(expectedAction)
+  });
+
+  it('should get issues for a user subscription', () => {
+    const idx = 60;
+    const expectedAction = {
+      type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION,
+      index: idx,
+      issues: MOCK_ISSUES_USER_SUBSCRIPTIONS
+    };
+
+    expect(getIssuesForUserSubscription(MOCK_ISSUES_USER_SUBSCRIPTIONS, idx)).toEqual(expectedAction)
   });
 
 });
