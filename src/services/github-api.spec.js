@@ -26,7 +26,7 @@ describe('GitHub API Service', () => {
 
     mock.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/repos').reply(200, MOCK_USER_REPOS, {});
 
-    new GithubApi(credentials).getUserRepositories().then((response) => {
+    new GithubApi(MOCK_USER_CREDENTIALS).getUserRepositories().then((response) => {
       //XXX TODO assert details property and other meta data, after changing from any
       expect(response.repos.length).toEqual(MOCK_USER_REPOS.length);
       expect(response.nextReposUrl).toEqual(null);
@@ -42,7 +42,7 @@ describe('GitHub API Service', () => {
       link: '<https://api.github.com/user/895923/repos?page=2>; rel="next", <https://api.github.com/user/895923/repos?page=5>; rel="last"'
     });
 
-    new GithubApi(credentials).getUserRepositories().then((response) => {
+    new GithubApi(MOCK_USER_CREDENTIALS).getUserRepositories().then((response) => {
       //XXX TODO assert details property and other meta data, after changing from any
       expect(response.repos.length).toEqual(MOCK_USER_REPOS.length);
       expect(response.nextReposUrl).toEqual('https://api.github.com/user/895923/repos?page=2');
@@ -59,7 +59,7 @@ describe('GitHub API Service', () => {
       link: '<https://api.github.com/user/895923/subscriptions?page=2>; rel="next", <https://api.github.com/user/895923/subscriptions?page=5>; rel="last"'
     });
 
-    new GithubApi(credentials).getUserSubscriptions().then((response) => {
+    new GithubApi(MOCK_USER_CREDENTIALS).getUserSubscriptions().then((response) => {
       //XXX TODO assert details property and other meta data, after changing from any
       expect(response.repos.length).toEqual(MOCK_USER_SUBSCRIPTIONS.length);
       expect(response.nextReposUrl).toEqual('https://api.github.com/user/895923/subscriptions?page=2');
@@ -73,7 +73,7 @@ describe('GitHub API Service', () => {
 
     mock.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/subscriptions').reply(200, [], {});
 
-    new GithubApi(credentials).getUserSubscriptions().then((response) => {
+    new GithubApi(MOCK_USER_CREDENTIALS).getUserSubscriptions().then((response) => {
       //XXX TODO assert details property and other meta data, after changing from any
       expect(response.repos.length).toEqual(0);
       expect(response.nextReposUrl).toEqual(null);
@@ -89,7 +89,7 @@ describe('GitHub API Service', () => {
       link: '<https://api.github.com/user/895923/subscriptions?page=2>; rel="next", <https://api.github.com/user/895923/subscriptions?page=5>; rel="last"'
     });
 
-    new GithubApi(credentials).getUserSubscriptions().then((response) => {
+    new GithubApi(MOCK_USER_CREDENTIALS).getUserSubscriptions().then((response) => {
       //XXX TODO assert details property and other meta data, after changing from any
       expect(response.repos.length).toEqual(MOCK_USER_REPOS.length);
       expect(response.nextReposUrl).toEqual('https://api.github.com/user/895923/subscriptions?page=2');
