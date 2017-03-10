@@ -1,5 +1,13 @@
 # github-dashboard
 
+[![GitHub release](https://img.shields.io/github/release/thescientist13/github-dashboard.svg)](https://github.com/thescientist13/github-dashboard/releases)
+[![Jenkins](http://www.thegreenhouse.io:8080/job/MASTER-gtihub-dashboard/.svg)](http://www.thegreenhouse.io:8080/job/MASTER-gtihub-dashboard/)
+[![Jenkins tests](https://img.shields.io/jenkins/t/http://www.thegreenhouse.io:8080/job/MASTER-gtihub-dashboard.svg)](http://www.thegreenhouse.io:8080/job/MASTER-gtihub-dashboard/lastCompletedBuild/testReport/)
+[![Jenkins coverage](https://img.shields.io/jenkins/c/https/kenzan.ci.cloudbees.com/job/MASTER-gtihub-dashboard.svg)](https://kenzan.ci.cloudbees.com/job/ASTER-gtihub-dashboard/Coverage_Report)
+[![GitHub issues](https://img.shields.io/github/issues-raw/thescientist13/github-dashboard.svg)](https://github.com/thescientist13/github-dashboard/issues)
+[![GitHub issues](https://img.shields.io/github/issues-pr-raw/thescientist13/github-dashboard.svg)](https://github.com/thescientist13/github-dashboard/issues)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/thescientist13/github-dashboard/master/LICENSE.md)
+
 ## Overview
 GitHub Dashboard is a locally running web application that aims to help streamline the management of your GitHub repos 
 and issues in one place.  Browse all your repos (personal and subscribed), see open issues, see if any are assigned 
