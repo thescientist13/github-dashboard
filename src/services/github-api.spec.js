@@ -18,13 +18,13 @@ describe('GitHub API Service', () => {
     mock.onGet('https://api.github.com/user').reply(200, mockUserDetailsResponse);
 
     let userDetails = new GithubApi(credentials).getUserDetails().then((response) => {
-      // expect(response.username).toEqual(credentials.username);
-      // expect(response.avatar).toEqual(mockUserDetailsResponse.avatar_url);
+      expect(response.username).toEqual(credentials.username);
+      expect(response.avatar).toEqual(mockUserDetailsResponse.avatar_url);
     });
 
   });
 
-  xit('should test getUserSubscriptions returns correct user subscriptions data with more repos', () => {
+  it('should test getUserSubscriptions returns correct user subscriptions data with more repos', () => {
     const mock = new MockAdapter(axios);
     const credentials = {
       username: 'thescientist13',
@@ -315,14 +315,14 @@ describe('GitHub API Service', () => {
 
     new GithubApi(credentials).getUserSubscriptions().then((response) => {
       //XXX TODO assert details property and other meta data, after changing from any
-      expect(response.modeledRepos.length).toEqual(mockUserSubscriptionsResponse.length);
+      expect(response.repos.length).toEqual(mockUserSubscriptionsResponse.length);
       expect(response.nextReposUrl).toEqual('https://api.github.com/user/895923/subscriptions?page=2');
       expect(response.hasMoreRepos).toEqual(true);
     });
 
   });
 
-  xit('should test getUserSubscriptions returns no user subscriptions with no more repos', () => {
+  it('should test getUserSubscriptions returns no user subscriptions with no more repos', () => {
     const mock = new MockAdapter(axios);
     const credentials = {
       username: 'thescientist13',
@@ -333,11 +333,9 @@ describe('GitHub API Service', () => {
 
     new GithubApi(credentials).getUserSubscriptions().then((response) => {
       //XXX TODO assert details property and other meta data, after changing from any
-      console.log('!!!!!!!!!!!!!!!!!!');
-      expect(response.modeledRepos.length).toEqual(mockUserSubscriptionsResponse.length);
-      console.log('nextrepos url => ' + response.nextReposUrl);
-      expect(response.nextReposUrl).toEqual('https://api.github.com/user/895923/subscriptions?page=2');
-      expect(response.hasMoreRepos).toEqual(true);
+      expect(response.repos.length).toEqual(0);
+      expect(response.nextReposUrl).toEqual(null);
+      expect(response.hasMoreRepos).toEqual(false);
     });
 
   });
