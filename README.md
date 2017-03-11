@@ -15,8 +15,9 @@ the 2.0 release.
 ## Setup
 After cloning the repo, please do the following
 
-1. Run `npm install`
-2. Run `cp src/services/credentials.ts.tmpl src/services/credentials.ts` and replace the `xxx`'s with your Github username and a Github
+1. Run `npm install -g yarn@0.21.3`
+2. Run `yarn install`
+2. Run `cp src/services/credentials.ts.tmpl src/services/credentials.ts` and replace the `xxx`'s with your Github username and a GitHub
 _"Personal Access Token"_ with the following scopes:
 - repo
 - admin:org
