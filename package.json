@@ -1,6 +1,6 @@
 {
   "name": "github-dashboard",
-  "version": "0.5.3",
+  "version": "1.0.0-rc1",
   "description": "A GitHub Dashboard web app running on-top of Node",
   "main": "src/index.tsx",
   "repository": {
