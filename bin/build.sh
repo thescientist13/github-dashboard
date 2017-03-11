@@ -11,8 +11,8 @@ echo "install dependencies..."
 rm -rf node_modules/ > /dev/null 2>&1
 yarn install
 
-# build prep
-cp src/services/credentials.ts.tmpl src/services/credentials.ts
+# project setup
+yarn run setup
 
 # build
 yarn run build
