@@ -98,7 +98,7 @@ describe('GitHub API Service', () => {
 
   });
 
-  xit('should test for mulitple assignees', () => {
+  xit('should test for multiple assignees', () => {
 
   });
 
