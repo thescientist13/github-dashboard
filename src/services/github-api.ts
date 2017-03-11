@@ -61,11 +61,12 @@ export class GithubApi {
     let hasAssignedIssues = false;
 
     issues.forEach(function (issue) {
-      let assignee = issue.details.assignee ? issue.details.assignee.login : '';
+      issue.details.assignees.forEach(function(assignee) {
+        if (username === assignee.login) {
+          hasAssignedIssues = true;
+        }
+      })
 
-      if (username === assignee) {
-        hasAssignedIssues = true;
-      }
     });
 
     return hasAssignedIssues;
@@ -168,7 +169,7 @@ export class GithubApi {
     let user = username || this.credentials.username;
 
     return axios.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
-      return this.modelGithubIssuesForRepository(response.data, user);
+      return this.modelGithubIssuesForRepository(response.data, this.credentials.username);
     }).catch(function(response){
       if(response.status === 404){
         console.warn('404 NOT FOUND - ' + repositoryName + '.  Repo may be private.');
