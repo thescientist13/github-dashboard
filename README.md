@@ -37,7 +37,7 @@ _"Personal Access Token"_ with the following scopes:
 For information on architecture and design of this application, checkout the Developer's Guide [here](https://github.com/thescientist13/github-dashboard/wiki/Developers-Guide)
 
 ## Starting the application
-Run `npm run serve`
+Run `yarn run serve`
 
 For more information on available tasks, check out the [Developer's Guide](https://github.com/thescientist13/github-dashboard/wiki/Developers-Guide).
 

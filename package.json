@@ -23,11 +23,11 @@
   "homepage": "https://github.com/thescientist13/github-dashboard#readme",
   "scripts": {
     "clean": "rimraf ./build && rimraf ./reports && mkdir ./reports && mkdir ./reports/test-results",
-    "build": "npm run clean && export TEST_REPORT_PATH=./reports/test-results && jest --config ./jest.config.json --coverage && webpack --config ./webpack.config.prod.js -p --progress --profile --bail",
+    "build": "npm run clean && npm run test -- --coverage && webpack --config ./webpack.config.prod.js -p --progress --profile --bail",
     "develop": "webpack-dev-server --config ./webpack.config.dev.js --inline --progress",
     "serve": "webpack --config ./webpack.config.prod.js -p --progress --profile --bail && http-server ./build -o",
     "setup": "rimraf ./src/services/credentials.ts && cp ./src/services/credentials.ts.tmpl ./src/services/credentials.ts",
-    "test": "jest --config ./jest.config.json"
+    "test": "export TEST_REPORT_PATH=./reports/test-results && jest --config ./jest.config.json"
   },
   "dependencies": {
     "axios": "0.15.2",
