@@ -14,7 +14,7 @@ To run, all that is required is to you have the latest LTS version of [Node][] i
 [Yarn]: https://yarnpkg.com/
 
 ## Setup
-After cloning the repo, please do the following
+After cloning the repo, and making sure you have [Node LTS](https://nodejs.org/) installed, please do the following
 
 1. Run `npm install -g yarn@0.21.3`
 2. Run `yarn install`
