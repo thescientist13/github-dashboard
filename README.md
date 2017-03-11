@@ -17,8 +17,9 @@ To run, all that is required is to you have the latest LTS version of [Node][] i
 After cloning the repo, and making sure you have [Node LTS](https://nodejs.org/) installed, please do the following
 
 1. Run `npm install -g yarn@0.21.3`
-2. Run `yarn install`
-2. Run `cp src/services/credentials.ts.tmpl src/services/credentials.ts` and replace the `xxx`'s with your Github username and a GitHub
+1. Run `yarn install`
+1. Run `npm run setup` 
+1. Replace replace the `xxx`'s with your Github username and a GitHub
 _"Personal Access Token"_ with the following scopes:
 - repo
 - admin:org
@@ -33,4 +34,5 @@ For more information on available tasks, check out the [Developer's Guide](https
 
 ## Additional References
 - [Product Overview](https://github.com/thescientist13/github-dashboard/wiki/Product-Overview)
+- [FAQ](https://github.com/thescientist13/github-dashboard/wiki/F.A.Q.)
 - [Developer's Guide](https://github.com/thescientist13/github-dashboard/wiki/Developers-Guide) 
