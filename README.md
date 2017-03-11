@@ -21,6 +21,7 @@ After cloning the repo, and making sure you have [Node LTS](https://nodejs.org/)
 1. Run `npm run setup` 
 1. Replace replace the `xxx`'s with your Github username and a GitHub
 _"Personal Access Token"_ with the following scopes:
+
 - repo
 - admin:org
 - notifications
