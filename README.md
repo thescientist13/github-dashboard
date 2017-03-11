@@ -3,7 +3,7 @@
 [![GitHub release](https://img.shields.io/github/release/thescientist13/github-dashboard.svg)](https://github.com/thescientist13/github-dashboard/releases)
 [![Jenkins](https://img.shields.io/jenkins/s/http/www.thegreenhouse.io:8080/job/MASTER-github-dashboard.svg)](http://www.thegreenhouse.io:8080/job/MASTER-github-dashboard/)
 [![Jenkins tests](https://img.shields.io/jenkins/t/http/www.thegreenhouse.io:8080/job/MASTER-github-dashboard.svg)](http://www.thegreenhouse.io:8080/job/MASTER-github-dashboard/lastCompletedBuild/testReport/)
-[![Jenkins coverage](https://img.shields.io/jenkins/c/http/www.thegreenhouse.io:8080/job/MASTER-github-dashboard.svg)](http://www.thegreenhouse.io:8080/job/MASTER-github-dashboard/cobertura)
+[![Jenkins coverage](https://img.shields.io/jenkins/c/http/www.thegreenhouse.io:8080/job/MASTER-github-dashboard.svg)](http://www.thegreenhouse.io:8080/job/MASTER-github-dashboard/Coverage_Report/)
 [![GitHub issues](https://img.shields.io/github/issues-raw/thescientist13/github-dashboard.svg)](https://github.com/thescientist13/github-dashboard/issues)
 [![GitHub issues](https://img.shields.io/github/issues-pr-raw/thescientist13/github-dashboard.svg)](https://github.com/thescientist13/github-dashboard/issues)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/thescientist13/github-dashboard/master/LICENSE.md)
