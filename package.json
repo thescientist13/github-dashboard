@@ -1,8 +1,8 @@
 {
   "name": "github-dashboard",
-  "version": "0.5.2",
-  "description": "A Github Dashboard app running on-top of Node",
-  "main": "src/bootstrap.tsx",
+  "version": "0.5.3",
+  "description": "A GitHub Dashboard web app running on-top of Node",
+  "main": "src/index.tsx",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thescientist13/github-dashboard.git"
