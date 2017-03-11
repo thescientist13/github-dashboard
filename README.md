@@ -1,20 +1,17 @@
 # github-dashboard
 
 ## Overview
-This project is a locally running dashboard web application to help streamline management of Github repos and issues.
-It is expected that you have the latest LTS version of [Node][] installed and its package manager, [NPM][].
+GitHub Dashboard is a locally running web application that aims to help streamline the management of your GitHub repos 
+and issues in one place.  Browse all your repos (personal and subscribed), see open issues, see if any are assigned 
+to you, and direct link directly to any repo.  You can check out a full product overview [here](https://github.com/thescientist13/github-dashboard/wiki/Product-Overview)
 
-#### Update 3/10/2017
-The project is now shifting to [Yarn](https://yarnpkg.com/en/) for its package manager.  It will be the only tool aside\
-from Node users will be epxected to install it globally.
+![GitHub Dashboard](https://s3.amazonaws.com/hosted.thegreenhouse.io/oss-projects/github-dashboard/github-dashboard.png)
 
-#### Update 11/17/2016
-The project has shifted away from Gulp and JSPM / SystemJS, in favor of Webpack (eye on 2.0).  Webpack has proven to be
-an ideal and practical build tool in addition to being a module bundler.  It will also support ES6 imports natively in
-the 2.0 release.
+To run, all that is required is to you have the latest LTS version of [Node][] installed (v6.x) and the package manager, 
+[Yarn][]. A GitHub access token will also need to be generated.  The _Setup_ section below will cover all of this.
 
 [Node]: https://nodejs.org/
-[NPM]: https://www.npmjs.com/
+[Yarn]: https://yarnpkg.com/
 
 ## Setup
 After cloning the repo, please do the following
@@ -27,51 +24,13 @@ _"Personal Access Token"_ with the following scopes:
 - admin:org
 - notifications
 
-## Architecture
-This project is intended to be as closely aligned with modern day JavaScript standards and conventions by leveraging as
-much from the ES6 / ES7 language specification.  The tools being used in the application are:
+For information on architecture and design of this application, checkout the Developer's Guide [here](https://github.com/thescientist13/github-dashboard/wiki/Developers-Guide)
 
-- [React][] - Component first UI library by Facebook.  This project will leverage [JSX].
-- [Redux][] - [Flux][] inspired state-management library
-- [Webpack][]  Module bundler and build tool
-- [TypeScript][] - Super set of JavaScript, providing type support and more.  Added in version 0.4.0
-- [NPM Scripts][] - exposed "userland" tasks through NPM.  Formalized in version 0.4.0
-- [Jest][] and [Enzyme][] - unit testing framework and React testing utility library
+## Starting the application
+Run `npm run serve`
 
-[React]: https://facebook.github.io/react/
-[JSX]: https://facebook.github.io/react/docs/jsx-in-depth.html
-[Webpack]: https://webpack.github.io/
-[Flux]: https://facebook.github.io/flux/
-[Redux]: https://github.com/reactjs/redux
-[TypeScript]: https://www.typescriptlang.org/
-[NPM Scripts]: https://docs.npmjs.com/misc/scripts
-[Jest]: https://facebook.github.io/jest/
-[Enzyme]: http://airbnb.io/enzyme/
+For more information on available tasks, check out the [Developer's Guide](https://github.com/thescientist13/github-dashboard/wiki/Developers-Guide).
 
-## Project Layout
-The _src_ directory contains all relevant source code needed to run the app
-- _index.tsx_ - bootstrap for the application
-- _components/_ - reusable (generally non "state" derived UI component classes
-- _services/_ - classes for interacting with 3rd party APIs or other non UI related functionality
-- _stores/_ - Redux reducers
-- _views/_ - stateful UI component classes wired up to react-router
-
-## Tasks
-#### Running the app
-`npm run serve`
-
-#### Local Development
-`npm run develop`
-
-You can run the app from `localhost:4567`
-
-#### Testing
-`npm run test`
-
-For local development, you can enable file watching like so
-`npm run test -- --watch`
-
-**Note: For development, it is recommended to use an IDE like [Webstorm][], and install React / JSX plugins, as well
-as setting any JavaScript language version settings to recognize ES6 or JSX syntax.**
-
-[Webstorm]: https://www.jetbrains.com/webstorm/
+## Additional References
+- [Product Overview](https://github.com/thescientist13/github-dashboard/wiki/Product-Overview)
+- [Developer's Guide](https://github.com/thescientist13/github-dashboard/wiki/Developers-Guide) 
