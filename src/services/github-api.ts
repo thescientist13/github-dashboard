@@ -93,10 +93,6 @@ export class GithubApi {
     return url && url.search('page=1') >= 0 ? null : url;
   }
 
-  private generateUniqueRepoId(): number {
-    return new Date().getTime() * (Math.floor((Math.random() * 9999) + 1));
-  }
-
   getUserDetails(): any {
     return axios.get(this.baseUrl + 'user').then((response: any) => {
       let data = response.data;
@@ -124,7 +120,7 @@ export class GithubApi {
       response.data.map(repository => {
         modeledRepos.push({
           details: repository,
-          id: this.generateUniqueRepoId()
+          id: repository.id
         });
       });
 
@@ -151,7 +147,7 @@ export class GithubApi {
       response.data.map(repository => {
         modeledRepos.push({
           details: repository,
-          id: repository.id //this.generateUniqueRepoId()
+          id: repository.id
         });
       });
 
