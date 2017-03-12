@@ -65,16 +65,52 @@ const githubStoreReducer = function(state: any, action: any) {
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS) {
+    console.log('GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS', state.userSubscriptions);
     let newState = [].concat(state.userSubscriptions);
+    let isPristineState: boolean = state.userSubscriptions.length === 0;
 
-    action.userSubscriptions.forEach((item: GithubRepoInterface) => {
-      newState.push({
-        details: item.details,
-        id: item.id,
-        issues: DEFAULT_ISSUES_MODEL
+    if(isPristineState){
+      console.log('isPristineState', isPristineState);
+      action.userSubscriptions.forEach((responseItem: GithubRepoInterface, index: number) => {
+        console.log('responseItem.id', responseItem.id);
+        console.log('isNewState', isPristineState);
+        if(isPristineState) {
+          console.log('isFreshState');
+          newState.push({
+            details: responseItem.details,
+            id: responseItem.id,
+            issues: DEFAULT_ISSUES_MODEL
+          })
+        }
       })
-    });
+    }else{
+      action.userSubscriptions.forEach((responseItem: GithubRepoInterface, index: number) => {
+        console.log('responseItem.id', responseItem.id);
+        console.log('isNewState', isPristineState);
+        let match = false;
 
+        state.userSubscriptions.forEach((stateItem) => {
+          console.log('stateItem', stateItem.id);
+          if (responseItem.id === stateItem.id) {
+            console.log('MATCH!!!!!!!!!!!');
+            newState[index] = stateItem;
+            match = true;
+            return match;
+          }
+        });
+
+        if (!match) {
+          console.log('NO MATCH');
+          newState.push({
+            details: responseItem.details,
+            id: responseItem.id,
+            issues: DEFAULT_ISSUES_MODEL
+          })
+        }
+      })
+    }
+
+    console.log('SUBSCRIPTIONS');
     return (<any>Object).assign({}, state, {
       userSubscriptions: newState,
       hasMoreRepos: action.hasMoreRepos,

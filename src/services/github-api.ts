@@ -151,7 +151,7 @@ export class GithubApi {
       response.data.map(repository => {
         modeledRepos.push({
           details: repository,
-          id: this.generateUniqueRepoId()
+          id: repository.id //this.generateUniqueRepoId()
         });
       });
 
