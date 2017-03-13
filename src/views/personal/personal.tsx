@@ -59,13 +59,13 @@ class Personal extends React.Component<any, any>{
 
   //this is here since if a component isnt mounted when dispatches to the store happen
   //the component will need to manually query the store to hydrate itself into state
-  componentWillMount () {
-    this.setState({
-      repositories: this.props.repositories,
-      hasMoreRepos: this.props.hasMoreRepos,
-      nextReposUrl: this.props.nextReposUrl
-    });
-  }
+  // componentWillMount () {
+  //   this.setState({
+  //     repositories: this.props.repositories,
+  //     hasMoreRepos: this.props.hasMoreRepos,
+  //     nextReposUrl: this.props.nextReposUrl
+  //   });
+  // }
 
   render() {
     return (

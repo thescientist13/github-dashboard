@@ -95,8 +95,9 @@ const githubStoreReducer = function(state: any, action: any) {
     let newState = [].concat(state.userSubscriptions);
     let isPristineState: boolean = state.userSubscriptions.length === 0;
 
+    console.log('isPristineState', isPristineState);
     if(isPristineState){
-      action.userSubscriptions.forEach((responseItem: GithubRepoInterface, index: number) => {
+      action.userSubscriptions.forEach((responseItem: GithubRepoInterface) => {
         if(isPristineState) {
           newState.push({
             details: responseItem.details,
@@ -111,7 +112,7 @@ const githubStoreReducer = function(state: any, action: any) {
 
         state.userSubscriptions.forEach((stateItem) => {
           if (responseItem.id === stateItem.id) {
-            newState[index] = stateItem;
+            newState[index] = responseItem;
             match = true;
             return match;
           }
@@ -127,6 +128,9 @@ const githubStoreReducer = function(state: any, action: any) {
       })
     }
 
+    console.log('newState', newState);
+    console.log('hasMoreRepos', action.hasMoreRepos);
+    console.log('nextReposUrl', action.nextReposUrl);
     return (<any>Object).assign({}, state, {
       userSubscriptions: newState,
       hasMoreRepos: action.hasMoreRepos,
@@ -185,7 +189,7 @@ export function getUserRepositories(response) {
   }
 }
 
-export function getUserSubsctiptions(response) {
+export function getUserSubscriptions(response) {
   return {
     type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
     userSubscriptions: response.repos,
