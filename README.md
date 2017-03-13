@@ -34,6 +34,8 @@ _"Personal Access Token"_ with the following scopes:
 - admin:org
 - notifications
 
+For information on creating an access token, please read [here](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
+
 For information on architecture and design of this application, checkout the Developer's Guide [here](https://github.com/thescientist13/github-dashboard/wiki/Developers-Guide)
 
 ## Starting the application
