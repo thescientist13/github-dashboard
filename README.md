@@ -27,7 +27,7 @@ After cloning the repo, and making sure you have [Node LTS](https://nodejs.org/)
 1. Run `npm install -g yarn@0.21.3`
 1. Run `yarn install`
 1. Run `npm run setup` 
-1. Replace replace the `xxx`'s with your Github username and a GitHub
+1. Replace the `xxx`'s with your Github username and a GitHub
 _"Personal Access Token"_ with the following scopes:
 
 - repo
