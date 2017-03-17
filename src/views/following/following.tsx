@@ -1,9 +1,11 @@
 import * as React from 'react';
-import RepositoriesTable from '../../components/repositories-table/repositories-table';
 import { connect } from 'react-redux';
+import { readUserSubscriptions } from '../../stores/github-store';
+import RepositoriesTable from '../../components/repositories-table/repositories-table';
+
 
 function mapStateToProps(state) {
-  console.log('mapStateToProps', state);
+  //console.log('mapStateToProps', state);
   return {
     repositories: state.userSubscriptions,
     hasMoreRepos: state.hasMoreRepos,
@@ -27,24 +29,19 @@ class Following extends React.Component<any, any> {
 
   componentWillReceiveProps(nextProps) {
     console.log('componentWillReceiveProps nextProps', nextProps);
-    console.log('componentWillReceiveProps this.state', this.state);
-    // this.setState({
-    //   repositories: [],
-    //   hasMoreRepos: false,
-    //   nextReposUrl: ''
-    // });
+    //console.log('componentWillReceiveProps this.state', this.state);
     this.setState({
       repositories: nextProps.repositories,
       hasMoreRepos: nextProps.hasMoreRepos,
       nextReposUrl: nextProps.nextReposUrl
     });
-    console.log('componentWillReceiveProps newState', this.state);
   }
 
   //this is here since if a component isnt mounted when dispatches to the store happen
   //the component will need to manually query the store to hydrate itself into state
   componentWillMount() {
-    console.log('component will mount');
+    console.log('component will mount following - read call');
+    this.props.dispatch(readUserSubscriptions());
     // if(this.props.repositories.length === 0){
     //   console.log('with an API call');
     //   this.getUserSubscriptionsWithIssues();
@@ -60,16 +57,6 @@ class Following extends React.Component<any, any> {
     //   // });
     // }
   }
-
-  // componentWillUnMount() {
-  //   //console.log('componentWillMount props', this.props);
-  //   console.log('componentWillMount state', this.state);
-  //   this.setState({
-  //     repositories: [],
-  //     hasMoreRepos: false,
-  //     nextReposUrl: ''
-  //   });
-  // }
 
   private getUserSubscriptionsWithIssues(){
     console.log('TODO load more -> call up');

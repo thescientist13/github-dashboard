@@ -13,7 +13,10 @@ export const GITHUB_STORE_ACTIONS = {
   GET_ISSUES_FOR_USER_SUBSCRIPTION: 'GET_ISSUES_FOR_USER_SUBSCRIPTION',
   GET_USER_DETAILS: 'GET_USER_DETAILS',
   GET_USER_REPOSITORIES: 'GET_USER_REPOSITORIES',
-  GET_USER_SUBSCRIPTIONS: 'GET_USER_SUBSCRIPTIONS'
+  GET_USER_SUBSCRIPTIONS: 'GET_USER_SUBSCRIPTIONS',
+  READ_USER_DETAILS: 'READ_USER_DETAILS',
+  READ_USER_REPOSITORIES: 'READ_USER_REPOSITORIES',
+  READ_USER_SUBSCRIPTIONS: 'READ_USER_SUBSCRIPTIONS'
 };
 
 const DEFAULT_ISSUES_MODEL = {
@@ -32,7 +35,7 @@ const githubStoreReducer = function(state: any, action: any) {
     return initialState;
   }
 
-  // user details
+  // GET - user details
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_DETAILS) {
     let newState = {
       username: action.userDetails.username,
@@ -44,7 +47,7 @@ const githubStoreReducer = function(state: any, action: any) {
     });
   }
 
-  //repositories
+  //GET - repositories
   //XXX TODO LOTS OF DUPLICATION IN THIS CODE
   //XXX TODO SHOULD HAVE UNIT TESTS
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES) {
@@ -95,7 +98,7 @@ const githubStoreReducer = function(state: any, action: any) {
     let newState = [].concat(state.userSubscriptions);
     let isPristineState: boolean = state.userSubscriptions.length === 0;
 
-    console.log('isPristineState', isPristineState);
+    //console.log('isPristineState', isPristineState);
     if(isPristineState){
       action.userSubscriptions.forEach((responseItem: GithubRepoInterface) => {
         if(isPristineState) {
@@ -128,9 +131,9 @@ const githubStoreReducer = function(state: any, action: any) {
       })
     }
 
-    console.log('newState', newState);
-    console.log('hasMoreRepos', action.hasMoreRepos);
-    console.log('nextReposUrl', action.nextReposUrl);
+    // console.log('newState', newState);
+    // console.log('hasMoreRepos', action.hasMoreRepos);
+    // console.log('nextReposUrl', action.nextReposUrl);
     return (<any>Object).assign({}, state, {
       userSubscriptions: newState,
       hasMoreRepos: action.hasMoreRepos,
@@ -138,7 +141,7 @@ const githubStoreReducer = function(state: any, action: any) {
     })
   }
 
-  //issues
+  //GET - issues
   if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY) {
     //TODO define type
     let newState = [].concat(state.userRepositories);
@@ -163,6 +166,36 @@ const githubStoreReducer = function(state: any, action: any) {
         newState[index].issues = action.issues;
       }
     });
+
+    return (<any>Object).assign({}, state, {
+      userSubscriptions: newState
+    });
+  }
+
+  //READ - user details
+  if(action.type === GITHUB_STORE_ACTIONS.READ_USER_DETAILS) {
+    console.log('GITHUB_STORE_ACTIONS.READ_USER_DETAILS');
+    let newState = {
+      username: state.userDetails.username,
+      avatar: state.userDetails.avatar
+    };
+
+    return state;
+  }
+
+  //READ - repositories
+  if(action.type === GITHUB_STORE_ACTIONS.READ_USER_REPOSITORIES) {
+    console.log('GITHUB_STORE_ACTIONS.READ_USER_REPOSITORIES');
+    let newState = [].concat(state.userRepositories);
+
+    return (<any>Object).assign({}, state, {
+      userRepositories: newState
+    });
+  }
+
+  if(action.type === GITHUB_STORE_ACTIONS.READ_USER_SUBSCRIPTIONS) {
+    console.log('GITHUB_STORE_ACTIONS.READ_USER_SUBSCRIPTIONS');
+    let newState = [].concat(state.userSubscriptions);
 
     return (<any>Object).assign({}, state, {
       userSubscriptions: newState
@@ -212,6 +245,28 @@ export function getIssuesForUserSubscription(response, offsetIdx) {
     type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION,
     index: offsetIdx,
     issues: response
+  }
+}
+
+export function readUserDetails() {
+  console.log('store - readUserDetails');
+  return {
+    type: GITHUB_STORE_ACTIONS.READ_USER_DETAILS
+  }
+}
+
+
+export function readUserRepositories() {
+  console.log('store - readUserRepositories');
+  return {
+    type: GITHUB_STORE_ACTIONS.READ_USER_REPOSITORIES
+  }
+}
+
+export function readUserSubscriptions() {
+  console.log('store - readUserDetails');
+  return {
+    type: GITHUB_STORE_ACTIONS.READ_USER_SUBSCRIPTIONS
   }
 }
 
