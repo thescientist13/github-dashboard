@@ -37,8 +37,8 @@ class Personal extends React.Component<any, any>{
     this.props.dispatch(readUserRepositories());
   }
 
-  private getUserRepositoriesWithIssues(){
-    console.log('TODO load more -> call up');
+  private getUserRepositoriesWithIssues(nextReposUrl: string, length?: number){
+    this.props.getNextUserRepositoriesWithIssues(nextReposUrl, length);
   }
 
   render() {

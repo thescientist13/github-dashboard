@@ -33,7 +33,7 @@ class Bootstrap extends React.Component<any, any> {
     });
   }
 
-  private getUserRepositoriesWithIssues(nextReposUrl?: string) {
+  public getUserRepositoriesWithIssues(nextReposUrl?: string) {
     let dispatch = this.props.dispatch;
     let url: string = nextReposUrl ? nextReposUrl : null;
 
@@ -51,19 +51,16 @@ class Bootstrap extends React.Component<any, any> {
     });
   }
 
-  private getUserSubscriptionsWithIssues(nextReposUrl?: string) {
+  public getUserSubscriptionsWithIssues(nextReposUrl?: string, length?: number) {
     let dispatch = this.props.dispatch;
     let url: string = nextReposUrl ? nextReposUrl : null;
+
     this.githubApi.getUserSubscriptions(url).then((response: any) => {
       dispatch(getUserSubscriptions(response));
 
       //TODO move offsetIdx logic into a central place
       response.repos.forEach((repo: GithubRepoInterface, index: number) => {
-        //console.log('index', index);
-        let offsetIdx = nextReposUrl ? (((this.state.repositories ? this.state.repositories.length : 0) + index) - 30) : index;
-        //console.log('length', this.state.repositories.length);
-        //console.log('division is hard', this.state.repositories.length / 30);
-        //console.log('offsetIdx', offsetIdx);
+        let offsetIdx = nextReposUrl && length ? length + index : index;
 
         this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
           dispatch(getIssuesForUserSubscription(response, offsetIdx));
@@ -74,6 +71,13 @@ class Bootstrap extends React.Component<any, any> {
 
 
   render() {
+    let children = React.Children.map(this.props.children, (child: any) => {
+      return React.cloneElement(child, {
+        getNextUserRepositoriesWithIssues: this.getUserRepositoriesWithIssues,
+        getNextUserSubsciptionsWithIssues: this.getUserSubscriptionsWithIssues.bind(this)
+      })
+    });
+
     return (
       <section>
         <section className="row">
@@ -92,7 +96,7 @@ class Bootstrap extends React.Component<any, any> {
           </div>
 
           <div className="col-md-9">
-            {this.props.children}
+            {children}
           </div>
 
         </section>

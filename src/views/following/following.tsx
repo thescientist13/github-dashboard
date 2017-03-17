@@ -36,8 +36,8 @@ class Following extends React.Component<any, any> {
     this.props.dispatch(readUserSubscriptions());
   }
 
-  private getUserSubscriptionsWithIssues(){
-    console.log('TODO load more -> call up');
+  private getUserSubscriptionsWithIssues(nextReposUrl: string, length: number){
+    this.props.getNextUserSubsciptionsWithIssues(nextReposUrl, length);
   }
 
   render() {

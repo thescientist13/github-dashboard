@@ -11,6 +11,7 @@ class RepositoriesTable extends React.Component<any, any> {
 
   render() {
     let props = this.props;
+
     return (
       <div>
         <table className="table table-bordered table-striped table-hover">
@@ -36,7 +37,7 @@ class RepositoriesTable extends React.Component<any, any> {
 
         {
           this.props.nextReposUrl
-            ? <button className="btn btn-primary" onClick={function () { props.getNextRepos(props.nextReposUrl) }}>Load More</button>
+            ? <button className="btn btn-primary" onClick={function () { props.getNextRepos(props.nextReposUrl, props.repositories.length) }}>Load More</button>
             : ''
         }
       </div>
