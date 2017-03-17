@@ -5,7 +5,6 @@ import RepositoriesTable from '../../components/repositories-table/repositories-
 
 
 function mapStateToProps(state) {
-  //console.log('mapStateToProps', state);
   return {
     repositories: state.userSubscriptions,
     hasMoreRepos: state.hasMoreRepos,
@@ -25,11 +24,7 @@ class Following extends React.Component<any, any> {
     };
   }
 
-
-
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps nextProps', nextProps);
-    //console.log('componentWillReceiveProps this.state', this.state);
     this.setState({
       repositories: nextProps.repositories,
       hasMoreRepos: nextProps.hasMoreRepos,
@@ -37,25 +32,8 @@ class Following extends React.Component<any, any> {
     });
   }
 
-  //this is here since if a component isnt mounted when dispatches to the store happen
-  //the component will need to manually query the store to hydrate itself into state
   componentWillMount() {
-    console.log('component will mount following - read call');
     this.props.dispatch(readUserSubscriptions());
-    // if(this.props.repositories.length === 0){
-    //   console.log('with an API call');
-    //   this.getUserSubscriptionsWithIssues();
-    // }else{
-    //   console.log('componentWillMount props', this.props);
-    //   console.log('componentWillMount state', this.state);
-    //   //this.render();
-    //   this.getUserSubscriptionsWithIssues();
-    //   //this.setState({
-    //   //   repositories: this.state.repositories,
-    //   //   hasMoreRepos: this.state.hasMoreRepos,
-    //   //   nextReposUrl: this.state.nextReposUrl
-    //   // });
-    // }
   }
 
   private getUserSubscriptionsWithIssues(){

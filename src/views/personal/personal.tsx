@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { readUserRepositories } from '../../stores/github-store';
-
 import RepositoriesTable from '../../components/repositories-table/repositories-table';
 
 
@@ -27,7 +26,6 @@ class Personal extends React.Component<any, any>{
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps nextProps personal', nextProps);
     this.setState({
       repositories: nextProps.repositories,
       hasMoreRepos: nextProps.hasMoreRepos,
@@ -35,10 +33,7 @@ class Personal extends React.Component<any, any>{
     });
   }
 
-  //this is here since if a component isnt mounted when dispatches to the store happen
-  //the component will need to manually query the store to hydrate itself into state
   componentWillMount () {
-    console.log('component will mount personal - read call');
     this.props.dispatch(readUserRepositories());
   }
 

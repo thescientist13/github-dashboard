@@ -61,17 +61,17 @@ class Bootstrap extends React.Component<any, any> {
       dispatch(getUserSubscriptions(response));
 
       //TODO move offsetIdx logic into a central place
-      // response.repos.forEach((repo: GithubRepoInterface, index: number) => {
-      //   console.log('index', index);
-      //   let offsetIdx = nextReposUrl ? ((this.state.repositories.length + index) - 30) : index;
-      //   console.log('length', this.state.repositories.length);
-      //   //console.log('division is hard', this.state.repositories.length / 30);
-      //   console.log('offsetIdx', offsetIdx);
-      //
-      //   this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
-      //     dispatch(getIssuesForUserSubscription(response, offsetIdx));
-      //   })
-      // })
+      response.repos.forEach((repo: GithubRepoInterface, index: number) => {
+        //console.log('index', index);
+        let offsetIdx = nextReposUrl ? (((this.state.repositories ? this.state.repositories.length : 0) + index) - 30) : index;
+        //console.log('length', this.state.repositories.length);
+        //console.log('division is hard', this.state.repositories.length / 30);
+        //console.log('offsetIdx', offsetIdx);
+
+        this.githubApi.getIssuesForRepository(repo.details.name, repo.details.owner.login).then((response: GithubIssuesInterface) => {
+          dispatch(getIssuesForUserSubscription(response, offsetIdx));
+        })
+      })
     });
   }
 
