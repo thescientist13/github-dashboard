@@ -2,10 +2,16 @@ import { GithubRepoInterface } from '../services/github-api';
 
 const initialState = {
   userDetails: {},
-  userRepositories: [],
-  userSubscriptions: [],
-  hasMoreRepos: false,
-  nextReposUrl: ''
+  userRepositories: {
+    repos: [],
+    hasMoreRepos: false,
+    nextReposUrl: ''
+  },
+  userSubscriptions: {
+    repos: [],
+    hasMoreRepos: false,
+    nextReposUrl: ''
+  }
 };
 
 export const GITHUB_STORE_ACTIONS = {
@@ -13,7 +19,10 @@ export const GITHUB_STORE_ACTIONS = {
   GET_ISSUES_FOR_USER_SUBSCRIPTION: 'GET_ISSUES_FOR_USER_SUBSCRIPTION',
   GET_USER_DETAILS: 'GET_USER_DETAILS',
   GET_USER_REPOSITORIES: 'GET_USER_REPOSITORIES',
-  GET_USER_SUBSCRIPTIONS: 'GET_USER_SUBSCRIPTIONS'
+  GET_USER_SUBSCRIPTIONS: 'GET_USER_SUBSCRIPTIONS',
+  READ_USER_DETAILS: 'READ_USER_DETAILS',
+  READ_USER_REPOSITORIES: 'READ_USER_REPOSITORIES',
+  READ_USER_SUBSCRIPTIONS: 'READ_USER_SUBSCRIPTIONS'
 };
 
 const DEFAULT_ISSUES_MODEL = {
@@ -32,7 +41,7 @@ const githubStoreReducer = function(state: any, action: any) {
     return initialState;
   }
 
-  // user details
+  // GET - user details
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_DETAILS) {
     let newState = {
       username: action.userDetails.username,
@@ -44,124 +53,145 @@ const githubStoreReducer = function(state: any, action: any) {
     });
   }
 
-  //repositories
+  //GET - repositories
   //XXX TODO LOTS OF DUPLICATION IN THIS CODE
   //XXX TODO SHOULD HAVE UNIT TESTS
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES) {
-    let newState = [].concat(state.userRepositories);
-    let isPristineState: boolean = state.userRepositories.length === 0;
+    let newState = [].concat(state.userRepositories.repos);
 
-    if(isPristineState){
-      action.userRepositories.forEach((responseItem: GithubRepoInterface, index: number) => {
-        if(isPristineState) {
-          newState.push({
-            details: responseItem.details,
-            id: responseItem.id,
-            issues: DEFAULT_ISSUES_MODEL
-          })
+    action.userRepositories.forEach((responseItem: GithubRepoInterface, index: number) => {
+      let match = false;
+
+      state.userRepositories.repos.forEach((stateItem) => {
+        if (responseItem.id === stateItem.id) {
+          newState[index] = stateItem;
+          match = true;
+          return match;
         }
-      })
-    }else{
-      action.userRepositories.forEach((responseItem: GithubRepoInterface, index: number) => {
-        let match = false;
+      });
 
-        state.userRepositories.forEach((stateItem) => {
-          if (responseItem.id === stateItem.id) {
-            newState[index] = stateItem;
-            match = true;
-            return match;
-          }
-        });
-
-        if (!match) {
-          newState.push({
-            details: responseItem.details,
-            id: responseItem.id,
-            issues: DEFAULT_ISSUES_MODEL
-          })
-        }
-      })
-    }
+      if (!match) {
+        newState.push({
+          details: responseItem.details,
+          id: responseItem.id,
+          issues: DEFAULT_ISSUES_MODEL
+        })
+      }
+    });
 
     return (<any>Object).assign({}, state, {
-      userRepositories: newState,
-      hasMoreRepos: action.hasMoreRepos,
-      nextReposUrl: action.nextReposUrl
+      userRepositories: {
+        repos: newState,
+        hasMoreRepos: action.hasMoreRepos,
+        nextReposUrl: action.nextReposUrl
+      }
     })
 
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS) {
-    let newState = [].concat(state.userSubscriptions);
-    let isPristineState: boolean = state.userSubscriptions.length === 0;
+    let newState = [].concat(state.userSubscriptions.repos);
 
-    if(isPristineState){
-      action.userSubscriptions.forEach((responseItem: GithubRepoInterface, index: number) => {
-        if(isPristineState) {
-          newState.push({
-            details: responseItem.details,
-            id: responseItem.id,
-            issues: DEFAULT_ISSUES_MODEL
-          })
+    action.userSubscriptions.forEach((responseItem: GithubRepoInterface, index: number) => {
+      let match = false;
+
+      state.userSubscriptions.repos.forEach((stateItem) => {
+        if (responseItem.id === stateItem.id) {
+          newState[index] = responseItem;
+          match = true;
+          return match;
         }
-      })
-    }else{
-      action.userSubscriptions.forEach((responseItem: GithubRepoInterface, index: number) => {
-        let match = false;
+      });
 
-        state.userSubscriptions.forEach((stateItem) => {
-          if (responseItem.id === stateItem.id) {
-            newState[index] = stateItem;
-            match = true;
-            return match;
-          }
-        });
-
-        if (!match) {
-          newState.push({
-            details: responseItem.details,
-            id: responseItem.id,
-            issues: DEFAULT_ISSUES_MODEL
-          })
-        }
-      })
-    }
+      if (!match) {
+        newState.push({
+          details: responseItem.details,
+          id: responseItem.id,
+          issues: DEFAULT_ISSUES_MODEL
+        })
+      }
+    });
 
     return (<any>Object).assign({}, state, {
-      userSubscriptions: newState,
-      hasMoreRepos: action.hasMoreRepos,
-      nextReposUrl: action.nextReposUrl
+      userSubscriptions: {
+        repos: newState,
+        hasMoreRepos: action.hasMoreRepos,
+        nextReposUrl: action.nextReposUrl
+      }
     })
   }
 
-  //issues
+  //GET - issues
   if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY) {
     //TODO define type
-    let newState = [].concat(state.userRepositories);
+    let newState = [].concat(state.userRepositories.repos);
 
-    state.userRepositories.forEach((item: GithubRepoInterface, index: number) => {
+    state.userRepositories.repos.forEach((item: GithubRepoInterface, index: number) => {
       if(action.index === index){
         newState[action.index].issues = action.issues;
       }
     });
 
     return (<any>Object).assign({}, state, {
-      userRepositories: newState
+      userRepositories: {
+        repos: newState,
+        hasMoreRepos: state.userRepositories.hasMoreRepos,
+        nextReposUrl: state.userRepositories.nextReposUrl
+      }
     });
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION) {
     //TODO define type
-    let newState = [].concat(state.userSubscriptions);
+    let newState = [].concat(state.userSubscriptions.repos);
 
-    state.userSubscriptions.forEach((item: GithubRepoInterface, index: number) => {
+    state.userSubscriptions.repos.forEach((item: GithubRepoInterface, index: number) => {
       if(action.index === index){
         newState[index].issues = action.issues;
       }
     });
 
     return (<any>Object).assign({}, state, {
-      userSubscriptions: newState
+      userSubscriptions: {
+        repos: newState,
+        hasMoreRepos: state.userSubscriptions.hasMoreRepos,
+        nextReposUrl: state.userSubscriptions.nextReposUrl
+      }
+    });
+  }
+
+  //READ - user details
+  if(action.type === GITHUB_STORE_ACTIONS.READ_USER_DETAILS) {
+    let newState = {
+      username: state.userDetails.username,
+      avatar: state.userDetails.avatar
+    };
+
+    return state;
+  }
+
+  //READ - repositories
+  if(action.type === GITHUB_STORE_ACTIONS.READ_USER_REPOSITORIES) {
+    let newState = [].concat(state.userRepositories.repos);
+
+    return (<any>Object).assign({}, state, {
+      userRepositories: {
+        repos: newState,
+        hasMoreRepos: state.userRepositories.hasMoreRepos,
+        nextReposUrl: state.userRepositories.nextReposUrl
+      }
+    });
+  }
+
+  if(action.type === GITHUB_STORE_ACTIONS.READ_USER_SUBSCRIPTIONS) {
+    let newState = [].concat(state.userSubscriptions.repos);
+
+    return (<any>Object).assign({}, state, {
+      userSubscriptions: {
+        repos: newState,
+        hasMoreRepos: state.userSubscriptions.hasMoreRepos,
+        nextReposUrl: state.userSubscriptions.nextReposUrl
+      }
     });
   }
 
@@ -185,7 +215,7 @@ export function getUserRepositories(response) {
   }
 }
 
-export function getUserSubsctiptions(response) {
+export function getUserSubscriptions(response) {
   return {
     type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
     userSubscriptions: response.repos,
@@ -208,6 +238,25 @@ export function getIssuesForUserSubscription(response, offsetIdx) {
     type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION,
     index: offsetIdx,
     issues: response
+  }
+}
+
+export function readUserDetails() {
+  return {
+    type: GITHUB_STORE_ACTIONS.READ_USER_DETAILS
+  }
+}
+
+
+export function readUserRepositories() {
+  return {
+    type: GITHUB_STORE_ACTIONS.READ_USER_REPOSITORIES
+  }
+}
+
+export function readUserSubscriptions() {
+  return {
+    type: GITHUB_STORE_ACTIONS.READ_USER_SUBSCRIPTIONS
   }
 }
 

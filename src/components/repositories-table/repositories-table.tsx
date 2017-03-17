@@ -11,6 +11,7 @@ class RepositoriesTable extends React.Component<any, any> {
 
   render() {
     let props = this.props;
+
     return (
       <div>
         <table className="table table-bordered table-striped table-hover">
@@ -25,7 +26,7 @@ class RepositoriesTable extends React.Component<any, any> {
           <tbody>
           {this.props.repositories.map(function(repository: GithubRepoInterface, index: number){
             return <tr key={index} className={repository.issues && repository.issues.hasAssignedIssues ? 'bg-danger' : ''}>
-              <td><a target="_blank" href={repository.details.html_url}>{repository.details.name}</a></td>
+              <td><a target="_blank" href={repository.details.html_url}>{(index + 1) + ') ' + repository.details.name}</a></td>
               <td>{repository.issues ? repository.issues.count : ''} </td>
               <td>{repository.issues ? repository.issues.pullRequests : ''}</td>
               <td>{repository.issues ? repository.issues.openIssues : ''}</td>
@@ -36,7 +37,7 @@ class RepositoriesTable extends React.Component<any, any> {
 
         {
           this.props.nextReposUrl
-            ? <button className="btn btn-primary" onClick={function () { props.getNextRepos(props.nextReposUrl) }}>Load More</button>
+            ? <button className="btn btn-primary" onClick={function () { props.getNextRepos(props.nextReposUrl, props.repositories.length) }}>Load More</button>
             : ''
         }
       </div>
