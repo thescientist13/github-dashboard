@@ -52,12 +52,9 @@ class Bootstrap extends React.Component<any, any> {
   }
 
   private getUserSubscriptionsWithIssues(nextReposUrl?: string) {
-    //console.log('getUserSubscriptionsWithIssues state', this.state);
-    //console.log('getUserSubscriptionsWithIssues props', this.props);
     let dispatch = this.props.dispatch;
     let url: string = nextReposUrl ? nextReposUrl : null;
     this.githubApi.getUserSubscriptions(url).then((response: any) => {
-      //console.log('getUserSubscriptionsWithIssues response', response)
       dispatch(getUserSubscriptions(response));
 
       //TODO move offsetIdx logic into a central place

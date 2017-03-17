@@ -6,9 +6,9 @@ import RepositoriesTable from '../../components/repositories-table/repositories-
 
 function mapStateToProps(state) {
   return {
-    repositories: state.userSubscriptions,
-    hasMoreRepos: state.hasMoreRepos,
-    nextReposUrl: state.nextReposUrl
+    repositories: state.userSubscriptions.repos,
+    hasMoreRepos: state.userSubscriptions.hasMoreRepos,
+    nextReposUrl: state.userSubscriptions.nextReposUrl
   };
 }
 
