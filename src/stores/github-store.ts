@@ -11,9 +11,7 @@ const initialState = {
     repos: [],
     hasMoreRepos: false,
     nextReposUrl: ''
-  },
-  hasMoreRepos: false,
-  nextReposUrl: ''
+  }
 };
 
 export const GITHUB_STORE_ACTIONS = {
