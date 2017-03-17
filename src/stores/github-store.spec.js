@@ -1,4 +1,4 @@
-import githubStoreReducer, { GITHUB_STORE_ACTIONS, getUserDetails, getUserRepositories, getUserSubsctiptions, getIssuesForUserRepository, getIssuesForUserSubscription } from './github-store';
+import githubStoreReducer, { GITHUB_STORE_ACTIONS, getUserDetails, getUserRepositories, getUserSubscriptions, getIssuesForUserRepository, getIssuesForUserSubscription } from './github-store';
 import MOCK_ISSUES_USER_REPOS from '../../test/mocks/issues-user-repository.json';
 import MOCK_ISSUES_USER_SUBSCRIPTIONS from '../../test/mocks/issues-user-subscription.json';
 import MOCK_USER_DETAILS from '../../test/mocks/user-details.json';
@@ -7,10 +7,16 @@ import MOCK_USER_SUBSCRIPTIONS from '../../test/mocks/user-subscriptions.json';
 
 const MOCK_INIT_STATE = {
   userDetails: {},
-  userRepositories: [],
-  userSubscriptions: [],
-  hasMoreRepos: false,
-  nextReposUrl: ''
+  userSubscriptions: {
+    repos: [],
+    hasMoreRepos: false,
+    nextReposUrl: ''
+  },
+  userRepositories: {
+    repos: [],
+    hasMoreRepos: false,
+    nextReposUrl: ''
+  }
 };
 
 describe('GitHub Store Actions', () => {
@@ -29,13 +35,13 @@ describe('GitHub Store Actions', () => {
       type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
       userRepositories: MOCK_USER_REPOS,
       hasMoreRepos: true,
-      nextReposUrl: null
+      nextReposUrl: ''
     };
 
     expect(getUserRepositories({
       repos: MOCK_USER_REPOS,
       hasMoreRepos: true,
-      nextReposUrl: null
+      nextReposUrl: ''
     })).toEqual(expectedAction)
   });
 
@@ -47,7 +53,7 @@ describe('GitHub Store Actions', () => {
       nextReposUrl: 'http://api.github.com?page=2'
     };
 
-    expect(getUserSubsctiptions({
+    expect(getUserSubscriptions({
       repos: MOCK_USER_SUBSCRIPTIONS,
       hasMoreRepos: true,
       nextReposUrl: 'http://api.github.com?page=2'
@@ -100,10 +106,16 @@ describe('GitHub Store Reducer', () => {
         username: MOCK_USER_DETAILS.login,
         avatar: MOCK_USER_DETAILS.avatar_url
       },
-      userRepositories: [],
-      userSubscriptions: [],
-      hasMoreRepos: false,
-      nextReposUrl: ''
+      userRepositories: {
+        repos: [],
+        hasMoreRepos: false,
+        nextReposUrl: ''
+      },
+      userSubscriptions: {
+        repos: [],
+        hasMoreRepos: false,
+        nextReposUrl: ''
+      }
     })
   });
 
@@ -121,20 +133,26 @@ describe('GitHub Store Reducer', () => {
       })
     ).toEqual({
       userDetails: {},
-      userRepositories: [{
-        "details": slicedRepo,
-        "id": slicedRepo.id,
-        "issues": {
-          "count": 0,
-          "hasAssignedIssues": false,
-          "issues": [],
-          "openIssues": 0,
-          "pullRequests": 0,
-        }
-      }],
-      userSubscriptions: [],
-      hasMoreRepos: false,
-      nextReposUrl: undefined
+      userRepositories: {
+        repos: [{
+          "details": slicedRepo,
+          "id": slicedRepo.id,
+          "issues": {
+            "count": 0,
+            "hasAssignedIssues": false,
+            "issues": [],
+            "openIssues": 0,
+            "pullRequests": 0,
+          }
+        }],
+        hasMoreRepos: false,
+        nextReposUrl: undefined
+      },
+      userSubscriptions: {
+        repos: [],
+        hasMoreRepos: false,
+        nextReposUrl: ''
+      }
     })
   });
 
@@ -154,20 +172,26 @@ describe('GitHub Store Reducer', () => {
       })
     ).toEqual({
       userDetails: {},
-      userSubscriptions: [{
-        "details": slicedRepo,
-        "id": slicedRepo.id,
-        "issues": {
-          "count": 0,
-          "hasAssignedIssues": false,
-          "issues": [],
-          "openIssues": 0,
-          "pullRequests": 0,
-        }
-      }],
-      userRepositories: [],
-      hasMoreRepos: false,
-      nextReposUrl: undefined
+      userSubscriptions: {
+        repos: [{
+          "details": slicedRepo,
+          "id": slicedRepo.id,
+          "issues": {
+            "count": 0,
+            "hasAssignedIssues": false,
+            "issues": [],
+            "openIssues": 0,
+            "pullRequests": 0,
+          }
+        }],
+        hasMoreRepos: false,
+        nextReposUrl: undefined
+      },
+      userRepositories: {
+        repos: [],
+        hasMoreRepos: false,
+        nextReposUrl: ''
+      }
     })
   });
 
@@ -185,10 +209,16 @@ describe('GitHub Store Reducer', () => {
         username: MOCK_USER_DETAILS.login,
         avatar: MOCK_USER_DETAILS.avatar_url
       },
-      userRepositories: [],
-      userSubscriptions: [],
-      hasMoreRepos: false,
-      nextReposUrl: ''
+      userRepositories: {
+        repos: [],
+        hasMoreRepos: false,
+        nextReposUrl: ''
+      },
+      userSubscriptions: {
+        repos: [],
+        hasMoreRepos: false,
+        nextReposUrl: ''
+      }
     })
   });
 

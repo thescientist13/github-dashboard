@@ -1,6 +1,7 @@
 import './user-details.css';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { readUserDetails } from '../../stores/github-store';
 
 function mapStateToProps(state) {
   return {
@@ -25,6 +26,10 @@ class UserDetails extends React.Component<any, any> {
       avatar: nextProps.avatar,
       username: nextProps.username
     });
+  }
+
+  componentDidMount(){
+    this.props.dispatch(readUserDetails());
   }
 
   render() {

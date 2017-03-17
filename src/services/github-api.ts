@@ -93,10 +93,6 @@ export class GithubApi {
     return url && url.search('page=1') >= 0 ? null : url;
   }
 
-  private generateUniqueRepoId(): number {
-    return new Date().getTime() * (Math.floor((Math.random() * 9999) + 1));
-  }
-
   getUserDetails(): any {
     return axios.get(this.baseUrl + 'user').then((response: any) => {
       let data = response.data;
@@ -111,10 +107,9 @@ export class GithubApi {
     });
   }
 
-  getUserRepositories (username?: string, nextUrl?: string): any {
+  getUserRepositories (nextUrl?: string): any {
     // TODO should this even be required since its a call specifically for the user?
-    let user = username || this.credentials.username;
-    let url = nextUrl || this.baseUrl + 'users/' + user + '/repos';
+    let url = nextUrl || this.baseUrl + 'users/' + this.credentials.username + '/repos';
 
     return axios.get(url).then((response: any) => {
       let modeledRepos: Array<GithubRepoInterface> = [];
@@ -124,7 +119,7 @@ export class GithubApi {
       response.data.map(repository => {
         modeledRepos.push({
           details: repository,
-          id: this.generateUniqueRepoId()
+          id: repository.id
         });
       });
 
@@ -138,10 +133,9 @@ export class GithubApi {
     });
   }
 
-  getUserSubscriptions (username?: string, nextUrl?: string): any {
+  getUserSubscriptions (nextUrl?: string): any {
     // TODO should this even be required since its a call specifically for the user?
-    let user = username || this.credentials.username;
-    let url = nextUrl || this.baseUrl + 'users/' + user + '/subscriptions';
+    let url = nextUrl || this.baseUrl + 'users/' + this.credentials.username + '/subscriptions';
 
     return axios.get(url).then((response: any) => {
       let modeledRepos: Array<GithubRepoInterface> = [];
@@ -151,7 +145,7 @@ export class GithubApi {
       response.data.map(repository => {
         modeledRepos.push({
           details: repository,
-          id: this.generateUniqueRepoId()
+          id: repository.id
         });
       });
 
