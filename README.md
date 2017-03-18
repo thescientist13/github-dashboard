@@ -9,13 +9,13 @@
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/thescientist13/github-dashboard/master/LICENSE.md)
 
 ## Overview
-GitHub Dashboard is a locally running web application that aims to help streamline the management of your GitHub repos 
-and issues in one place.  Browse all your repos (personal and subscribed), see open issues, see if any are assigned 
+GitHub Dashboard is a locally running web application that aims to help streamline the management of your GitHub repos
+and issues in one place.  Browse all your repos (personal and subscribed), see open issues, see if any are assigned
 to you, and direct link directly to any repo.  You can check out a full product overview [here](https://github.com/thescientist13/github-dashboard/wiki/Product-Overview)
 
 ![GitHub Dashboard](https://s3.amazonaws.com/hosted.thegreenhouse.io/oss-projects/github-dashboard/github-dashboard.png)
 
-To run, all that is required is to you have the latest LTS version of [Node][] installed (v6.x) and the package manager, 
+To run, all that is required is to you have the latest LTS version of [Node][] installed (v6.x) and the package manager,
 [Yarn][]. A GitHub access token will also need to be generated.  The _Setup_ section below will cover all of this.
 
 [Node]: https://nodejs.org/
@@ -24,22 +24,37 @@ To run, all that is required is to you have the latest LTS version of [Node][] i
 ## Setup
 After cloning the repo, and making sure you have [Node LTS](https://nodejs.org/) installed, please do the following
 
-1. Run `npm install -g yarn@0.21.3`
-1. Run `yarn install`
-1. Run `yarn run setup` 
-1. Replace the `xxx`'s with your Github username and a GitHub
-_"Personal Access Token"_ with the following scopes:
+1. Install Yarn globally
+   ```bash
+   # may need to run as sudo
+   $ npm install -g yarn@0.21.3
+   ```
+1. Install application dependencies
+   ```bash
+   $ yarn install
+   ```
+1. Setup the application
+   ```bash
+   $ yarn run setup
+   ```
+1. Log into your GitHub account and create an [Personal Access Token](https://github.com/settings/tokens) with the following scopes:
+   - repo
+   - admin:org
+   - notifications
 
-- repo
-- admin:org
-- notifications
+   For information on creating an access token, please visit the [GitHub article on creating access tokens](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
+1. Open `/src/services/credentials.ts` and replace the `xxx`'s with your GitHub username and a Personal Access Token
 
-For information on creating an access token, please read [here](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
+Note: The `credentials.ts` file is listed within the `.gitignore` to prevent accidental inclusion within the repository files.
 
 For information on architecture and design of this application, checkout the Developer's Guide [here](https://github.com/thescientist13/github-dashboard/wiki/Developers-Guide)
 
 ## Starting the application
-Run `yarn run serve`
+Once you've entered in your credentials, you can start the application:
+
+```bash
+$ yarn run serve
+```
 
 For more information on available tasks, check out the [Developer's Guide](https://github.com/thescientist13/github-dashboard/wiki/Developers-Guide).
 
@@ -48,7 +63,7 @@ For more information on available tasks, check out the [Developer's Guide](https
 ## Additional References
 - [Product Overview](https://github.com/thescientist13/github-dashboard/wiki/Product-Overview)
 - [FAQ](https://github.com/thescientist13/github-dashboard/wiki/F.A.Q.)
-- [Developer's Guide](https://github.com/thescientist13/github-dashboard/wiki/Developers-Guide) 
+- [Developer's Guide](https://github.com/thescientist13/github-dashboard/wiki/Developers-Guide)
 
 ## License
 Copyright 2017 Owen Buckley, The Greenhouse.io
