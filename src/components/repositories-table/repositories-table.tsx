@@ -36,8 +36,8 @@ class RepositoriesTable extends React.Component<any, any> {
         </table>
 
         {
-          this.props.nextReposUrl
-            ? <button className="btn btn-primary" onClick={function () { props.getNextRepos(props.nextReposUrl, props.repositories.length) }}>Load More</button>
+          this.props.hasMoreRepos
+            ? <button className="btn btn-primary" onClick={props.getNextRepos}>Load More</button>
             : ''
         }
       </div>

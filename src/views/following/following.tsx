@@ -13,7 +13,7 @@ function mapStateToProps(state) {
 }
 
 //TODO change use any, any to use types
-class Following extends React.Component<any, any> {
+class FollowingRepositoriesView extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
@@ -36,8 +36,8 @@ class Following extends React.Component<any, any> {
     this.props.dispatch(readUserSubscriptions());
   }
 
-  private getUserSubscriptionsWithIssues(nextReposUrl: string, length: number){
-    this.props.getNextUserSubsciptionsWithIssues(nextReposUrl, length);
+  private getNextUserSubscriptionsWithIssues(){
+    this.props.getNextUserSubscriptionsWithIssues(this.state.nextReposUrl, this.state.repositories.length);
   }
 
   render() {
@@ -47,8 +47,7 @@ class Following extends React.Component<any, any> {
         <RepositoriesTable
           repositories={this.state.repositories}
           hasMoreRepos={this.state.hasMoreRepos}
-          nextReposUrl={this.state.nextReposUrl}
-          getNextRepos={this.getUserSubscriptionsWithIssues.bind(this)}
+          getNextRepos={this.getNextUserSubscriptionsWithIssues.bind(this)}
         />
       </div>
     )
@@ -56,4 +55,4 @@ class Following extends React.Component<any, any> {
 
 }
 
-export default connect(mapStateToProps)(Following);
+export default connect(mapStateToProps)(FollowingRepositoriesView);
