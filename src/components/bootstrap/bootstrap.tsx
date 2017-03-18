@@ -73,8 +73,8 @@ class Bootstrap extends React.Component<any, any> {
   render() {
     let children = React.Children.map(this.props.children, (child: any) => {
       return React.cloneElement(child, {
-        getNextUserRepositoriesWithIssues: this.getUserRepositoriesWithIssues,
-        getNextUserSubsciptionsWithIssues: this.getUserSubscriptionsWithIssues.bind(this)
+        getNextUserRepositoriesWithIssues: this.getUserRepositoriesWithIssues.bind(this),
+        getNextUserSubscriptionsWithIssues: this.getUserSubscriptionsWithIssues.bind(this)
       })
     });
 
