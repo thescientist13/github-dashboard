@@ -4,13 +4,11 @@ const initialState = {
   userDetails: {},
   userRepositories: {
     repos: [],
-    hasMoreRepos: false,
-    nextReposUrl: ''
+    nextReposUrl: null
   },
   userSubscriptions: {
     repos: [],
-    hasMoreRepos: false,
-    nextReposUrl: ''
+    nextReposUrl: null
   }
 };
 
@@ -82,7 +80,6 @@ const githubStoreReducer = function(state: any, action: any) {
     return (<any>Object).assign({}, state, {
       userRepositories: {
         repos: newState,
-        hasMoreRepos: action.hasMoreRepos,
         nextReposUrl: action.nextReposUrl
       }
     })
@@ -115,7 +112,6 @@ const githubStoreReducer = function(state: any, action: any) {
     return (<any>Object).assign({}, state, {
       userSubscriptions: {
         repos: newState,
-        hasMoreRepos: action.hasMoreRepos,
         nextReposUrl: action.nextReposUrl
       }
     })
@@ -135,7 +131,6 @@ const githubStoreReducer = function(state: any, action: any) {
     return (<any>Object).assign({}, state, {
       userRepositories: {
         repos: newState,
-        hasMoreRepos: state.userRepositories.hasMoreRepos,
         nextReposUrl: state.userRepositories.nextReposUrl
       }
     });
@@ -154,7 +149,6 @@ const githubStoreReducer = function(state: any, action: any) {
     return (<any>Object).assign({}, state, {
       userSubscriptions: {
         repos: newState,
-        hasMoreRepos: state.userSubscriptions.hasMoreRepos,
         nextReposUrl: state.userSubscriptions.nextReposUrl
       }
     });
@@ -177,7 +171,6 @@ const githubStoreReducer = function(state: any, action: any) {
     return (<any>Object).assign({}, state, {
       userRepositories: {
         repos: newState,
-        hasMoreRepos: state.userRepositories.hasMoreRepos,
         nextReposUrl: state.userRepositories.nextReposUrl
       }
     });
@@ -189,7 +182,6 @@ const githubStoreReducer = function(state: any, action: any) {
     return (<any>Object).assign({}, state, {
       userSubscriptions: {
         repos: newState,
-        hasMoreRepos: state.userSubscriptions.hasMoreRepos,
         nextReposUrl: state.userSubscriptions.nextReposUrl
       }
     });
@@ -210,7 +202,6 @@ export function getUserRepositories(response) {
   return {
     type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
     userRepositories: response.repos,
-    hasMoreRepos: response.hasMoreRepos,
     nextReposUrl: response.nextReposUrl
   }
 }
@@ -219,7 +210,6 @@ export function getUserSubscriptions(response) {
   return {
     type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
     userSubscriptions: response.repos,
-    hasMoreRepos: response.hasMoreRepos,
     nextReposUrl: response.nextReposUrl
   }
 }

@@ -9,13 +9,11 @@ const MOCK_INIT_STATE = {
   userDetails: {},
   userSubscriptions: {
     repos: [],
-    hasMoreRepos: false,
-    nextReposUrl: ''
+    nextReposUrl: null
   },
   userRepositories: {
     repos: [],
-    hasMoreRepos: false,
-    nextReposUrl: ''
+    nextReposUrl: null
   }
 };
 
@@ -34,14 +32,12 @@ describe('GitHub Store Actions', () => {
     const expectedAction = {
       type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
       userRepositories: MOCK_USER_REPOS,
-      hasMoreRepos: true,
-      nextReposUrl: ''
+      nextReposUrl: null
     };
 
     expect(getUserRepositories({
       repos: MOCK_USER_REPOS,
-      hasMoreRepos: true,
-      nextReposUrl: ''
+      nextReposUrl: null
     })).toEqual(expectedAction)
   });
 
@@ -49,13 +45,11 @@ describe('GitHub Store Actions', () => {
     const expectedAction = {
       type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
       userSubscriptions: MOCK_USER_SUBSCRIPTIONS,
-      hasMoreRepos: true,
       nextReposUrl: 'http://api.github.com?page=2'
     };
 
     expect(getUserSubscriptions({
       repos: MOCK_USER_SUBSCRIPTIONS,
-      hasMoreRepos: true,
       nextReposUrl: 'http://api.github.com?page=2'
     })).toEqual(expectedAction)
   });
@@ -108,13 +102,11 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repos: [],
-        hasMoreRepos: false,
-        nextReposUrl: ''
+        nextReposUrl: null
       },
       userSubscriptions: {
         repos: [],
-        hasMoreRepos: false,
-        nextReposUrl: ''
+        nextReposUrl: null
       }
     })
   });
@@ -129,7 +121,7 @@ describe('GitHub Store Reducer', () => {
           id: slicedRepo.id,
           details: slicedRepo,
         }],
-        hasMoreRepos: false,
+        nextReposUrl: null
       })
     ).toEqual({
       userDetails: {},
@@ -145,13 +137,11 @@ describe('GitHub Store Reducer', () => {
             "pullRequests": 0,
           }
         }],
-        hasMoreRepos: false,
-        nextReposUrl: undefined
+        nextReposUrl: null
       },
       userSubscriptions: {
         repos: [],
-        hasMoreRepos: false,
-        nextReposUrl: ''
+        nextReposUrl: null
       }
     })
   });
@@ -168,7 +158,7 @@ describe('GitHub Store Reducer', () => {
           id: slicedRepo.id,
           details: slicedRepo,
         }],
-        hasMoreRepos: false,
+        nextReposUrl: null,
       })
     ).toEqual({
       userDetails: {},
@@ -184,13 +174,11 @@ describe('GitHub Store Reducer', () => {
             "pullRequests": 0,
           }
         }],
-        hasMoreRepos: false,
-        nextReposUrl: undefined
+        nextReposUrl: null
       },
       userRepositories: {
         repos: [],
-        hasMoreRepos: false,
-        nextReposUrl: ''
+        nextReposUrl: null
       }
     })
   });
@@ -211,13 +199,11 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repos: [],
-        hasMoreRepos: false,
-        nextReposUrl: ''
+        nextReposUrl: null
       },
       userSubscriptions: {
         repos: [],
-        hasMoreRepos: false,
-        nextReposUrl: ''
+        nextReposUrl: null
       }
     })
   });
