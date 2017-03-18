@@ -29,7 +29,7 @@ After cloning the repo, and making sure you have [Node LTS](https://nodejs.org/)
    # may need to run as sudo
    $ npm install -g yarn@0.21.3
    ```
-1. Install Yarn dependencies
+1. Install application dependencies
    ```bash
    $ yarn install
    ```
@@ -45,7 +45,7 @@ After cloning the repo, and making sure you have [Node LTS](https://nodejs.org/)
    For information on creating an access token, please visit the [GitHub article on creating access tokens](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
 1. Open `/src/services/credentials.ts` and replace the `xxx`'s with your GitHub username and a Personal Access Token
 
-
+Note: The `credentials.ts` file is listed within the `.gitignore` to prevent accidental inclusion within the repository files.
 
 For information on architecture and design of this application, checkout the Developer's Guide [here](https://github.com/thescientist13/github-dashboard/wiki/Developers-Guide)
 
