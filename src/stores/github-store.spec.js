@@ -1,8 +1,8 @@
 import githubStoreReducer, { GITHUB_STORE_ACTIONS, getUserDetails, getUserRepositories, getUserSubscriptions, getIssuesForUserRepository, getIssuesForUserSubscription } from './github-store';
-import MOCK_ISSUES_USER_REPOS from '../../test/mocks/issues-user-repository.json';
+import MOCK_ISSUES_USER_REPOSITORIES from '../../test/mocks/issues-user-repository.json';
 import MOCK_ISSUES_USER_SUBSCRIPTIONS from '../../test/mocks/issues-user-subscription.json';
 import MOCK_USER_DETAILS from '../../test/mocks/user-details.json';
-import MOCK_USER_REPOS from '../../test/mocks/user-repositories.json';
+import MOCK_USER_REPOSITORIES from '../../test/mocks/user-repositories.json';
 import MOCK_USER_SUBSCRIPTIONS from '../../test/mocks/user-subscriptions.json';
 
 const MOCK_INIT_STATE = {
@@ -31,12 +31,12 @@ describe('GitHub Store Actions', () => {
   it('should test get user repositories action', () => {
     const expectedAction = {
       type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
-      userRepositories: MOCK_USER_REPOS,
+      userRepositories: MOCK_USER_REPOSITORIES,
       nextReposUrl: null
     };
 
     expect(getUserRepositories({
-      repos: MOCK_USER_REPOS,
+      repos: MOCK_USER_REPOSITORIES,
       nextReposUrl: null
     })).toEqual(expectedAction)
   });
@@ -59,10 +59,10 @@ describe('GitHub Store Actions', () => {
     const expectedAction = {
       type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
       index: idx,
-      issues: MOCK_ISSUES_USER_REPOS
+      issues: MOCK_ISSUES_USER_REPOSITORIES
     };
 
-    expect(getIssuesForUserRepository(MOCK_ISSUES_USER_REPOS, idx)).toEqual(expectedAction)
+    expect(getIssuesForUserRepository(MOCK_ISSUES_USER_REPOSITORIES, idx)).toEqual(expectedAction)
   });
 
   it('should test get issues for a user subscription action', () => {
@@ -112,7 +112,7 @@ describe('GitHub Store Reducer', () => {
   });
 
   it('should test get user repositories state', () => {
-    let slicedRepo = MOCK_USER_REPOS.slice(0, 1);
+    let slicedRepo = MOCK_USER_REPOSITORIES.slice(0, 1);
 
     expect(
       githubStoreReducer(MOCK_INIT_STATE, {
@@ -182,7 +182,7 @@ describe('GitHub Store Reducer', () => {
   });
 
   it('should test get user repositories and user details state', () => {
-    let slicedRepo = MOCK_USER_REPOS.slice(0, 1);
+    let slicedRepo = MOCK_USER_REPOSITORIES.slice(0, 1);
     let action1 = githubStoreReducer(MOCK_INIT_STATE, {
       type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
       userDetails: {
@@ -334,8 +334,8 @@ describe('GitHub Store Reducer', () => {
   it('should test adding 9 + 9 user repositories', () => {
     let expectedSlicedReposFirst = [];
     let expectedSlicedReposSecond = [];
-    let slicedReposFirst = MOCK_ISSUES_USER_REPOS.slice(0, 9);
-    let slicedReposSecond = MOCK_ISSUES_USER_REPOS.slice(9);
+    let slicedReposFirst = MOCK_ISSUES_USER_REPOSITORIES.slice(0, 9);
+    let slicedReposSecond = MOCK_ISSUES_USER_REPOSITORIES.slice(9);
     let action1 = githubStoreReducer(MOCK_INIT_STATE, {
       type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
       userRepositories: slicedReposFirst,
@@ -412,7 +412,84 @@ describe('GitHub Store Reducer', () => {
   });
 
 
-  xit('should test adding 15 + 15 user subecriptions', () => {
+  it('should test adding 15 + 15 user subscriptions', () => {
+    let expectedSlicedReposFirst = [];
+    let expectedSlicedReposSecond = [];
+    let slicedReposFirst = MOCK_ISSUES_USER_SUBSCRIPTIONS.slice(0, 15);
+    let slicedReposSecond = MOCK_ISSUES_USER_SUBSCRIPTIONS.slice(15);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
+      userSubscriptions: slicedReposFirst,
+      nextReposUrl: null
+    });
+
+    slicedReposFirst.forEach((repo) => {
+      expectedSlicedReposFirst.push({
+        "details": repo.details,
+        "id": repo.id,
+        "issues": {
+          "count": 0,
+          "hasAssignedIssues": false,
+          "issues": [],
+          "openIssues": 0,
+          "pullRequests": 0
+        }
+      })
+    });
+
+    slicedReposSecond.forEach((repo) => {
+      expectedSlicedReposSecond.push({
+        "details": repo.details,
+        "id": repo.id,
+        "issues": {
+          "count": 0,
+          "hasAssignedIssues": false,
+          "issues": [],
+          "openIssues": 0,
+          "pullRequests": 0
+        }
+      })
+    });
+
+    expect(action1).toEqual({
+      userDetails: {},
+      userRepositories: {
+        repos: [],
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: expectedSlicedReposFirst,
+        nextReposUrl: null
+      }
+    });
+
+    let action2 = githubStoreReducer({
+      userDetails: {},
+      userRepositories: {
+        repos: [],
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: expectedSlicedReposFirst,
+        nextReposUrl: null
+      }
+    }, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
+      userSubscriptions: slicedReposSecond,
+      nextReposUrl: null
+    });
+
+    expect(action2).toEqual({
+      userDetails: {},
+      userRepositories: {
+        repos: [],
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: expectedSlicedReposFirst.concat(expectedSlicedReposSecond),
+        nextReposUrl: null
+      }
+    });
   });
 
   xit('should test read user details', () => {
@@ -422,6 +499,9 @@ describe('GitHub Store Reducer', () => {
   });
 
   xit('should test read user subscriptions', () => {
+  });
+
+  xit('should test getting issues', () => {
   });
 
 });
