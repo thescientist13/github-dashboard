@@ -331,59 +331,84 @@ describe('GitHub Store Reducer', () => {
     })
   });
 
-  xit('should test adding 15 + 15 user repositories', () => {
-    let slicedRepo = MOCK_USER_SUBSCRIPTIONS.slice(0, 15);
+  it('should test adding 9 + 9 user repositories', () => {
+    let expectedSlicedReposFirst = [];
+    let expectedSlicedReposSecond = [];
+    let slicedReposFirst = MOCK_ISSUES_USER_REPOS.slice(0, 9);
+    let slicedReposSecond = MOCK_ISSUES_USER_REPOS.slice(9);
     let action1 = githubStoreReducer(MOCK_INIT_STATE, {
       type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
-      userRepositories: [{
-        id: slicedRepo.id,
-        details: slicedRepo,
-      }],
-      nextReposUrl: null
-    });
-    let action3 = githubStoreReducer(action2, {
-      type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
-      userSubscriptions: [{
-        id: slicedRepo.id,
-        details: slicedRepo,
-      }],
+      userRepositories: slicedReposFirst,
       nextReposUrl: null
     });
 
-    expect(action3).toEqual({
-      userDetails: {
-        username: MOCK_USER_DETAILS.login,
-        avatar: MOCK_USER_DETAILS.avatar_url
-      },
+    slicedReposFirst.forEach((repo) => {
+      expectedSlicedReposFirst.push({
+        "details": repo.details,
+        "id": repo.id,
+        "issues": {
+          "count": 0,
+          "hasAssignedIssues": false,
+          "issues": [],
+          "openIssues": 0,
+          "pullRequests": 0
+        }
+      })
+    });
+
+    slicedReposSecond.forEach((repo) => {
+      expectedSlicedReposSecond.push({
+        "details": repo.details,
+        "id": repo.id,
+        "issues": {
+          "count": 0,
+          "hasAssignedIssues": false,
+          "issues": [],
+          "openIssues": 0,
+          "pullRequests": 0
+        }
+      })
+    });
+
+    expect(action1).toEqual({
+      userDetails: {},
       userRepositories: {
-        repos: [{
-          "details": slicedRepo,
-          "id": slicedRepo.id,
-          "issues": {
-            "count": 0,
-            "hasAssignedIssues": false,
-            "issues": [],
-            "openIssues": 0,
-            "pullRequests": 0,
-          }
-        }],
+        repos: expectedSlicedReposFirst,
         nextReposUrl: null
       },
       userSubscriptions: {
-        repos: [{
-          "details": slicedRepo,
-          "id": slicedRepo.id,
-          "issues": {
-            "count": 0,
-            "hasAssignedIssues": false,
-            "issues": [],
-            "openIssues": 0,
-            "pullRequests": 0,
-          }
-        }],
+        repos: [],
         nextReposUrl: null
       }
-    })
+    });
+
+    let action2 = githubStoreReducer({
+      userDetails: {},
+      userRepositories: {
+        repos: expectedSlicedReposFirst,
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: [],
+        nextReposUrl: null
+      }
+    }, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
+      userRepositories: slicedReposSecond,
+      nextReposUrl: null
+    });
+
+    expect(action2).toEqual({
+      userDetails: {},
+      userRepositories: {
+        repos: expectedSlicedReposFirst.concat(expectedSlicedReposSecond),
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: [],
+        nextReposUrl: null
+      }
+    });
   });
 
 
