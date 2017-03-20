@@ -598,7 +598,111 @@ describe('GitHub Store Reducer', () => {
     });
   });
 
-  xit('should test getting issues', () => {
+  it('should test getting issues for user repositories', () => {
+    let mockRepo = MOCK_USER_REPOSITORIES.slice(0, 1);
+    let mockIssue = MOCK_ISSUES_USER_REPOSITORIES.slice(0, 1);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
+      userRepositories: [{
+        details: mockRepo.details,
+        id: mockRepo.id,
+        issues: {
+          count: 0,
+          hasAssignedIssues: false,
+          issues: [],
+          openIssues: 0,
+          pullRequests: 0
+        }
+      }],
+      nextReposUrl: null
+    });
+    let action2 = githubStoreReducer(action1, {
+      type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
+      index: 0,
+      issues: {
+        count: 2,
+        hasAssignedIssues: false,
+        issues: mockIssue,
+        openIssues: 1,
+        pullRequests: 1
+      }
+    });
+
+    expect(action2).toEqual({
+      userDetails: {},
+      userSubscriptions: {
+        repos: [],
+        nextReposUrl: null
+      },
+      userRepositories: {
+        repos: [{
+          details: mockRepo.details,
+          id: mockRepo.id,
+          issues: {
+            "count": 2,
+            "hasAssignedIssues": false,
+            "issues": mockIssue,
+            "openIssues": 1,
+            "pullRequests": 1
+          }
+        }],
+        nextReposUrl: null
+      }
+    });
+  });
+
+  it('should test getting issues for user subscriptions', () => {
+    let mockRepo = MOCK_USER_SUBSCRIPTIONS.slice(0, 1);
+    let mockIssue = MOCK_ISSUES_USER_SUBSCRIPTIONS.slice(0, 1);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
+      userSubscriptions: [{
+        details: mockRepo.details,
+        id: mockRepo.id,
+        issues: {
+          count: 0,
+          hasAssignedIssues: false,
+          issues: [],
+          openIssues: 0,
+          pullRequests: 0
+        }
+      }],
+      nextReposUrl: 'http://api.github/com/subscriptions?page=2'
+    });
+    let action2 = githubStoreReducer(action1, {
+      type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION,
+      index: 0,
+      issues: {
+        count: 2,
+        hasAssignedIssues: false,
+        issues: mockIssue,
+        openIssues: 1,
+        pullRequests: 1
+      }
+    });
+
+    expect(action2).toEqual({
+      userDetails: {},
+      userSubscriptions: {
+        repos: [{
+          details: mockRepo.details,
+          id: mockRepo.id,
+          issues: {
+            "count": 2,
+            "hasAssignedIssues": false,
+            "issues": mockIssue,
+            "openIssues": 1,
+            "pullRequests": 1
+          }
+        }],
+        nextReposUrl: 'http://api.github/com/subscriptions?page=2'
+      },
+      userRepositories: {
+        repos: [],
+        nextReposUrl: null
+      }
+    });
+
   });
 
 });
