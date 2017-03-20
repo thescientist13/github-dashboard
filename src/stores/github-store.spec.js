@@ -25,7 +25,7 @@ describe('GitHub Store Actions', () => {
       userDetails: MOCK_USER_DETAILS
     };
 
-    expect(getUserDetails(MOCK_USER_DETAILS)).toEqual(expectedAction)
+    expect(getUserDetails(MOCK_USER_DETAILS)).toEqual(expectedAction);
   });
 
   it('should test get user repositories action', () => {
@@ -492,7 +492,32 @@ describe('GitHub Store Reducer', () => {
     });
   });
 
-  xit('should test read user details', () => {
+  it('should test read user details', () => {
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
+      userDetails: {
+        username: MOCK_USER_DETAILS.login,
+        avatar: MOCK_USER_DETAILS.avatar_url
+      }
+    });
+    let action2 = githubStoreReducer(action1, {
+      type: GITHUB_STORE_ACTIONS.READ_USER_DETAILS
+    });
+
+    expect(action2).toEqual({
+      userDetails: {
+        username: MOCK_USER_DETAILS.login,
+        avatar: MOCK_USER_DETAILS.avatar_url
+      },
+      userRepositories: {
+        repos: [],
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: [],
+        nextReposUrl: null
+      }
+    })
   });
 
   xit('should test read user repositories', () => {
