@@ -520,10 +520,82 @@ describe('GitHub Store Reducer', () => {
     })
   });
 
-  xit('should test read user repositories', () => {
+  it('should test read user repositories', () => {
+    let expectedSlicedRepos = [];
+    let slicedRepos = MOCK_ISSUES_USER_REPOSITORIES.slice(0, 9);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
+      userRepositories: slicedRepos,
+      nextReposUrl: 'http://api.github.com/thegreenhouse.io?page=2'
+    });
+    let action2 = githubStoreReducer(action1, {
+      type: GITHUB_STORE_ACTIONS.READ_USER_REPOSITORIES
+    });
+
+    slicedRepos.forEach((repo) => {
+      expectedSlicedRepos.push({
+        "details": repo.details,
+        "id": repo.id,
+        "issues": {
+          "count": 0,
+          "hasAssignedIssues": false,
+          "issues": [],
+          "openIssues": 0,
+          "pullRequests": 0
+        }
+      })
+    });
+
+    expect(action2).toEqual({
+      userDetails: {},
+      userRepositories: {
+        repos: expectedSlicedRepos,
+        nextReposUrl: 'http://api.github.com/thegreenhouse.io?page=2'
+      },
+      userSubscriptions: {
+        repos: [],
+        nextReposUrl: null
+      }
+    });
   });
 
-  xit('should test read user subscriptions', () => {
+  it('should test read user subscriptions', () => {
+    let expectedSlicedRepos = [];
+    let slicedRepos = MOCK_ISSUES_USER_SUBSCRIPTIONS.slice(0, 15);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
+      userSubscriptions: slicedRepos,
+      nextReposUrl: 'http://api.github.com/thegreenhouse.io?page=2'
+    });
+    let action2 = githubStoreReducer(action1, {
+      type: GITHUB_STORE_ACTIONS.READ_USER_SUBSCRIPTIONS
+    });
+
+    slicedRepos.forEach((repo) => {
+      expectedSlicedRepos.push({
+        "details": repo.details,
+        "id": repo.id,
+        "issues": {
+          "count": 0,
+          "hasAssignedIssues": false,
+          "issues": [],
+          "openIssues": 0,
+          "pullRequests": 0
+        }
+      })
+    });
+
+    expect(action2).toEqual({
+      userDetails: {},
+      userSubscriptions: {
+        repos: expectedSlicedRepos,
+        nextReposUrl: 'http://api.github.com/thegreenhouse.io?page=2'
+      },
+      userRepositories: {
+        repos: [],
+        nextReposUrl: null
+      }
+    });
   });
 
   xit('should test getting issues', () => {
