@@ -15,8 +15,6 @@ describe('RepositoriesTable Component', () => {
   });
 
   it('should render a table with one repo', () => {
-    // const div = document.createElement('div');
-
     let repos = [{
       details: {
         name: 'test-repo',
@@ -40,8 +38,6 @@ describe('RepositoriesTable Component', () => {
   });
 
   it('should render a load more repos button', () => {
-    // const div = document.createElement('div');
-
     let repos = [{
       details: {
         name: 'test-repo',

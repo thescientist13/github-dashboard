@@ -1,20 +1,21 @@
 {
 
   "parserOptions": {
-    "ecmaVersion": "6",
+    "ecmaVersion": 6,
     "ecmaFeatures": {
       "jsx": true
     },
     "sourceType": "module"
   },
+  "extends": [
+    "plugin:react/recommended"
+  ],
   "env": {
     "browser": true,
     "node": true
   },
   "plugins": ["react"],
   "rules": {
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
     "comma-dangle": [2,"never"],
     "no-cond-assign": 2,
     "no-console": 2,
