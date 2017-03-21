@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { shallow } from 'enzyme';
+// import { shallow } from 'enzyme';
 import UserDetails from './user-details';
 
 describe('UserDetails Component', () => {
