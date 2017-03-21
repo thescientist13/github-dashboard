@@ -1,21 +1,19 @@
 import githubStoreReducer, { GITHUB_STORE_ACTIONS, getUserDetails, getUserRepositories, getUserSubscriptions, getIssuesForUserRepository, getIssuesForUserSubscription } from './github-store';
-import MOCK_ISSUES_USER_REPOS from '../../test/mocks/issues-user-repository.json';
+import MOCK_ISSUES_USER_REPOSITORIES from '../../test/mocks/issues-user-repository.json';
 import MOCK_ISSUES_USER_SUBSCRIPTIONS from '../../test/mocks/issues-user-subscription.json';
 import MOCK_USER_DETAILS from '../../test/mocks/user-details.json';
-import MOCK_USER_REPOS from '../../test/mocks/user-repositories.json';
+import MOCK_USER_REPOSITORIES from '../../test/mocks/user-repositories.json';
 import MOCK_USER_SUBSCRIPTIONS from '../../test/mocks/user-subscriptions.json';
 
 const MOCK_INIT_STATE = {
   userDetails: {},
   userSubscriptions: {
     repos: [],
-    hasMoreRepos: false,
-    nextReposUrl: ''
+    nextReposUrl: null
   },
   userRepositories: {
     repos: [],
-    hasMoreRepos: false,
-    nextReposUrl: ''
+    nextReposUrl: null
   }
 };
 
@@ -27,51 +25,47 @@ describe('GitHub Store Actions', () => {
       userDetails: MOCK_USER_DETAILS
     };
 
-    expect(getUserDetails(MOCK_USER_DETAILS)).toEqual(expectedAction)
+    expect(getUserDetails(MOCK_USER_DETAILS)).toEqual(expectedAction);
   });
 
-  it('should get user repositories', () => {
+  it('should test get user repositories action', () => {
     const expectedAction = {
       type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
-      userRepositories: MOCK_USER_REPOS,
-      hasMoreRepos: true,
-      nextReposUrl: ''
+      userRepositories: MOCK_USER_REPOSITORIES,
+      nextReposUrl: null
     };
 
     expect(getUserRepositories({
-      repos: MOCK_USER_REPOS,
-      hasMoreRepos: true,
-      nextReposUrl: ''
+      repos: MOCK_USER_REPOSITORIES,
+      nextReposUrl: null
     })).toEqual(expectedAction)
   });
 
-  it('should get user subscriptions', () => {
+  it('it should test get user subscriptions action', () => {
     const expectedAction = {
       type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
       userSubscriptions: MOCK_USER_SUBSCRIPTIONS,
-      hasMoreRepos: true,
       nextReposUrl: 'http://api.github.com?page=2'
     };
 
     expect(getUserSubscriptions({
       repos: MOCK_USER_SUBSCRIPTIONS,
-      hasMoreRepos: true,
       nextReposUrl: 'http://api.github.com?page=2'
     })).toEqual(expectedAction)
   });
 
-  it('should get issues for a user repository', () => {
+  it('should test get issues for a user repository action', () => {
     const idx = 30;
     const expectedAction = {
       type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
       index: idx,
-      issues: MOCK_ISSUES_USER_REPOS
+      issues: MOCK_ISSUES_USER_REPOSITORIES
     };
 
-    expect(getIssuesForUserRepository(MOCK_ISSUES_USER_REPOS, idx)).toEqual(expectedAction)
+    expect(getIssuesForUserRepository(MOCK_ISSUES_USER_REPOSITORIES, idx)).toEqual(expectedAction)
   });
 
-  it('should get issues for a user subscription', () => {
+  it('should test get issues for a user subscription action', () => {
     const idx = 60;
     const expectedAction = {
       type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION,
@@ -86,13 +80,13 @@ describe('GitHub Store Actions', () => {
 
 describe('GitHub Store Reducer', () => {
 
-  it('should return the initial state', () => {
+  it('it should return the initial state', () => {
     expect(
       githubStoreReducer(undefined, {})
     ).toEqual(MOCK_INIT_STATE)
   });
 
-  it('should return user details', () => {
+  it('it should return user details state', () => {
     expect(
       githubStoreReducer(MOCK_INIT_STATE, {
         type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
@@ -108,19 +102,17 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repos: [],
-        hasMoreRepos: false,
-        nextReposUrl: ''
+        nextReposUrl: null
       },
       userSubscriptions: {
         repos: [],
-        hasMoreRepos: false,
-        nextReposUrl: ''
+        nextReposUrl: null
       }
     })
   });
 
-  it('should return user repositories', () => {
-    let slicedRepo = MOCK_USER_REPOS.slice(0, 1);
+  it('should test get user repositories state', () => {
+    let slicedRepo = MOCK_USER_REPOSITORIES.slice(0, 1);
 
     expect(
       githubStoreReducer(MOCK_INIT_STATE, {
@@ -129,7 +121,7 @@ describe('GitHub Store Reducer', () => {
           id: slicedRepo.id,
           details: slicedRepo,
         }],
-        hasMoreRepos: false,
+        nextReposUrl: null
       })
     ).toEqual({
       userDetails: {},
@@ -145,20 +137,16 @@ describe('GitHub Store Reducer', () => {
             "pullRequests": 0,
           }
         }],
-        hasMoreRepos: false,
-        nextReposUrl: undefined
+        nextReposUrl: null
       },
       userSubscriptions: {
         repos: [],
-        hasMoreRepos: false,
-        nextReposUrl: ''
+        nextReposUrl: null
       }
     })
   });
 
-  //TODO test with more repos
-
-  it('should return get user subscriptions', () => {
+  it('it should test get user subscriptions state', () => {
     let slicedRepo = MOCK_USER_SUBSCRIPTIONS.slice(0, 1);
 
     expect(
@@ -168,7 +156,7 @@ describe('GitHub Store Reducer', () => {
           id: slicedRepo.id,
           details: slicedRepo,
         }],
-        hasMoreRepos: false,
+        nextReposUrl: null,
       })
     ).toEqual({
       userDetails: {},
@@ -184,54 +172,537 @@ describe('GitHub Store Reducer', () => {
             "pullRequests": 0,
           }
         }],
-        hasMoreRepos: false,
-        nextReposUrl: undefined
+        nextReposUrl: null
       },
       userRepositories: {
         repos: [],
-        hasMoreRepos: false,
-        nextReposUrl: ''
+        nextReposUrl: null
       }
     })
   });
 
-  xit('should return get user subscriptions on top of user details', () => {
-    expect(
-      githubStoreReducer(MOCK_INIT_STATE, {
-        type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
-        userDetails: {
-          username: MOCK_USER_DETAILS.login,
-          avatar: MOCK_USER_DETAILS.avatar_url
-        }
-      })
-    ).toEqual({
+  it('should test get user repositories and user details state', () => {
+    let slicedRepo = MOCK_USER_REPOSITORIES.slice(0, 1);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
+      userDetails: {
+        username: MOCK_USER_DETAILS.login,
+        avatar: MOCK_USER_DETAILS.avatar_url
+      }
+    });
+    let action2 = githubStoreReducer(action1, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
+      userRepositories: [{
+        id: slicedRepo.id,
+        details: slicedRepo,
+      }],
+      nextReposUrl: null
+    });
+
+    expect(action2).toEqual({
+      userDetails: {
+        username: MOCK_USER_DETAILS.login,
+        avatar: MOCK_USER_DETAILS.avatar_url
+      },
+      userRepositories: {
+        repos: [{
+          "details": slicedRepo,
+          "id": slicedRepo.id,
+          "issues": {
+            "count": 0,
+            "hasAssignedIssues": false,
+            "issues": [],
+            "openIssues": 0,
+            "pullRequests": 0,
+          }
+        }],
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: [],
+        nextReposUrl: null
+      }
+    })
+  });
+
+  it('should test get user subscriptions and user details state', () => {
+    let slicedRepo = MOCK_USER_SUBSCRIPTIONS.slice(0, 1);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
+      userDetails: {
+        username: MOCK_USER_DETAILS.login,
+        avatar: MOCK_USER_DETAILS.avatar_url
+      }
+    });
+    let action2 = githubStoreReducer(action1, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
+      userSubscriptions: [{
+        id: slicedRepo.id,
+        details: slicedRepo,
+      }],
+      nextReposUrl: null
+    });
+
+    expect(action2).toEqual({
       userDetails: {
         username: MOCK_USER_DETAILS.login,
         avatar: MOCK_USER_DETAILS.avatar_url
       },
       userRepositories: {
         repos: [],
-        hasMoreRepos: false,
-        nextReposUrl: ''
+        nextReposUrl: null
       },
       userSubscriptions: {
-        repos: [],
-        hasMoreRepos: false,
-        nextReposUrl: ''
+        repos: [{
+          "details": slicedRepo,
+          "id": slicedRepo.id,
+          "issues": {
+            "count": 0,
+            "hasAssignedIssues": false,
+            "issues": [],
+            "openIssues": 0,
+            "pullRequests": 0,
+          }
+        }],
+        nextReposUrl: null
       }
     })
   });
 
+  it('should test get user subscriptions and user repositories and user details', () => {
+    let slicedRepo = MOCK_USER_SUBSCRIPTIONS.slice(0, 1);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
+      userDetails: {
+        username: MOCK_USER_DETAILS.login,
+        avatar: MOCK_USER_DETAILS.avatar_url
+      }
+    });
+    let action2 = githubStoreReducer(action1, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
+      userRepositories: [{
+        id: slicedRepo.id,
+        details: slicedRepo,
+      }],
+      nextReposUrl: null
+    });
+    let action3 = githubStoreReducer(action2, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
+      userSubscriptions: [{
+        id: slicedRepo.id,
+        details: slicedRepo,
+      }],
+      nextReposUrl: null
+    });
 
-  xit('should return get user repositories and initial user details', () => {
+    expect(action3).toEqual({
+      userDetails: {
+        username: MOCK_USER_DETAILS.login,
+        avatar: MOCK_USER_DETAILS.avatar_url
+      },
+      userRepositories: {
+        repos: [{
+          "details": slicedRepo,
+          "id": slicedRepo.id,
+          "issues": {
+            "count": 0,
+            "hasAssignedIssues": false,
+            "issues": [],
+            "openIssues": 0,
+            "pullRequests": 0,
+          }
+        }],
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: [{
+          "details": slicedRepo,
+          "id": slicedRepo.id,
+          "issues": {
+            "count": 0,
+            "hasAssignedIssues": false,
+            "issues": [],
+            "openIssues": 0,
+            "pullRequests": 0,
+          }
+        }],
+        nextReposUrl: null
+      }
+    })
+  });
+
+  it('should test adding 9 + 9 user repositories', () => {
+    let expectedSlicedReposFirst = [];
+    let expectedSlicedReposSecond = [];
+    let slicedReposFirst = MOCK_ISSUES_USER_REPOSITORIES.slice(0, 9);
+    let slicedReposSecond = MOCK_ISSUES_USER_REPOSITORIES.slice(9);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
+      userRepositories: slicedReposFirst,
+      nextReposUrl: null
+    });
+
+    slicedReposFirst.forEach((repo) => {
+      expectedSlicedReposFirst.push({
+        "details": repo.details,
+        "id": repo.id,
+        "issues": {
+          "count": 0,
+          "hasAssignedIssues": false,
+          "issues": [],
+          "openIssues": 0,
+          "pullRequests": 0
+        }
+      })
+    });
+
+    slicedReposSecond.forEach((repo) => {
+      expectedSlicedReposSecond.push({
+        "details": repo.details,
+        "id": repo.id,
+        "issues": {
+          "count": 0,
+          "hasAssignedIssues": false,
+          "issues": [],
+          "openIssues": 0,
+          "pullRequests": 0
+        }
+      })
+    });
+
+    expect(action1).toEqual({
+      userDetails: {},
+      userRepositories: {
+        repos: expectedSlicedReposFirst,
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: [],
+        nextReposUrl: null
+      }
+    });
+
+    let action2 = githubStoreReducer({
+      userDetails: {},
+      userRepositories: {
+        repos: expectedSlicedReposFirst,
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: [],
+        nextReposUrl: null
+      }
+    }, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
+      userRepositories: slicedReposSecond,
+      nextReposUrl: null
+    });
+
+    expect(action2).toEqual({
+      userDetails: {},
+      userRepositories: {
+        repos: expectedSlicedReposFirst.concat(expectedSlicedReposSecond),
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: [],
+        nextReposUrl: null
+      }
+    });
   });
 
 
-  xit('should return get user subscriptions and initial user details', () => {
+  it('should test adding 15 + 15 user subscriptions', () => {
+    let expectedSlicedReposFirst = [];
+    let expectedSlicedReposSecond = [];
+    let slicedReposFirst = MOCK_ISSUES_USER_SUBSCRIPTIONS.slice(0, 15);
+    let slicedReposSecond = MOCK_ISSUES_USER_SUBSCRIPTIONS.slice(15);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
+      userSubscriptions: slicedReposFirst,
+      nextReposUrl: null
+    });
+
+    slicedReposFirst.forEach((repo) => {
+      expectedSlicedReposFirst.push({
+        "details": repo.details,
+        "id": repo.id,
+        "issues": {
+          "count": 0,
+          "hasAssignedIssues": false,
+          "issues": [],
+          "openIssues": 0,
+          "pullRequests": 0
+        }
+      })
+    });
+
+    slicedReposSecond.forEach((repo) => {
+      expectedSlicedReposSecond.push({
+        "details": repo.details,
+        "id": repo.id,
+        "issues": {
+          "count": 0,
+          "hasAssignedIssues": false,
+          "issues": [],
+          "openIssues": 0,
+          "pullRequests": 0
+        }
+      })
+    });
+
+    expect(action1).toEqual({
+      userDetails: {},
+      userRepositories: {
+        repos: [],
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: expectedSlicedReposFirst,
+        nextReposUrl: null
+      }
+    });
+
+    let action2 = githubStoreReducer({
+      userDetails: {},
+      userRepositories: {
+        repos: [],
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: expectedSlicedReposFirst,
+        nextReposUrl: null
+      }
+    }, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
+      userSubscriptions: slicedReposSecond,
+      nextReposUrl: null
+    });
+
+    expect(action2).toEqual({
+      userDetails: {},
+      userRepositories: {
+        repos: [],
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: expectedSlicedReposFirst.concat(expectedSlicedReposSecond),
+        nextReposUrl: null
+      }
+    });
   });
 
+  it('should test read user details', () => {
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
+      userDetails: {
+        username: MOCK_USER_DETAILS.login,
+        avatar: MOCK_USER_DETAILS.avatar_url
+      }
+    });
+    let action2 = githubStoreReducer(action1, {
+      type: GITHUB_STORE_ACTIONS.READ_USER_DETAILS
+    });
 
-  xit('should test more state permutations, eg subs, repos and user details', () => {
+    expect(action2).toEqual({
+      userDetails: {
+        username: MOCK_USER_DETAILS.login,
+        avatar: MOCK_USER_DETAILS.avatar_url
+      },
+      userRepositories: {
+        repos: [],
+        nextReposUrl: null
+      },
+      userSubscriptions: {
+        repos: [],
+        nextReposUrl: null
+      }
+    })
+  });
+
+  it('should test read user repositories', () => {
+    let expectedSlicedRepos = [];
+    let slicedRepos = MOCK_ISSUES_USER_REPOSITORIES.slice(0, 9);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
+      userRepositories: slicedRepos,
+      nextReposUrl: 'http://api.github.com/thegreenhouse.io?page=2'
+    });
+    let action2 = githubStoreReducer(action1, {
+      type: GITHUB_STORE_ACTIONS.READ_USER_REPOSITORIES
+    });
+
+    slicedRepos.forEach((repo) => {
+      expectedSlicedRepos.push({
+        "details": repo.details,
+        "id": repo.id,
+        "issues": {
+          "count": 0,
+          "hasAssignedIssues": false,
+          "issues": [],
+          "openIssues": 0,
+          "pullRequests": 0
+        }
+      })
+    });
+
+    expect(action2).toEqual({
+      userDetails: {},
+      userRepositories: {
+        repos: expectedSlicedRepos,
+        nextReposUrl: 'http://api.github.com/thegreenhouse.io?page=2'
+      },
+      userSubscriptions: {
+        repos: [],
+        nextReposUrl: null
+      }
+    });
+  });
+
+  it('should test read user subscriptions', () => {
+    let expectedSlicedRepos = [];
+    let slicedRepos = MOCK_ISSUES_USER_SUBSCRIPTIONS.slice(0, 15);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
+      userSubscriptions: slicedRepos,
+      nextReposUrl: 'http://api.github.com/thegreenhouse.io?page=2'
+    });
+    let action2 = githubStoreReducer(action1, {
+      type: GITHUB_STORE_ACTIONS.READ_USER_SUBSCRIPTIONS
+    });
+
+    slicedRepos.forEach((repo) => {
+      expectedSlicedRepos.push({
+        "details": repo.details,
+        "id": repo.id,
+        "issues": {
+          "count": 0,
+          "hasAssignedIssues": false,
+          "issues": [],
+          "openIssues": 0,
+          "pullRequests": 0
+        }
+      })
+    });
+
+    expect(action2).toEqual({
+      userDetails: {},
+      userSubscriptions: {
+        repos: expectedSlicedRepos,
+        nextReposUrl: 'http://api.github.com/thegreenhouse.io?page=2'
+      },
+      userRepositories: {
+        repos: [],
+        nextReposUrl: null
+      }
+    });
+  });
+
+  it('should test getting issues for user repositories', () => {
+    let mockRepo = MOCK_USER_REPOSITORIES.slice(0, 1);
+    let mockIssue = MOCK_ISSUES_USER_REPOSITORIES.slice(0, 1);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
+      userRepositories: [{
+        details: mockRepo.details,
+        id: mockRepo.id,
+        issues: {
+          count: 0,
+          hasAssignedIssues: false,
+          issues: [],
+          openIssues: 0,
+          pullRequests: 0
+        }
+      }],
+      nextReposUrl: null
+    });
+    let action2 = githubStoreReducer(action1, {
+      type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
+      index: 0,
+      issues: {
+        count: 2,
+        hasAssignedIssues: false,
+        issues: mockIssue,
+        openIssues: 1,
+        pullRequests: 1
+      }
+    });
+
+    expect(action2).toEqual({
+      userDetails: {},
+      userSubscriptions: {
+        repos: [],
+        nextReposUrl: null
+      },
+      userRepositories: {
+        repos: [{
+          details: mockRepo.details,
+          id: mockRepo.id,
+          issues: {
+            "count": 2,
+            "hasAssignedIssues": false,
+            "issues": mockIssue,
+            "openIssues": 1,
+            "pullRequests": 1
+          }
+        }],
+        nextReposUrl: null
+      }
+    });
+  });
+
+  it('should test getting issues for user subscriptions', () => {
+    let mockRepo = MOCK_USER_SUBSCRIPTIONS.slice(0, 1);
+    let mockIssue = MOCK_ISSUES_USER_SUBSCRIPTIONS.slice(0, 1);
+    let action1 = githubStoreReducer(MOCK_INIT_STATE, {
+      type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
+      userSubscriptions: [{
+        details: mockRepo.details,
+        id: mockRepo.id,
+        issues: {
+          count: 0,
+          hasAssignedIssues: false,
+          issues: [],
+          openIssues: 0,
+          pullRequests: 0
+        }
+      }],
+      nextReposUrl: 'http://api.github/com/subscriptions?page=2'
+    });
+    let action2 = githubStoreReducer(action1, {
+      type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION,
+      index: 0,
+      issues: {
+        count: 2,
+        hasAssignedIssues: false,
+        issues: mockIssue,
+        openIssues: 1,
+        pullRequests: 1
+      }
+    });
+
+    expect(action2).toEqual({
+      userDetails: {},
+      userSubscriptions: {
+        repos: [{
+          details: mockRepo.details,
+          id: mockRepo.id,
+          issues: {
+            "count": 2,
+            "hasAssignedIssues": false,
+            "issues": mockIssue,
+            "openIssues": 1,
+            "pullRequests": 1
+          }
+        }],
+        nextReposUrl: 'http://api.github/com/subscriptions?page=2'
+      },
+      userRepositories: {
+        repos: [],
+        nextReposUrl: null
+      }
+    });
+
   });
 
 });

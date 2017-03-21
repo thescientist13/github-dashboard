@@ -7,7 +7,6 @@ import RepositoriesTable from '../../components/repositories-table/repositories-
 function mapStateToProps(state) {
   return {
     repositories: state.userRepositories.repos,
-    hasMoreRepos: state.userRepositories.hasMoreRepos,
     nextReposUrl: state.userRepositories.nextReposUrl
   };
 }
@@ -20,7 +19,6 @@ class PersonalRepositoriesView extends React.Component<any, any>{
 
     this.state = {
       repositories: [],
-      hasMoreRepos: false,
       nextReposUrl: ''
     };
   }
@@ -28,7 +26,6 @@ class PersonalRepositoriesView extends React.Component<any, any>{
   componentWillReceiveProps(nextProps) {
     this.setState({
       repositories: nextProps.repositories,
-      hasMoreRepos: nextProps.hasMoreRepos,
       nextReposUrl: nextProps.nextReposUrl
     });
   }
@@ -47,7 +44,7 @@ class PersonalRepositoriesView extends React.Component<any, any>{
         <h3>Personal Repositories</h3>
         <RepositoriesTable
           repositories={this.state.repositories}
-          hasMoreRepos={this.state.hasMoreRepos}
+          hasMoreRepos={this.state.nextReposUrl}
           getNextRepos={this.getNextUserRepositoriesWithIssues.bind(this)}
         />
       </div>
