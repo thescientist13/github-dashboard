@@ -15,13 +15,13 @@ describe('RepositoriesTable Component', () => {
   });
 
   it('should render a table with one repo', () => {
-    const div = document.createElement('div');
+    // const div = document.createElement('div');
 
     let repos = [{
       details: {
         name: 'test-repo',
         hasAssignedIssues: true,
-        html_url: 'http://api.github.com/my-org/my-repo'
+        html_url: 'http://api.github.com/my-org/my-repo' // eslint-disable-line camelcase
       },
       issues: 3,
       pullRequests: 1,
@@ -40,13 +40,13 @@ describe('RepositoriesTable Component', () => {
   });
 
   it('should render a load more repos button', () => {
-    const div = document.createElement('div');
+    // const div = document.createElement('div');
 
     let repos = [{
       details: {
         name: 'test-repo',
         hasAssignedIssues: true,
-        html_url: 'http://api.github.com/my-org/my-repo'
+        html_url: 'http://api.github.com/my-org/my-repo'  // eslint-disable-line camelcase
       },
       issues: 3,
       pullRequests: 1,
@@ -58,5 +58,5 @@ describe('RepositoriesTable Component', () => {
     expect(table.find('button').length).toEqual(1);
   });
 
-  //TODO good oppourtunity for snapshot testing?
+  // TODO good oppourtunity for snapshot testing?
 });
