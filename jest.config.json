@@ -1,5 +1,8 @@
 {
   "verbose": true,
+
+  "coverageReporters": ["html", "json", "lcov", "cobertura"],
+
   "transform": {
     "^.+\\.jsx$": "<rootDir>/node_modules/babel-jest",
     ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
