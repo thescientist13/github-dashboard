@@ -1,14 +1,29 @@
 import * as React from 'react';
+import configureStore from 'redux-mock-store';
+import { mount } from 'enzyme';
 import { render } from 'react-dom';
-import { shallow } from 'enzyme';
-import Bootstrap from './bootstrap';
+import { Bootstrap } from './bootstrap';
 
 describe('Bootstrap Component', () => {
+  let store, container, wrapper;
+
+  const mockStore = configureStore();
+  const initialState = {
+    userDetails: {},
+    userRepositories: {},
+    userSubscriptions: {}
+  };
+
+  function noop () {
+  }
+
+  beforeEach(() => {
+    store = mockStore(initialState);
+    wrapper = mount(<Bootstrap store={ store } dispatch={ noop }/>)
+  });
 
   xit('renders without crashing', () => {
-    const div = document.createElement('section');
-
-    render(<Bootstrap/>, div);
+    expect(wrapper.length).toEqual(1);
   });
 
   xit('should render the shell of the page', () => {

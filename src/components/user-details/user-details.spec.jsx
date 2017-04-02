@@ -18,16 +18,17 @@ describe('UserDetails Component', () => {
   function noop () {
   }
 
-  beforeEach(()=>{
+  beforeEach(() => {
     store = mockStore(initialState);
     wrapper = mount(<UserDetails store={store} dispatch={ noop }/>)
   });
 
   it('renders without crashing', () => {
-    expect(wrapper.length).toEqual(1)
+    expect(wrapper.length).toEqual(1);
   });
 
   it('renders a user\'s details', () => {
+    // TODO is this the best way to test state?
     let state = wrapper.props().store.getState();
 
     expect(wrapper.find('img').length).toEqual(1);
