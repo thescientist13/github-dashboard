@@ -36,6 +36,6 @@ describe('UserDetails Component', () => {
 
     expect(state.userDetails.username).toEqual(initialState.userDetails.username);
     expect(state.userDetails.avatar).toEqual(initialState.userDetails.avatar);
-  })
+  });
 
 });

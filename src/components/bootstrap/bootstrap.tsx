@@ -10,7 +10,7 @@ import Navigation from '../navigation/navigation';
 import UserDetails from '../user-details/user-details';
 
 // TODO any
-class Bootstrap extends React.Component<any, any> {
+export class Bootstrap extends React.Component<any, any> {
   private credentials: CredentialsInterface;
   private githubApi: any;
 
