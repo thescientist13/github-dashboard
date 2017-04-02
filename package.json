@@ -23,12 +23,12 @@
   "homepage": "https://github.com/thescientist13/github-dashboard#readme",
   "scripts": {
     "clean": "rimraf ./build && rimraf ./reports && mkdir ./reports && mkdir ./reports/test-results",
-    "build": "yarn run clean && yarn run test -- --coverage && webpack --config ./webpack.config.prod.js -p --progress --profile --bail",
+    "build": "yarn run clean && yarn run lint:jsx && yarn run test -- --coverage && webpack --config ./webpack.config.prod.js -p --progress --profile --bail",
     "lint:jsx": "eslint ./src/**/**/*.spec.jsx",
     "develop": "webpack-dev-server --config ./webpack.config.dev.js --inline --progress",
     "serve": "webpack --config ./webpack.config.prod.js -p --progress --profile --bail && http-server ./build -o",
     "setup": "rimraf ./src/services/credentials.ts && cp ./src/services/credentials.ts.tmpl ./src/services/credentials.ts",
-    "test": "yarn run lint:jsx && export TEST_REPORT_PATH=./reports/test-results && jest --config ./jest.config.json"
+    "test": "export TEST_REPORT_PATH=./reports/test-results && jest --config ./jest.config.json"
   },
   "dependencies": {
     "axios": "0.15.2",
@@ -63,6 +63,7 @@
     "jest-junit-reporter": "1.0.1",
     "pipeline-validate-js": "1.0.4",
     "react-addons-test-utils": "15.4.2",
+    "redux-mock-store": "^1.2.2",
     "rimraf": "2.5.4",
     "source-map-loader": "0.1.5",
     "style-loader": "0.13.1",

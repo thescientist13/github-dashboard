@@ -5,13 +5,13 @@ import RepositoriesTable from './repositories-table';
 
 describe('RepositoriesTable Component', () => {
 
+  // TODO getNextRepos
   it('renders without crashing', () => {
     const div = document.createElement('div');
 
     render(<RepositoriesTable
       repositories={[]}
-      hasMoreRepos={false}
-      nextReposUrl={undefined}/>, div);
+      nextReposUrl={null}/>, div);
   });
 
   it('should render a table with one repo', () => {
@@ -26,7 +26,7 @@ describe('RepositoriesTable Component', () => {
       openIssues: 2
     }];
 
-    const table = shallow(<RepositoriesTable repositories={repos} hasMoreRepos={false} nextReposUrl={undefined}/>);
+    const table = shallow(<RepositoriesTable repositories={repos} nextReposUrl={null}/>);
 
     expect(table.find('table').length).toEqual(1);
     expect(table.find('thead').length).toEqual(1);
@@ -55,4 +55,32 @@ describe('RepositoriesTable Component', () => {
   });
 
   // TODO good oppourtunity for snapshot testing?
+
+  xit('should test nextReposUrl', () => {
+
+  });
+
+  xit('should test assignee background', () => {
+
+  });
+
+  xit('should test assignee background', () => {
+
+  });
+
+  xit('should test two assigned repos in a row both have a red background color', () => {
+
+  });
+
+  xit('should test links for repos are set correctly', () => {
+
+  });
+
+  xit('should test name for repos are set correctly', () => {
+
+  });
+
+  xit('should test counts for repos are set correctly', () => {
+
+  });
 });

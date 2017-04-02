@@ -11,7 +11,7 @@ function mapStateToProps(state) {
 }
 
 //TODO any
-class UserDetails extends React.Component<any, any> {
+export class UserDetails extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
