@@ -4,14 +4,10 @@ import { shallow } from 'enzyme';
 import RepositoriesTable from './repositories-table';
 
 describe('RepositoriesTable Component', () => {
-
   // TODO getNextRepos
   it('renders without crashing', () => {
-    const div = document.createElement('div');
-
-    render(<RepositoriesTable
-      repositories={[]}
-      nextReposUrl={null}/>, div);
+    let table = shallow(<RepositoriesTable repositories={[]} nextReposUrl={null}/>);
+    expect(table.length).toEqual(1);
   });
 
   it('should render a table with one repo', () => {

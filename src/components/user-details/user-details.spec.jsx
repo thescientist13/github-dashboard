@@ -1,11 +1,10 @@
 import * as React from 'react';
 import configureStore from 'redux-mock-store';
 import { mount } from 'enzyme';
-import { render } from 'react-dom';
 import { UserDetails } from './user-details';
 
 describe('UserDetails Component', () => {
-  let store, container, wrapper;
+  let store, wrapper;
 
   const mockStore = configureStore();
   const initialState = {
