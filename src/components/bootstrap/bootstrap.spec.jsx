@@ -1,14 +1,31 @@
 import * as React from 'react';
-import { render } from 'react-dom';
+import axios from 'axios';
+import configureStore from 'redux-mock-store';
+import MockAdapter from 'axios-mock-adapter';
 import { shallow } from 'enzyme';
-import Bootstrap from './bootstrap';
+import { Bootstrap } from './bootstrap';
 
 describe('Bootstrap Component', () => {
+  let store, mock, wrapper;
+
+  const mockStore = configureStore();
+  const initialState = {
+    userDetails: {},
+    userRepositories: {},
+    userSubscriptions: {}
+  };
+
+  beforeEach(() => {
+    store = mockStore(initialState);
+    wrapper = shallow(<Bootstrap store={ store }/>);
+    mock = new MockAdapter(axios);
+  });
 
   xit('renders without crashing', () => {
-    const div = document.createElement('section');
-
-    render(<Bootstrap/>, div);
+    mock.onGet('https://api.github.com/user').reply(200, {});
+    mock.onGet('https://api.github.com/users/thescientist13/subscriptions').reply(200, {});
+    mock.onGet('https://api.github.com/users/thescientist13/repos').reply(200, {});
+    expect(wrapper.length).toEqual(1);
   });
 
   xit('should render the shell of the page', () => {

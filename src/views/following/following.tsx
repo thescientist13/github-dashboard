@@ -12,7 +12,7 @@ function mapStateToProps(state) {
 }
 
 //TODO change use any, any to use types
-class FollowingRepositoriesView extends React.Component<any, any> {
+export class FollowingRepositoriesView extends React.Component<any, any> {
   constructor(props) {
     super(props);
 

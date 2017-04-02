@@ -6,12 +6,14 @@ import MOCK_USER_DETAILS from '../../test/mocks/user-details.json';
 import MOCK_USER_REPOS from '../../test/mocks/user-repositories.json';
 import MOCK_USER_SUBSCRIPTIONS from '../../test/mocks/user-repositories.json';
 
-
 describe('GitHub API Service', () => {
+  let mock;
+
+  beforeEach(() => {
+    mock = new MockAdapter(axios);
+  });
 
   it('should test getUserDetails returns correct user data', () => {
-    const mock = new MockAdapter(axios);
-
     mock.onGet('https://api.github.com/user').reply(200, MOCK_USER_DETAILS);
 
     let userDetails = new GithubApi(MOCK_USER_CREDENTIALS).getUserDetails().then((response) => {
@@ -22,8 +24,6 @@ describe('GitHub API Service', () => {
   });
 
   it('should test getUserRepositories returns correct user repositories data with no more repos', () => {
-    const mock = new MockAdapter(axios);
-
     mock.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/repos').reply(200, MOCK_USER_REPOS, {});
 
     new GithubApi(MOCK_USER_CREDENTIALS).getUserRepositories().then((response) => {
@@ -36,8 +36,6 @@ describe('GitHub API Service', () => {
   });
 
   it('should test getUserRepositories returns correct user repositories data with additional repos', () => {
-    const mock = new MockAdapter(axios);
-
     mock.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/repos').reply(200, MOCK_USER_REPOS,  {
       link: '<https://api.github.com/user/895923/repos?page=2>; rel="next", <https://api.github.com/user/895923/repos?page=5>; rel="last"'
     });
@@ -53,8 +51,6 @@ describe('GitHub API Service', () => {
 
 
   it('should test getUserSubscriptions returns correct user subscriptions data with more repos', () => {
-    const mock = new MockAdapter(axios);
-
     mock.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/subscriptions').reply(200, MOCK_USER_SUBSCRIPTIONS, {
       link: '<https://api.github.com/user/895923/subscriptions?page=2>; rel="next", <https://api.github.com/user/895923/subscriptions?page=5>; rel="last"'
     });
@@ -69,8 +65,6 @@ describe('GitHub API Service', () => {
   });
 
   it('should test getUserSubscriptions returns no user subscriptions with no more repos', () => {
-    const mock = new MockAdapter(axios);
-
     mock.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/subscriptions').reply(200, [], {});
 
     new GithubApi(MOCK_USER_CREDENTIALS).getUserSubscriptions().then((response) => {
@@ -83,8 +77,6 @@ describe('GitHub API Service', () => {
   });
 
   it('should test getUserRepositories returns correct user repositories data with no more repos', () => {
-    const mock = new MockAdapter(axios);
-
     mock.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/subscriptions').reply(200, MOCK_USER_REPOS, {
       link: '<https://api.github.com/user/895923/subscriptions?page=2>; rel="next", <https://api.github.com/user/895923/subscriptions?page=5>; rel="last"'
     });
