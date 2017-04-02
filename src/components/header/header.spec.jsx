@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { render } from 'react-dom';
 import { shallow } from 'enzyme';
 import Header from './header';
 
@@ -7,7 +6,7 @@ describe('Header Component', () => {
   let header;
 
   beforeEach(() => {
-    header = shallow(<Header/>)
+    header = shallow(<Header/>);
   });
 
   it('renders without crashing', () => {

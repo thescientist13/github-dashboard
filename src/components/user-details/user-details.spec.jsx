@@ -19,7 +19,7 @@ describe('UserDetails Component', () => {
 
   beforeEach(() => {
     store = mockStore(initialState);
-    wrapper = mount(<UserDetails store={store} dispatch={ noop }/>)
+    wrapper = mount(<UserDetails store={ store } dispatch={ noop }/>);
   });
 
   it('renders without crashing', () => {

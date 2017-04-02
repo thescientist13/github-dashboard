@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { render } from 'react-dom';
 import { shallow } from 'enzyme';
 import Footer from './footer';
 
@@ -7,7 +6,7 @@ describe('Footer Component', () => {
   let footer;
 
   beforeEach(() => {
-    footer = shallow(<Footer/>)
+    footer = shallow(<Footer/>);
   });
 
   it('renders without crashing', () => {

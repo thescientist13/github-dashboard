@@ -1,7 +1,6 @@
 import * as React from 'react';
 import configureStore from 'redux-mock-store';
 import { mount } from 'enzyme';
-import { render } from 'react-dom';
 import { FollowingRepositoriesView } from './following';
 
 describe('Following View Component', () => {
@@ -18,7 +17,7 @@ describe('Following View Component', () => {
 
   beforeEach(() => {
     store = mockStore(initialState);
-    wrapper = mount(<FollowingRepositoriesView store={store} dispatch={ noop }/>)
+    wrapper = mount(<FollowingRepositoriesView store={ store } dispatch={ noop }/>);
   });
 
   it('renders without crashing', () => {

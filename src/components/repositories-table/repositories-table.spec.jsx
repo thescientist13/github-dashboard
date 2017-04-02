@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { render } from 'react-dom';
 import { shallow } from 'enzyme';
 import RepositoriesTable from './repositories-table';
 
@@ -7,6 +6,7 @@ describe('RepositoriesTable Component', () => {
   // TODO getNextRepos
   it('renders without crashing', () => {
     let table = shallow(<RepositoriesTable repositories={[]} nextReposUrl={null}/>);
+
     expect(table.length).toEqual(1);
   });
 

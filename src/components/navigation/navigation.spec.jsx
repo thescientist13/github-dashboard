@@ -7,7 +7,7 @@ describe('Navigation Component', () => {
   let navigation;
 
   beforeEach(() => {
-    navigation = shallow(<Navigation/>)
+    navigation = shallow(<Navigation/>);
   });
 
   it('renders without crashing', () => {

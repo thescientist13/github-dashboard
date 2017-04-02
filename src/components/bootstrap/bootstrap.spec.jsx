@@ -1,10 +1,12 @@
 import * as React from 'react';
+import axios from 'axios';
 import configureStore from 'redux-mock-store';
-import { mount } from 'enzyme';
+import MockAdapter from 'axios-mock-adapter';
+import { shallow } from 'enzyme';
 import { Bootstrap } from './bootstrap';
 
 describe('Bootstrap Component', () => {
-  let store, container, wrapper;
+  let store, mock, wrapper;
 
   const mockStore = configureStore();
   const initialState = {
@@ -13,15 +15,16 @@ describe('Bootstrap Component', () => {
     userSubscriptions: {}
   };
 
-  function noop () {
-  }
-
   beforeEach(() => {
     store = mockStore(initialState);
-    wrapper = mount(<Bootstrap store={ store } dispatch={ noop }/>)
+    wrapper = shallow(<Bootstrap store={ store }/>);
+    mock = new MockAdapter(axios);
   });
 
   xit('renders without crashing', () => {
+    mock.onGet('https://api.github.com/user').reply(200, {});
+    mock.onGet('https://api.github.com/users/thescientist13/subscriptions').reply(200, {});
+    mock.onGet('https://api.github.com/users/thescientist13/repos').reply(200, {});
     expect(wrapper.length).toEqual(1);
   });
 
