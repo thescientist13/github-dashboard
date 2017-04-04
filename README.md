@@ -15,8 +15,7 @@ to you, and direct link directly to any repo.  You can check out a full product 
 
 ![GitHub Dashboard](https://s3.amazonaws.com/hosted.thegreenhouse.io/oss-projects/github-dashboard/github-dashboard.png)
 
-To run, all that is required is to you have the latest LTS version of [Node][] installed (v6.x) and the package manager,
-[Yarn][]. A GitHub access token will also need to be generated.  The _Setup_ section below will cover all of this.
+To run, all that is required is the latest LTS version of [Node][] installed (v6.x) and the package manager, [Yarn][]. A GitHub access token will also need to be generated.  The _Setup_ section below will cover all of this.
 
 [Node]: https://nodejs.org/
 [Yarn]: https://yarnpkg.com/
