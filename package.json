@@ -63,6 +63,7 @@
     "jest-junit-reporter": "1.0.1",
     "pipeline-validate-js": "1.0.4",
     "react-addons-test-utils": "15.4.2",
+    "react-test-renderer": "^15.4.2",
     "redux-mock-store": "^1.2.2",
     "rimraf": "2.5.4",
     "source-map-loader": "0.1.5",

@@ -6,6 +6,7 @@ export interface GithubUserInterface {
   username: string
 }
 
+// TODO any
 export interface GithubIssueInterface {
   details: any
 }
