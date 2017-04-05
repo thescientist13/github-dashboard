@@ -1,0 +1,716 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RepositoriesTable Component should render a table of repos with assignees, pull requests, and issues using snapshot testing 1`] = `
+<div>
+  <table
+    className="table table-bordered table-striped table-hover"
+  >
+    <thead>
+      <tr>
+        <th>
+          Repo Name
+        </th>
+        <th>
+          Total Issues
+        </th>
+        <th>
+          Pull Requests
+        </th>
+        <th>
+          Open Issues
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo1"
+            target="_blank"
+          >
+            1) test-repo1
+          </a>
+        </td>
+        <td>
+          1
+           
+        </td>
+        <td>
+          0
+        </td>
+        <td>
+          1
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo2"
+            target="_blank"
+          >
+            2) test-repo2
+          </a>
+        </td>
+        <td>
+          3
+           
+        </td>
+        <td>
+          1
+        </td>
+        <td>
+          2
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo3"
+            target="_blank"
+          >
+            3) test-repo3
+          </a>
+        </td>
+        <td>
+          5
+           
+        </td>
+        <td>
+          2
+        </td>
+        <td>
+          3
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo4"
+            target="_blank"
+          >
+            4) test-repo4
+          </a>
+        </td>
+        <td>
+          7
+           
+        </td>
+        <td>
+          3
+        </td>
+        <td>
+          4
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo5"
+            target="_blank"
+          >
+            5) test-repo5
+          </a>
+        </td>
+        <td>
+          9
+           
+        </td>
+        <td>
+          4
+        </td>
+        <td>
+          5
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo6"
+            target="_blank"
+          >
+            6) test-repo6
+          </a>
+        </td>
+        <td>
+          11
+           
+        </td>
+        <td>
+          5
+        </td>
+        <td>
+          6
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo7"
+            target="_blank"
+          >
+            7) test-repo7
+          </a>
+        </td>
+        <td>
+          13
+           
+        </td>
+        <td>
+          6
+        </td>
+        <td>
+          7
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo8"
+            target="_blank"
+          >
+            8) test-repo8
+          </a>
+        </td>
+        <td>
+          15
+           
+        </td>
+        <td>
+          7
+        </td>
+        <td>
+          8
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo9"
+            target="_blank"
+          >
+            9) test-repo9
+          </a>
+        </td>
+        <td>
+          17
+           
+        </td>
+        <td>
+          8
+        </td>
+        <td>
+          9
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo10"
+            target="_blank"
+          >
+            10) test-repo10
+          </a>
+        </td>
+        <td>
+          19
+           
+        </td>
+        <td>
+          9
+        </td>
+        <td>
+          10
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo11"
+            target="_blank"
+          >
+            11) test-repo11
+          </a>
+        </td>
+        <td>
+          21
+           
+        </td>
+        <td>
+          10
+        </td>
+        <td>
+          11
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo12"
+            target="_blank"
+          >
+            12) test-repo12
+          </a>
+        </td>
+        <td>
+          23
+           
+        </td>
+        <td>
+          11
+        </td>
+        <td>
+          12
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo13"
+            target="_blank"
+          >
+            13) test-repo13
+          </a>
+        </td>
+        <td>
+          25
+           
+        </td>
+        <td>
+          12
+        </td>
+        <td>
+          13
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo14"
+            target="_blank"
+          >
+            14) test-repo14
+          </a>
+        </td>
+        <td>
+          27
+           
+        </td>
+        <td>
+          13
+        </td>
+        <td>
+          14
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo15"
+            target="_blank"
+          >
+            15) test-repo15
+          </a>
+        </td>
+        <td>
+          29
+           
+        </td>
+        <td>
+          14
+        </td>
+        <td>
+          15
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo16"
+            target="_blank"
+          >
+            16) test-repo16
+          </a>
+        </td>
+        <td>
+          31
+           
+        </td>
+        <td>
+          15
+        </td>
+        <td>
+          16
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo17"
+            target="_blank"
+          >
+            17) test-repo17
+          </a>
+        </td>
+        <td>
+          33
+           
+        </td>
+        <td>
+          16
+        </td>
+        <td>
+          17
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo18"
+            target="_blank"
+          >
+            18) test-repo18
+          </a>
+        </td>
+        <td>
+          35
+           
+        </td>
+        <td>
+          17
+        </td>
+        <td>
+          18
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo19"
+            target="_blank"
+          >
+            19) test-repo19
+          </a>
+        </td>
+        <td>
+          37
+           
+        </td>
+        <td>
+          18
+        </td>
+        <td>
+          19
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo20"
+            target="_blank"
+          >
+            20) test-repo20
+          </a>
+        </td>
+        <td>
+          39
+           
+        </td>
+        <td>
+          19
+        </td>
+        <td>
+          20
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo21"
+            target="_blank"
+          >
+            21) test-repo21
+          </a>
+        </td>
+        <td>
+          41
+           
+        </td>
+        <td>
+          20
+        </td>
+        <td>
+          21
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo22"
+            target="_blank"
+          >
+            22) test-repo22
+          </a>
+        </td>
+        <td>
+          43
+           
+        </td>
+        <td>
+          21
+        </td>
+        <td>
+          22
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo23"
+            target="_blank"
+          >
+            23) test-repo23
+          </a>
+        </td>
+        <td>
+          45
+           
+        </td>
+        <td>
+          22
+        </td>
+        <td>
+          23
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo24"
+            target="_blank"
+          >
+            24) test-repo24
+          </a>
+        </td>
+        <td>
+          47
+           
+        </td>
+        <td>
+          23
+        </td>
+        <td>
+          24
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo25"
+            target="_blank"
+          >
+            25) test-repo25
+          </a>
+        </td>
+        <td>
+          49
+           
+        </td>
+        <td>
+          24
+        </td>
+        <td>
+          25
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo26"
+            target="_blank"
+          >
+            26) test-repo26
+          </a>
+        </td>
+        <td>
+          51
+           
+        </td>
+        <td>
+          25
+        </td>
+        <td>
+          26
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo27"
+            target="_blank"
+          >
+            27) test-repo27
+          </a>
+        </td>
+        <td>
+          53
+           
+        </td>
+        <td>
+          26
+        </td>
+        <td>
+          27
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo28"
+            target="_blank"
+          >
+            28) test-repo28
+          </a>
+        </td>
+        <td>
+          55
+           
+        </td>
+        <td>
+          27
+        </td>
+        <td>
+          28
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo29"
+            target="_blank"
+          >
+            29) test-repo29
+          </a>
+        </td>
+        <td>
+          57
+           
+        </td>
+        <td>
+          28
+        </td>
+        <td>
+          29
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo30"
+            target="_blank"
+          >
+            30) test-repo30
+          </a>
+        </td>
+        <td>
+          59
+           
+        </td>
+        <td>
+          29
+        </td>
+        <td>
+          30
+        </td>
+      </tr>
+      <tr
+        className="bg-danger"
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo31"
+            target="_blank"
+          >
+            31) test-repo31
+          </a>
+        </td>
+        <td>
+          61
+           
+        </td>
+        <td>
+          30
+        </td>
+        <td>
+          31
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button
+    className="btn btn-primary"
+    onClick={[Function]}
+  >
+    Load More
+  </button>
+</div>
+`;

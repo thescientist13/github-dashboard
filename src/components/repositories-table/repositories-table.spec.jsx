@@ -1,9 +1,9 @@
 import * as React from 'react';
+import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import RepositoriesTable from './repositories-table';
 
 describe('RepositoriesTable Component', () => {
-  // TODO getNextRepos
   it('renders without crashing', () => {
     let table = shallow(<RepositoriesTable repositories={[]} nextReposUrl={null}/>);
 
@@ -14,12 +14,13 @@ describe('RepositoriesTable Component', () => {
     let repos = [{
       details: {
         name: 'test-repo',
-        hasAssignedIssues: true,
         html_url: 'http://api.github.com/my-org/my-repo' // eslint-disable-line camelcase
       },
-      issues: 3,
+      issues: [],
+      count: 3,
       pullRequests: 1,
-      openIssues: 2
+      openIssues: 2,
+      hasAssignedIssues: false
     }];
 
     const table = shallow(<RepositoriesTable repositories={repos} nextReposUrl={null}/>);
@@ -37,10 +38,11 @@ describe('RepositoriesTable Component', () => {
     let repos = [{
       details: {
         name: 'test-repo',
-        hasAssignedIssues: true,
         html_url: 'http://api.github.com/my-org/my-repo'  // eslint-disable-line camelcase
       },
-      issues: 3,
+      hasAssignedIssues: true,
+      issues: [],
+      count: 3,
       pullRequests: 1,
       openIssues: 2
     }];
@@ -50,33 +52,36 @@ describe('RepositoriesTable Component', () => {
     expect(table.find('button').length).toEqual(1);
   });
 
-  // TODO good oppourtunity for snapshot testing?
+  it('should render a table of repos with assignees, pull requests, and issues using snapshot testing', () => {
+    let repos = [];
 
-  xit('should test nextReposUrl', () => {
+    function noop() {
+      return () => {};
+    }
 
+    for (let i = 0; i <= 30; i += 1) {
+      let nextInc = i + 1;
+
+      repos.push({
+        details: {
+          name: 'test-repo' + nextInc,
+          html_url: 'http://api.github.com/my-org/my-repo' + nextInc  // eslint-disable-line camelcase
+        },
+        issues: {
+          hasAssignedIssues: i % 2 === 0 || i === 3,  // ensure we have a case where user is the assignee two consecutive row (test bootstrap style hack)
+          issues: new Array(i + nextInc),  // intentionally empty, not issue meta data is shownn
+          count: i + nextInc,
+          pullRequests: i,
+          openIssues: nextInc
+        }
+      });
+    }
+
+    const tree = renderer.create(
+      <RepositoriesTable repositories={repos} hasMoreRepos={true} getNextRepos={ noop.bind(this) }/>
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
   });
 
-  xit('should test assignee background', () => {
-
-  });
-
-  xit('should test assignee background', () => {
-
-  });
-
-  xit('should test two assigned repos in a row both have a red background color', () => {
-
-  });
-
-  xit('should test links for repos are set correctly', () => {
-
-  });
-
-  xit('should test name for repos are set correctly', () => {
-
-  });
-
-  xit('should test counts for repos are set correctly', () => {
-
-  });
 });
