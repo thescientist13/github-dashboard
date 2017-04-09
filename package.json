@@ -23,16 +23,17 @@
   "homepage": "https://github.com/thescientist13/github-dashboard#readme",
   "scripts": {
     "clean": "rimraf ./build && rimraf ./reports && mkdir ./reports && mkdir ./reports/test-results",
-    "build": "yarn run clean && yarn run lint:jsx && yarn run test -- --coverage && webpack --config ./webpack.config.prod.js -p --progress --profile --bail",
+    "build": "webpack --config ./webpack.config.prod.js -p --progress --profile --bail",
     "lint:jsx": "eslint ./src/**/**/*.spec.jsx",
     "develop": "webpack-dev-server --config ./webpack.config.dev.js --inline --progress",
     "serve": "webpack --config ./webpack.config.prod.js -p --progress --profile --bail && http-server ./build -o",
     "setup": "rimraf ./src/services/credentials.ts && cp ./src/services/credentials.ts.tmpl ./src/services/credentials.ts",
-    "test": "export TEST_REPORT_PATH=./reports/test-results && jest --config ./jest.config.json"
+    "test": "export TEST_REPORT_PATH=./reports/test-results && yarn run lint:jsx && jest --config ./jest.config.json"
   },
   "dependencies": {
     "axios": "0.15.2",
     "bootstrap": "3.3.7",
+    "immutable": "^3.8.1",
     "react": "15.4.0",
     "react-dom": "15.4.0",
     "react-redux": "4.4.6",

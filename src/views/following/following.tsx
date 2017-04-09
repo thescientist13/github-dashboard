@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { readUserSubscriptions } from '../../stores/github-store';
 import RepositoriesTable from '../../components/repositories-table/repositories-table';
 
-
 function mapStateToProps(state) {
   return {
-    repositories: state.userSubscriptions.repos,
+    repositories: state.userSubscriptions.repositories,
     nextReposUrl: state.userSubscriptions.nextReposUrl
   };
 }
@@ -23,6 +22,7 @@ export class FollowingRepositoriesView extends React.Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps) {
+    //console.log('nextPROPS', nextProps);
     this.setState({
       repositories: nextProps.repositories,
       nextReposUrl: nextProps.nextReposUrl
