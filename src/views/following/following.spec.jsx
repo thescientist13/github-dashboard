@@ -27,7 +27,6 @@ describe('Following View Component', () => {
   });
 
   it('it checks the following view has the right data', () => {
-    // TODO is this the best way to test state?
     let state = wrapper.props().store.getState();
 
     expect(state.repositories.length).toEqual(3);

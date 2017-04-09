@@ -24,7 +24,6 @@ function mapStateToProps(state: FollowingStateInterface) {
   };
 }
 
-//TODO change use any, any to use types
 export class FollowingRepositoriesView extends React.Component<FollowingPropsInterface, FollowingStateInterface> {
 
   constructor(props: FollowingPropsInterface) {

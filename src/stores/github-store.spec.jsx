@@ -12,11 +12,11 @@ const MOCK_INIT_STATE = {
   },
   userSubscriptions: {
     repositories: [],
-    nextReposUrl: null
+    nextReposUrl: undefined
   },
   userRepositories: {
     repositories: [],
-    nextReposUrl: null
+    nextReposUrl: undefined
   }
 };
 
@@ -41,20 +41,42 @@ describe('GitHub Store Actions', () => {
     const expectedAction = {
       type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
       repositories: MOCK_USER_REPOSITORIES,
-      nextReposUrl: null
+      nextReposUrl: undefined
     };
 
-    expect(getUserRepositories(MOCK_USER_REPOSITORIES, null)).toEqual(expectedAction);
+    expect(getUserRepositories(MOCK_USER_REPOSITORIES, undefined)).toEqual(expectedAction);
+  });
+
+  it('should test get user repositories action with nextReposUrl', () => {
+    const url = 'http://api.github.com?page=1';
+    const expectedAction = {
+      type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
+      repositories: MOCK_USER_REPOSITORIES,
+      nextReposUrl: url
+    };
+
+    expect(getUserRepositories(MOCK_USER_REPOSITORIES, url)).toEqual(expectedAction);
   });
 
   it('it should test get user subscriptions action', () => {
     const expectedAction = {
       type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
       repositories: MOCK_USER_SUBSCRIPTIONS,
-      nextReposUrl: 'http://api.github.com?page=2'
+      nextReposUrl: undefined
     };
 
-    expect(getUserSubscriptions(MOCK_USER_SUBSCRIPTIONS, 'http://api.github.com?page=2')).toEqual(expectedAction);
+    expect(getUserSubscriptions(MOCK_USER_SUBSCRIPTIONS, undefined)).toEqual(expectedAction);
+  });
+
+  it('it should test get user subscriptions action with nextReposUrl', () => {
+    const url = 'http://api.github.com?page=2';
+    const expectedAction = {
+      type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
+      repositories: MOCK_USER_SUBSCRIPTIONS,
+      nextReposUrl: url
+    };
+
+    expect(getUserSubscriptions(MOCK_USER_SUBSCRIPTIONS, url)).toEqual(expectedAction);
   });
 
   it('should test get issues for a user repository action', () => {
@@ -110,7 +132,6 @@ describe('GitHub Store Reducer', () => {
       avatar: MOCK_USER_DETAILS.avatar_url
     };
 
-
     expect(githubStoreReducer(MOCK_INIT_STATE, action)).toEqual({
       userDetails: {
         username: MOCK_USER_DETAILS.login,
@@ -118,11 +139,11 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userSubscriptions: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     })
   });
@@ -132,7 +153,7 @@ describe('GitHub Store Reducer', () => {
     const action = {
       type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
       repositories: mockRepos,
-      nextReposUrl: null
+      nextReposUrl: undefined
     };
 
     expect(githubStoreReducer(MOCK_INIT_STATE, action)).toEqual({
@@ -147,11 +168,11 @@ describe('GitHub Store Reducer', () => {
           url: mockRepos[0].url,
           owner: mockRepos[0].owner
         }],
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userSubscriptions: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     })
   });
@@ -161,7 +182,7 @@ describe('GitHub Store Reducer', () => {
     const action = {
       type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
       repositories: mockRepos,
-      nextReposUrl: null,
+      nextReposUrl: undefined,
     };
 
     expect(githubStoreReducer(MOCK_INIT_STATE, action)).toEqual({
@@ -176,11 +197,11 @@ describe('GitHub Store Reducer', () => {
           url: mockRepos[0].url,
           owner: mockRepos[0].owner
         }],
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userRepositories: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     })
   });
@@ -195,7 +216,7 @@ describe('GitHub Store Reducer', () => {
     const action2 = githubStoreReducer(action1, {
       type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
       repositories: mockRepos,
-      nextReposUrl: null
+      nextReposUrl: undefined
     });
 
     expect(action2).toEqual({
@@ -210,11 +231,11 @@ describe('GitHub Store Reducer', () => {
           url: mockRepos[0].url,
           owner: mockRepos[0].owner
         }],
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userSubscriptions: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     })
   });
@@ -229,7 +250,7 @@ describe('GitHub Store Reducer', () => {
     const action2 = githubStoreReducer(action1, {
       type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
       repositories: mockRepos,
-      nextReposUrl: null
+      nextReposUrl: undefined
     });
 
     expect(action2).toEqual({
@@ -239,7 +260,7 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userSubscriptions: {
         repositories: [{
@@ -248,7 +269,7 @@ describe('GitHub Store Reducer', () => {
           url: mockRepos[0].url,
           owner: mockRepos[0].owner
         }],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     })
   });
@@ -263,12 +284,12 @@ describe('GitHub Store Reducer', () => {
     const action2 = githubStoreReducer(action1, {
       type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
       repositories: mockRepos,
-      nextReposUrl: null
+      nextReposUrl: undefined
     });
     const action3 = githubStoreReducer(action2, {
       type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
       repositories: mockRepos,
-      nextReposUrl: null
+      nextReposUrl: undefined
     });
 
     expect(action3).toEqual({
@@ -283,7 +304,7 @@ describe('GitHub Store Reducer', () => {
           url: mockRepos[0].url,
           owner: mockRepos[0].owner
         }],
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userSubscriptions: {
         repositories: [{
@@ -292,7 +313,7 @@ describe('GitHub Store Reducer', () => {
           url: mockRepos[0].url,
           owner: mockRepos[0].owner
         }],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     })
   });
@@ -305,7 +326,7 @@ describe('GitHub Store Reducer', () => {
     let action1 = githubStoreReducer(MOCK_INIT_STATE, {
       type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
       repositories: slicedReposFirst,
-      nextReposUrl: null
+      nextReposUrl: undefined
     });
 
     slicedReposFirst.forEach((repo) => {
@@ -333,11 +354,11 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repositories: expectedSlicedReposFirst,
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userSubscriptions: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     });
 
@@ -348,16 +369,16 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repositories: expectedSlicedReposFirst,
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userSubscriptions: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     }, {
       type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
       repositories: slicedReposSecond,
-      nextReposUrl: null
+      nextReposUrl: undefined
     });
 
     expect(action2).toEqual({
@@ -367,11 +388,11 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repositories: expectedSlicedReposFirst.concat(expectedSlicedReposSecond),
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userSubscriptions: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     });
   });
@@ -385,7 +406,7 @@ describe('GitHub Store Reducer', () => {
     let action1 = githubStoreReducer(MOCK_INIT_STATE, {
       type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
       repositories: slicedReposFirst,
-      nextReposUrl: null
+      nextReposUrl: undefined
     });
 
     slicedReposFirst.forEach((repo) => {
@@ -413,11 +434,11 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userSubscriptions: {
         repositories: expectedSlicedReposFirst,
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     });
 
@@ -428,16 +449,16 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userSubscriptions: {
         repositories: expectedSlicedReposFirst,
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     }, {
       type: GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS,
       repositories: slicedReposSecond,
-      nextReposUrl: null
+      nextReposUrl: undefined
     });
 
     expect(action2).toEqual({
@@ -447,11 +468,11 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userSubscriptions: {
         repositories: expectedSlicedReposFirst.concat(expectedSlicedReposSecond),
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     });
   });
@@ -473,11 +494,11 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userSubscriptions: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     })
   });
@@ -514,7 +535,7 @@ describe('GitHub Store Reducer', () => {
       },
       userSubscriptions: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     });
   });
@@ -551,7 +572,7 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     });
   });
@@ -569,7 +590,7 @@ describe('GitHub Store Reducer', () => {
         openIssues: 0,
         pullRequests: 0
       }],
-      nextReposUrl: null
+      nextReposUrl: undefined
     });
     let action2 = githubStoreReducer(action1, {
       type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
@@ -587,7 +608,7 @@ describe('GitHub Store Reducer', () => {
       },
       userSubscriptions: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       },
       userRepositories: {
         repositories: [{
@@ -597,7 +618,7 @@ describe('GitHub Store Reducer', () => {
           openIssues: 1,
           pullRequests: 1
         }],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     });
   });
@@ -643,7 +664,7 @@ describe('GitHub Store Reducer', () => {
       },
       userRepositories: {
         repositories: [],
-        nextReposUrl: null
+        nextReposUrl: undefined
       }
     });
 
