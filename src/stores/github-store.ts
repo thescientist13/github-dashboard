@@ -1,4 +1,4 @@
-import { RepositoryInterface, UserInterface, IssueDetailsInterface } from '../services/github-api';
+import { RepositoryInterface, UserInterface, IssueInterface, IssueDetailsInterface } from '../services/github-api';
 
 interface StoreState {
   userDetails: {
@@ -41,15 +41,62 @@ export const GITHUB_STORE_ACTIONS = {
   READ_USER_SUBSCRIPTIONS: 'READ_USER_SUBSCRIPTIONS'
 };
 
+function mapGitHubReposToStateRepos(repositories: Array<RepositoryInterface>, action: any) {
+  let newState: Array<RepositoryInterface> = [].concat(repositories);
+
+  action.repositories.forEach((responseItem: RepositoryInterface, index: number) => {
+    let match = false;
+
+    //iterate over each current item in state to find matches
+    repositories.forEach((stateItem: RepositoryInterface) => {
+
+      // we update the state (maybe from the outside world?) if the repository is pre-existing in the store (eg. PUT)
+      if (responseItem.id === stateItem.id) {
+        newState[index] = stateItem;
+        match = true;
+
+        return match;
+      }
+    });
+
+    // we assume then that this is a new repository fetched from the API (eg. POST)
+    if (!match) {
+      newState.push({
+        id: responseItem.id,
+        name: responseItem.name,
+        url: responseItem.url,
+        owner: responseItem.owner
+      })
+    }
+  });
+
+  return newState;
+}
+
+function mapGitHubIssuesToStateRepository(repositories: Array<RepositoryInterface>, action: any) {
+  let newState: Array<RepositoryInterface> = [].concat(repositories);
+
+  repositories.forEach((item: RepositoryInterface, index: number) => {
+    let aIdx = action.index;
+
+    if(aIdx === index) {
+      newState[index].issues = action.issues;
+      newState[index].openIssues = action.openIssues;
+      newState[index].pullRequests = action.pullRequests;
+      newState[index].hasAssignedIssues = action.hasAssignedIssues;
+    }
+  });
+
+  return newState;
+}
+
 //TODO state should be immutable!
 const githubStoreReducer = function(state: StoreState, action: any) {
 
-  //TODO initialize default data in constructor?
   if(typeof state === 'undefined'){
     return initialState;
   }
 
-  // GET - user details
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_DETAILS) {
     let newState: UserInterface = {
       username: action.username,
@@ -61,37 +108,8 @@ const githubStoreReducer = function(state: StoreState, action: any) {
     });
   }
 
-  //GET - repositories
-  //XXX TODO LOTS OF DUPLICATION IN THIS CODE
-  //XXX TODO SHOULD HAVE UNIT TESTS
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES) {
-    let newState: Array<RepositoryInterface> = [].concat(state.userRepositories.repositories);
-
-    action.repositories.forEach((responseItem: RepositoryInterface, index: number) => {
-      let match = false;
-
-      //iterate over each current item in state to find matches
-      state.userRepositories.repositories.forEach((stateItem: RepositoryInterface) => {
-
-        // we update the state (maybe from the outside world?) if the repository is pre-existing in the store (eg. PUT)
-        if (responseItem.id === stateItem.id) {
-          newState[index] = stateItem;
-          match = true;
-
-          return match;
-        }
-      });
-
-      // we assume then that this is a new repository fetched from the API (eg. POST)
-      if (!match) {
-        newState.push({
-          id: responseItem.id,
-          name: responseItem.name,
-          url: responseItem.url,
-          owner: responseItem.owner
-        })
-      }
-    });
+    const newState = mapGitHubReposToStateRepos(state.userRepositories.repositories, action);
 
     return (<any>Object).assign({}, state, {
       userRepositories: {
@@ -102,28 +120,7 @@ const githubStoreReducer = function(state: StoreState, action: any) {
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS) {
-    let newState: Array<RepositoryInterface> = [].concat(state.userSubscriptions.repositories);
-
-    action.repositories.forEach((responseItem: RepositoryInterface, index: number) => {
-      let match = false;
-
-      state.userSubscriptions.repositories.forEach((stateItem: RepositoryInterface) => {
-        if (responseItem.id === stateItem.id) {
-          newState[index] = responseItem;
-          match = true;
-          return match;
-        }
-      });
-
-      if (!match) {
-        newState.push({
-          id: responseItem.id,
-          name: responseItem.name,
-          url: responseItem.url,
-          owner: responseItem.owner
-        })
-      }
-    });
+    const newState = mapGitHubReposToStateRepos(state.userSubscriptions.repositories, action);
 
     return (<any>Object).assign({}, state, {
       userSubscriptions: {
@@ -133,21 +130,8 @@ const githubStoreReducer = function(state: StoreState, action: any) {
     })
   }
 
-  //GET - issues
   if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY) {
-    //TODO define type
-    let newState: Array<RepositoryInterface> = [].concat(state.userRepositories.repositories);
-
-    state.userRepositories.repositories.forEach((item: RepositoryInterface, index: number) => {
-      let aIdx = action.index;
-
-      if(aIdx === index) {
-        newState[aIdx].issues = action.issues;
-        newState[aIdx].openIssues = action.openIssues;
-        newState[aIdx].pullRequests = action.pullRequests;
-        newState[aIdx].hasAssignedIssues = action.hasAssignedIssues;
-      }
-    });
+    const newState = mapGitHubIssuesToStateRepository(state.userRepositories.repositories, action);
 
     return (<any>Object).assign({}, state, {
       userRepositories: {
@@ -158,18 +142,7 @@ const githubStoreReducer = function(state: StoreState, action: any) {
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION) {
-    let newState: Array<RepositoryInterface> = [].concat(state.userSubscriptions.repositories);
-
-    state.userSubscriptions.repositories.forEach((item: RepositoryInterface, index: number) => {
-      let aIdx = action.index;
-
-      if(aIdx === index){
-        newState[aIdx].issues = action.issues;
-        newState[aIdx].openIssues = action.openIssues;
-        newState[aIdx].pullRequests = action.pullRequests;
-        newState[aIdx].hasAssignedIssues = action.hasAssignedIssues;
-      }
-    });
+    const newState = mapGitHubIssuesToStateRepository(state.userSubscriptions.repositories, action);
 
     return (<any>Object).assign({}, state, {
       userSubscriptions: {
@@ -179,7 +152,7 @@ const githubStoreReducer = function(state: StoreState, action: any) {
     });
   }
 
-  //READ - user details
+  // READ actions - for component "rehydrating"
   if(action.type === GITHUB_STORE_ACTIONS.READ_USER_DETAILS) {
     let newState: UserInterface = {
       username: state.userDetails.username,
@@ -188,8 +161,7 @@ const githubStoreReducer = function(state: StoreState, action: any) {
 
     return state;
   }
-
-  //READ - repositories
+  
   if(action.type === GITHUB_STORE_ACTIONS.READ_USER_REPOSITORIES) {
     let newState: Array<RepositoryInterface> = [].concat(state.userRepositories.repositories);
 
@@ -215,7 +187,6 @@ const githubStoreReducer = function(state: StoreState, action: any) {
   return state;
 };
 
-//TODO move to a seperate file - github-action.ts ?
 export function getUserDetails(user: UserInterface) {
   return {
     type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
