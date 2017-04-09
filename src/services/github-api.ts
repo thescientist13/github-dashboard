@@ -76,19 +76,18 @@ export interface RepositoriesInterface {
 
 export class GithubApi {
   private baseUrl:string = 'https://api.github.com/';
-  private $: any;
   private credentials: CredentialsInterface;
 
   constructor(credentials: CredentialsInterface){
     this.credentials = credentials;
 
-    // better way to DI axios??
+    // TODO better way to DI axios??
     axios.defaults.headers.common['Accept'] = 'application/vnd.github.v3+json';
     axios.defaults.headers.common['Authorization'] = 'token ' + this.credentials.accessToken;
   }
 
   private parseNextReposUrl(linkHeader: string): string {
-    let url = linkHeader ? linkHeader.split(';')[0].replace('<', '').replace('>', '') : null;
+    let url = linkHeader ? linkHeader.split(';')[0].replace('<', '').replace('>', '') : undefined;
 
     // null tells us to "stop" paging if all repos have been requested
     return url && url.search('page=1') >= 0 ? null : url;
