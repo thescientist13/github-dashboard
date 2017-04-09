@@ -17,10 +17,10 @@ interface FollowingStateInterface {
   hasMoreRepos: boolean
 }
 
-function mapStateToProps(state: FollowingStateInterface) {
+function mapStateToProps(state: any) {
   return {
-    repositories: state.repositories,
-    nextReposUrl: state.nextReposUrl
+    repositories: state.userSubscriptions.repositories,
+    nextReposUrl: state.userSubscriptions.nextReposUrl
   };
 }
 

@@ -14,7 +14,6 @@ interface BootstrapPropsInterface {
 }
 interface BootstrapStateInterface {}
 
-// TODO any
 export class Bootstrap extends React.Component<BootstrapPropsInterface, BootstrapStateInterface> {
   private credentials: CredentialsInterface;
   private githubApi: GithubApi;
@@ -31,22 +30,21 @@ export class Bootstrap extends React.Component<BootstrapPropsInterface, Bootstra
     this.getUserSubscriptionsWithIssues();
   }
 
-  private getUserDetails(): void {
-    let dispatch = this.props.dispatch;
+  public getUserDetails(): void {
+    const dispatch = this.props.dispatch;
 
     this.githubApi.getUserDetails().then((response: UserInterface) => {
       dispatch(getUserDetails(response));
     });
   }
 
-  public getUserRepositoriesWithIssues(nextReposUrl?: string): void {
-    let dispatch = this.props.dispatch;
-    let url: string = nextReposUrl ? nextReposUrl : null;
+  public getUserRepositoriesWithIssues(nextReposUrl?: string, length?: number): void {
+    const dispatch = this.props.dispatch;
+    const url: string = nextReposUrl ? nextReposUrl : null;
 
     this.githubApi.getUserRepositories(url).then((response: RepositoriesInterface) => {
       dispatch(getUserRepositories(response.repositories, response.nextReposUrl));
 
-      //TODO move offsetIdx logic into a central place
       response.repositories.map((repo: any, index: number) => {
         let offsetIdx = nextReposUrl && length ? length + index : index;
 
@@ -58,13 +56,12 @@ export class Bootstrap extends React.Component<BootstrapPropsInterface, Bootstra
   }
 
   public getUserSubscriptionsWithIssues(nextReposUrl?: string, length?: number): void {
-    let dispatch = this.props.dispatch;
-    let url: string = nextReposUrl ? nextReposUrl : null;
+    const dispatch = this.props.dispatch;
+    const url: string = nextReposUrl ? nextReposUrl : null;
 
     this.githubApi.getUserSubscriptions(url).then((response: RepositoriesInterface) => {
       dispatch(getUserSubscriptions(response.repositories, response.nextReposUrl));
 
-      //TODO move offsetIdx logic into a central place
       response.repositories.forEach((repo: any, index: number) => {
         let offsetIdx = nextReposUrl && length ? length + index : index;
 
@@ -75,9 +72,8 @@ export class Bootstrap extends React.Component<BootstrapPropsInterface, Bootstra
     });
   }
 
-
   render() {
-    let children = React.Children.map(this.props.children, (child: any) => {
+    const children = React.Children.map(this.props.children, (child: any) => {
       return React.cloneElement(child, {
         getNextUserRepositoriesWithIssues: this.getUserRepositoriesWithIssues.bind(this),
         getNextUserSubscriptionsWithIssues: this.getUserSubscriptionsWithIssues.bind(this)

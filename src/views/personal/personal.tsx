@@ -17,10 +17,10 @@ interface PersonalStateInterface {
   hasMoreRepos: boolean
 }
 
-function mapStateToProps(state: PersonalStateInterface) {
+function mapStateToProps(state: any) {
   return {
-    repositories: state.repositories,
-    nextReposUrl: state.nextReposUrl
+    repositories: state.userRepositories.repositories,
+    nextReposUrl: state.userRepositories.nextReposUrl
   };
 }
 
@@ -28,7 +28,6 @@ export class PersonalRepositoriesView extends React.Component<PersonalPropsInter
 
   constructor(props: PersonalPropsInterface) {
     super(props);
-
 
     this.state = {
       repositories: [],
