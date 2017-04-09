@@ -1,7 +1,10 @@
 import { RepositoryInterface, UserInterface, IssueDetailsInterface } from '../services/github-api';
 
 const initialState = {
-  userDetails: {},
+  userDetails: {
+    username: '',
+    avatar: ''
+  },
   userRepositories: {
     repositories: [],
     nextReposUrl: null
@@ -34,8 +37,8 @@ const githubStoreReducer = function(state: any, action: any) {
   // GET - user details
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_DETAILS) {
     let newState: UserInterface = {
-      username: action.userDetails.username,
-      avatar: action.userDetails.avatar
+      username: action.username,
+      avatar: action.avatar
     };
 
     return (<any>Object).assign({}, state, {
@@ -52,14 +55,19 @@ const githubStoreReducer = function(state: any, action: any) {
     action.repositories.forEach((responseItem: RepositoryInterface, index: number) => {
       let match = false;
 
+      //iterate over each current item in state to find matches
       state.userRepositories.repositories.forEach((stateItem: RepositoryInterface) => {
+
+        // we update the state (maybe from the outside world?) if the repository is pre-existing in the store (eg. PUT)
         if (responseItem.id === stateItem.id) {
           newState[index] = stateItem;
           match = true;
+
           return match;
         }
       });
 
+      // we assume then that this is a new repository fetched from the API (eg. POST)
       if (!match) {
         newState.push({
           id: responseItem.id,
@@ -76,7 +84,6 @@ const githubStoreReducer = function(state: any, action: any) {
         nextReposUrl: action.nextReposUrl
       }
     })
-
   }
 
   if(action.type === GITHUB_STORE_ACTIONS.GET_USER_SUBSCRIPTIONS) {
@@ -194,18 +201,19 @@ const githubStoreReducer = function(state: any, action: any) {
 };
 
 //TODO move to a seperate file - github-action.ts ?
-export function getUserDetails(response) {
+export function getUserDetails(user: UserInterface) {
   return {
     type: GITHUB_STORE_ACTIONS.GET_USER_DETAILS,
-    userDetails: response
+    username: user.username,
+    avatar: user.avatar,
   }
 }
 
 export function getUserRepositories(repositories: Array<RepositoryInterface>, nextReposUrl?: string) {
   return {
     type: GITHUB_STORE_ACTIONS.GET_USER_REPOSITORIES,
-    repositories,
-    nextReposUrl
+    repositories: repositories,
+    nextReposUrl: nextReposUrl
   }
 }
 
@@ -217,26 +225,26 @@ export function getUserSubscriptions(repositories: Array<RepositoryInterface>, n
   }
 }
 
-export function getIssuesForUserRepository(response: IssueDetailsInterface, offsetIdx) {
+export function getIssuesForUserRepository(issueDetails: IssueDetailsInterface, offsetIdx) {
   return {
     type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
+    issues: issueDetails.issues,
+    openIssues: issueDetails.openIssues,
+    pullRequests: issueDetails.pullRequests,
+    hasAssignedIssues: issueDetails.hasAssignedIssues,
     index: offsetIdx,
-    issues: response.issues,
-    openIssues: response.openIssues,
-    pullRequests: response.pullRequests,
-    hasAssignedIssues: response.hasAssignedIssues,
   }
 }
 
 
-export function getIssuesForUserSubscription(response: IssueDetailsInterface, offsetIdx) {
+export function getIssuesForUserSubscription(issueDetails: IssueDetailsInterface, offsetIdx) {
   return {
     type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION,
+    issues: issueDetails.issues,
+    openIssues: issueDetails.openIssues,
+    pullRequests: issueDetails.pullRequests,
+    hasAssignedIssues: issueDetails.hasAssignedIssues,
     index: offsetIdx,
-    issues: response.issues,
-    openIssues: response.openIssues,
-    pullRequests: response.pullRequests,
-    hasAssignedIssues: response.hasAssignedIssues,
   }
 }
 
