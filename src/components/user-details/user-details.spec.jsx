@@ -27,7 +27,6 @@ describe('UserDetails Component', () => {
   });
 
   it('renders a user\'s details', () => {
-    // TODO is this the best way to test state?
     let state = wrapper.props().store.getState();
 
     expect(wrapper.find('img').length).toEqual(1);
