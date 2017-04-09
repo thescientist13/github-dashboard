@@ -1,4 +1,4 @@
-import { RepositoryInterface, UserInterface, IssueInterface, IssueDetailsInterface } from '../services/github-api';
+import { RepositoryInterface, UserInterface, IssueDetailsInterface } from '../services/github-api';
 
 interface StoreState {
   userDetails: {
@@ -90,7 +90,6 @@ function mapGitHubIssuesToStateRepository(repositories: Array<RepositoryInterfac
   return newState;
 }
 
-//TODO state should be immutable!
 const githubStoreReducer = function(state: StoreState, action: any) {
 
   if(typeof state === 'undefined'){
@@ -161,7 +160,7 @@ const githubStoreReducer = function(state: StoreState, action: any) {
 
     return state;
   }
-  
+
   if(action.type === GITHUB_STORE_ACTIONS.READ_USER_REPOSITORIES) {
     let newState: Array<RepositoryInterface> = [].concat(state.userRepositories.repositories);
 
