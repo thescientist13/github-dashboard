@@ -1,28 +1,77 @@
 import * as axios from 'axios';
 import { CredentialsInterface } from './credentials';
 
-export interface GithubUserInterface {
+// private interfaces to help model the GitHub API domain
+interface GitHubApiResponse {
+  data: any,
+  headers: any
+}
+
+interface GitHubApiHeadersInterface {
+  link?: string
+}
+
+interface GitHubApiUserInterface {
+  avatar_url: string,
+  login: string
+}
+
+interface GitHubApiRepositoryInterface {
+  id: number,
+  html_url: string,
+  name: string,
+  owner: {
+    login: string
+  }
+}
+
+interface GitHubApiAssigneeInterface {
+  login: string
+}
+
+interface GitHubApiIssueInterface {
+  pull_request?: boolean,
+  assignees: Array<GitHubApiAssigneeInterface>
+}
+
+// public interfaces to help model the application domain
+export interface AssigneeInterface {
+  username: string
+}
+
+export interface UserInterface {
   avatar: string,
   username: string
 }
 
-// TODO any
-export interface GithubIssueInterface {
-  details: any
+export interface IssueInterface {
+  assignees: Array<AssigneeInterface>
 }
 
-export interface GithubIssuesInterface {
-  count: number,
-  hasAssignedIssues: boolean,
-  issues: Array<GithubIssueInterface>,
+// helper just for making standalone issue details requests and managing the response
+// subset of RepositoryInterface
+export interface IssueDetailsInterface {
+  issues: Array<IssueInterface>,
   openIssues: number,
-  pullRequests: number
+  pullRequests: number,
+  hasAssignedIssues: boolean
 }
 
-export interface GithubRepoInterface {
-  details: any,
+export interface RepositoryInterface {
   id: number,
-  issues?: GithubIssuesInterface
+  name: string,
+  url: string,
+  owner: string,
+  issues?: Array<IssueInterface>,
+  openIssues?: number|null,
+  pullRequests?: number|null,
+  nextReposUrl?: string|null,
+  hasAssignedIssues?: boolean|null
+}
+
+export interface RepositoriesInterface {
+  repositories: Array<RepositoryInterface>,
+  nextReposUrl: string|null
 }
 
 export class GithubApi {
@@ -33,144 +82,116 @@ export class GithubApi {
   constructor(credentials: CredentialsInterface){
     this.credentials = credentials;
 
-    //TODO better way to DI axios??
+    // better way to DI axios??
     axios.defaults.headers.common['Accept'] = 'application/vnd.github.v3+json';
     axios.defaults.headers.common['Authorization'] = 'token ' + this.credentials.accessToken;
   }
 
-  private modelIssuesAndGetPullRequests(issues): any {
-    let modeledIssues: Array<GithubIssueInterface> = [];
-    let pullRequests: number = 0;
+  private parseNextReposUrl(linkHeader: string): string {
+    let url = linkHeader ? linkHeader.split(';')[0].replace('<', '').replace('>', '') : null;
 
-    issues.map(issue => {
+    // null tells us to "stop" paging if all repos have been requested
+    return url && url.search('page=1') >= 0 ? null : url;
+  }
+
+  private handleGitHubApiError(response: any, args: any): void {
+    switch (response.status) {
+      case 404:
+        console.warn('404 NOT FOUND - ' + args.message + '.  Repo may be private.');
+        break;
+      default:
+        console.error('UNHANDLED ERROR', response);
+    }
+  }
+
+  private modelGitHubRepositoriesResponse(data: Array<GitHubApiRepositoryInterface>, headers: GitHubApiHeadersInterface): RepositoriesInterface {
+    let repositories: Array<RepositoryInterface> = [];
+    let nextReposUrl: string = this.parseNextReposUrl(headers.link);
+
+    data.map((repository: GitHubApiRepositoryInterface) => {
+      repositories.push({
+        id: repository.id,
+        name: repository.name,
+        url: repository.html_url,
+        owner: repository.owner.login,
+        issues: [],
+        openIssues: null,
+        pullRequests: null
+      });
+    });
+
+    return {
+      repositories,
+      nextReposUrl
+    };
+  }
+
+  private modelGitHubIssuesResponse(data: Array<GitHubApiIssueInterface>, currentUser: string): any {
+    let modeledIssues: Array<IssueInterface> = [];
+    let pullRequests: number = 0;
+    let hasAssignedIssues: boolean = false;
+
+    data.map((issue: GitHubApiIssueInterface) => {
       modeledIssues.push({
-        details: issue
+        assignees: [].concat(issue.assignees)
       });
 
       if (issue.pull_request) {
         pullRequests += 1;
       }
-    });
 
-    return {
-      modeledIssues: modeledIssues,
-      pullRequests: pullRequests
-    };
-  }
-
-  private getUserHasAssignedIssues(issues: Array<GithubIssueInterface>, username: string) {
-    let hasAssignedIssues = false;
-
-    issues.forEach(function (issue) {
-      issue.details.assignees.forEach(function(assignee) {
-        if (username === assignee.login) {
+      issue.assignees.forEach((assignee: GitHubApiAssigneeInterface) => {
+        if (currentUser === assignee.login) {
           hasAssignedIssues = true;
         }
       })
-
     });
-
-    return hasAssignedIssues;
-  }
-
-  private modelGithubIssuesForRepository(issues, currentUser: string): GithubIssuesInterface {
-    let modeledIssuesAndPullRequests = this.modelIssuesAndGetPullRequests(issues);
-    let modeledIssues: any = modeledIssuesAndPullRequests.modeledIssues;
-    let pullRequests: any = modeledIssuesAndPullRequests.pullRequests;
 
     return {
       pullRequests: pullRequests,
       issues: modeledIssues,
-      count: modeledIssues.length,
       openIssues: modeledIssues.length - pullRequests,
-      hasAssignedIssues: this.getUserHasAssignedIssues(modeledIssues, currentUser)
+      hasAssignedIssues: hasAssignedIssues
     };
   }
 
-  private parseNextReposUrl(linkHeader: string): string{
-    let url = linkHeader ? linkHeader.split(';')[0].replace('<', '').replace('>', '') : null;
-
-    //stop paging if all repos have been requested
-    return url && url.search('page=1') >= 0 ? null : url;
-  }
-
-  getUserDetails(): any {
-    return axios.get(this.baseUrl + 'user').then((response: any) => {
-      let data = response.data;
-      let user: GithubUserInterface = {
+  getUserDetails() {
+    return axios.get(this.baseUrl + 'user').then((response: GitHubApiResponse): UserInterface => {
+      let data: GitHubApiUserInterface = response.data;
+      let user: UserInterface = {
         avatar: data.avatar_url,
         username: data.login
       };
 
       return user;
-    }).catch(function(response) {
-      console.error('UNHANDLED ERROR', response);
-    });
+    }).catch(this.handleGitHubApiError.bind(this));
   }
 
-  getUserRepositories (nextUrl?: string): any {
-    // TODO should this even be required since its a call specifically for the user?
+  getUserRepositories (nextUrl?: string) {
     let url = nextUrl || this.baseUrl + 'users/' + this.credentials.username + '/repos';
 
-    return axios.get(url).then((response: any) => {
-      let modeledRepos: Array<GithubRepoInterface> = [];
-      let nextRepoUrl: string = this.parseNextReposUrl(response.headers.link);
-      let moreReposExist: boolean = !!nextRepoUrl;
-
-      response.data.map(repository => {
-        modeledRepos.push({
-          details: repository,
-          id: repository.id
-        });
-      });
-
-      return {
-        repos: modeledRepos,
-        hasMoreRepos: moreReposExist,
-        nextReposUrl: nextRepoUrl
-      };
-    }).catch(function(response) {
-      console.error('UNHANDLED ERROR', response);
-    });
+    return axios.get(url).then((response: GitHubApiResponse): RepositoriesInterface => {
+      return this.modelGitHubRepositoriesResponse(response.data, response.headers)
+    })
+      .catch(this.handleGitHubApiError.bind(this));
   }
 
-  getUserSubscriptions (nextUrl?: string): any {
-    // TODO should this even be required since its a call specifically for the user?
+  getUserSubscriptions (nextUrl?: string) {
     let url = nextUrl || this.baseUrl + 'users/' + this.credentials.username + '/subscriptions';
 
-    return axios.get(url).then((response: any) => {
-      let modeledRepos: Array<GithubRepoInterface> = [];
-      let nextRepoUrl: string = this.parseNextReposUrl(response.headers.link);
-      let moreReposExist: boolean = !!nextRepoUrl;
-
-      response.data.map(repository => {
-        modeledRepos.push({
-          details: repository,
-          id: repository.id
-        });
-      });
-
-      return {
-        repos: modeledRepos,
-        hasMoreRepos: moreReposExist,
-        nextReposUrl: nextRepoUrl
-      };
-    }).catch(function(response) {
-      console.error('UNHANDLED ERROR', response);
-    });
+    return axios.get(url).then((response: GitHubApiResponse): RepositoriesInterface => {
+      return this.modelGitHubRepositoriesResponse(response.data, response.headers)
+    })
+      .catch(this.handleGitHubApiError.bind(this));
   }
 
-  getIssuesForRepository(repositoryName: string, username?: string): any {
-    let user = username || this.credentials.username;
+  getIssuesForRepository(repositoryName: string, username?: string) {
+    let name: string = username || this.credentials.username;
+    let url: string = this.baseUrl + 'repos/' + name + '/' + repositoryName + '/issues';
 
-    return axios.get(this.baseUrl + 'repos/' + user + '/' + repositoryName + '/issues').then(response => {
-      return this.modelGithubIssuesForRepository(response.data, this.credentials.username);
-    }).catch(function(response){
-      if(response.status === 404){
-        console.warn('404 NOT FOUND - ' + repositoryName + '.  Repo may be private.');
-      }else{
-        console.error('UNHANDLED ERROR', response);
-      }
-    });
+    return axios.get(url).then((response: GitHubApiResponse): IssueDetailsInterface => {
+      return this.modelGitHubIssuesResponse(response.data, this.credentials.username);
+    })
+      .catch(this.handleGitHubApiError.bind(this));
   }
 }

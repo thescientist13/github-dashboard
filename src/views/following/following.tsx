@@ -2,34 +2,49 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { readUserSubscriptions } from '../../stores/github-store';
 import RepositoriesTable from '../../components/repositories-table/repositories-table';
+import { RepositoryInterface } from "../../services/github-api";
 
+interface FollowingPropsInterface {
+  repositories: Array<RepositoryInterface>,
+  nextReposUrl: string,
+  getNextUserSubscriptionsWithIssues: any,
+  dispatch: any
+}
 
-function mapStateToProps(state) {
+interface FollowingStateInterface {
+  repositories: Array<RepositoryInterface>,
+  nextReposUrl: string,
+  hasMoreRepos: boolean
+}
+
+function mapStateToProps(state: any) {
   return {
-    repositories: state.userSubscriptions.repos,
+    repositories: state.userSubscriptions.repositories,
     nextReposUrl: state.userSubscriptions.nextReposUrl
   };
 }
 
-//TODO change use any, any to use types
-export class FollowingRepositoriesView extends React.Component<any, any> {
-  constructor(props) {
+export class FollowingRepositoriesView extends React.Component<FollowingPropsInterface, FollowingStateInterface> {
+
+  constructor(props: FollowingPropsInterface) {
     super(props);
 
     this.state = {
       repositories: [],
-      nextReposUrl: null
+      nextReposUrl: '',
+      hasMoreRepos: false
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: FollowingPropsInterface): void {
     this.setState({
       repositories: nextProps.repositories,
-      nextReposUrl: nextProps.nextReposUrl
+      nextReposUrl: nextProps.nextReposUrl,
+      hasMoreRepos: !!nextProps.nextReposUrl
     });
   }
 
-  componentWillMount() {
+  componentWillMount(): void {
     this.props.dispatch(readUserSubscriptions());
   }
 
@@ -43,7 +58,7 @@ export class FollowingRepositoriesView extends React.Component<any, any> {
         <h3>Subscribed Repositories</h3>
         <RepositoriesTable
           repositories={this.state.repositories}
-          hasMoreRepos={this.state.nextReposUrl}
+          hasMoreRepos={this.state.hasMoreRepos}
           getNextRepos={this.getNextUserSubscriptionsWithIssues.bind(this)}
         />
       </div>

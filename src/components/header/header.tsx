@@ -1,11 +1,10 @@
-import * as React from 'react';
 import './header.css';
+import * as React from 'react';
 
-// TODO make this DRY?
-interface MyProps {}
-interface MyState {}
+interface HeaderPropsInterface {}
+interface HeaderStateInterface {}
 
-class Header extends React.Component<MyProps, MyState> {
+class Header extends React.Component<HeaderPropsInterface, HeaderStateInterface> {
 
   render() {
     return (

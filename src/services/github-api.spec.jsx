@@ -18,7 +18,7 @@ describe('GitHub API Service', () => {
   it('should test getUserDetails returns correct user data', () => {
     mock.onGet('https://api.github.com/user').reply(200, MOCK_USER_DETAILS);
 
-    let userDetails = new GithubApi(MOCK_USER_CREDENTIALS).getUserDetails().then((response) => {
+    const userDetails = new GithubApi(MOCK_USER_CREDENTIALS).getUserDetails().then((response) => {
       expect(response.username).toEqual(MOCK_USER_DETAILS.login);
       expect(response.avatar).toEqual(MOCK_USER_DETAILS.avatar_url);
     });
@@ -28,10 +28,8 @@ describe('GitHub API Service', () => {
     mock.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/repos').reply(200, MOCK_USER_REPOS, {});
 
     new GithubApi(MOCK_USER_CREDENTIALS).getUserRepositories().then((response) => {
-      //XXX TODO assert details property and other meta data, after changing from any
-      expect(response.repos.length).toEqual(MOCK_USER_REPOS.length);
+      expect(response.repositories.length).toEqual(MOCK_USER_REPOS.length);
       expect(response.nextReposUrl).toEqual(null);
-      expect(response.hasMoreRepos).toEqual(false);
     });
   });
 
@@ -41,10 +39,8 @@ describe('GitHub API Service', () => {
     });
 
     new GithubApi(MOCK_USER_CREDENTIALS).getUserRepositories().then((response) => {
-      //XXX TODO assert details property and other meta data, after changing from any
-      expect(response.repos.length).toEqual(MOCK_USER_REPOS.length);
+      expect(response.repositories.length).toEqual(MOCK_USER_REPOS.length);
       expect(response.nextReposUrl).toEqual('https://api.github.com/user/895923/repos?page=2');
-      expect(response.hasMoreRepos).toEqual(true);
     });
   });
 
@@ -55,10 +51,8 @@ describe('GitHub API Service', () => {
     });
 
     new GithubApi(MOCK_USER_CREDENTIALS).getUserSubscriptions().then((response) => {
-      //XXX TODO assert details property and other meta data, after changing from any
-      expect(response.repos.length).toEqual(MOCK_USER_SUBSCRIPTIONS.length);
+      expect(response.repositories.length).toEqual(MOCK_USER_SUBSCRIPTIONS.length);
       expect(response.nextReposUrl).toEqual('https://api.github.com/user/895923/subscriptions?page=2');
-      expect(response.hasMoreRepos).toEqual(true);
     });
   });
 
@@ -66,10 +60,8 @@ describe('GitHub API Service', () => {
     mock.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/subscriptions').reply(200, [], {});
 
     new GithubApi(MOCK_USER_CREDENTIALS).getUserSubscriptions().then((response) => {
-      //XXX TODO assert details property and other meta data, after changing from any
-      expect(response.repos.length).toEqual(0);
-      expect(response.nextReposUrl).toEqual(null);
-      expect(response.hasMoreRepos).toEqual(false);
+      expect(response.repositories.length).toEqual(0);
+      expect(response.nextReposUrl).toEqual(undefined);
     });
   });
 
@@ -79,10 +71,8 @@ describe('GitHub API Service', () => {
     });
 
     new GithubApi(MOCK_USER_CREDENTIALS).getUserSubscriptions().then((response) => {
-      //XXX TODO assert details property and other meta data, after changing from any
-      expect(response.repos.length).toEqual(MOCK_USER_REPOS.length);
+      expect(response.repositories.length).toEqual(MOCK_USER_REPOS.length);
       expect(response.nextReposUrl).toEqual('https://api.github.com/user/895923/subscriptions?page=2');
-      expect(response.hasMoreRepos).toEqual(true);
     });
   });
 
@@ -94,7 +84,7 @@ describe('GitHub API Service', () => {
     new GithubApi(MOCK_USER_CREDENTIALS).getIssuesForRepository(repoName).then((response) => {
       expect(response.pullRequests).toEqual(3);
       expect(response.issues.length).toEqual(18);
-      expect(response.count).toEqual(18);
+      expect(response.issueCount).toEqual(18);
       expect(response.openIssues).toEqual(15);
       expect(response.hasAssignedIssues).toEqual(true);
     });
@@ -108,7 +98,7 @@ describe('GitHub API Service', () => {
     new GithubApi(MOCK_USER_CREDENTIALS).getIssuesForRepository(repoName).then((response) => {
       expect(response.pullRequests).toEqual(1);
       expect(response.issues.length).toEqual(15);
-      expect(response.count).toEqual(15);
+      expect(response.issueCount).toEqual(15);
       expect(response.openIssues).toEqual(14);
       expect(response.hasAssignedIssues).toEqual(false);
     });

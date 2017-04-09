@@ -1,11 +1,10 @@
-import * as React from 'react';
 import './footer.css';
+import * as React from 'react';
 
-// TODO make this DRY?
-interface MyProps {}
-interface MyState {}
+interface FooterPropsInterface {}
+interface FooterStateInterface {}
 
-class Footer extends React.Component<MyProps, MyState> {
+class Footer extends React.Component<FooterPropsInterface, FooterStateInterface> {
 
   render() {
     return (

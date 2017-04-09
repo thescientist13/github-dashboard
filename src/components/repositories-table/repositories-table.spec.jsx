@@ -36,10 +36,9 @@ describe('RepositoriesTable Component', () => {
 
   it('should render a load more repos button', () => {
     let repos = [{
-      details: {
-        name: 'test-repo',
-        html_url: 'http://api.github.com/my-org/my-repo'  // eslint-disable-line camelcase
-      },
+      id: new Date().getTime(),
+      name: 'test-repo',
+      url: 'http://api.github.com/my-org/my-repo',  // eslint-disable-line camelcase
       hasAssignedIssues: true,
       issues: [],
       count: 3,
@@ -63,17 +62,14 @@ describe('RepositoriesTable Component', () => {
       let nextInc = i + 1;
 
       repos.push({
-        details: {
-          name: 'test-repo' + nextInc,
-          html_url: 'http://api.github.com/my-org/my-repo' + nextInc  // eslint-disable-line camelcase
-        },
-        issues: {
-          hasAssignedIssues: i % 2 === 0 || i === 3,  // ensure we have a case where user is the assignee two consecutive row (test bootstrap style hack)
-          issues: new Array(i + nextInc),  // intentionally empty, not issue meta data is shownn
-          count: i + nextInc,
-          pullRequests: i,
-          openIssues: nextInc
-        }
+        id: nextInc,
+        name: 'test-repo' + nextInc,
+        url: 'http://api.github.com/my-org/my-repo' + nextInc,
+        hasAssignedIssues: i % 2 === 0 || i === 3,  // ensure we have a case where user is the assignee two consecutive row (test bootstrap style hack)
+        issues: new Array(i + nextInc),  // intentionally empty, no issue meta data is shown in the UI at this time
+        issueCount: i + nextInc,
+        pullRequests: i,
+        openIssues: nextInc
       });
     }
 

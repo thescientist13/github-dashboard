@@ -1,11 +1,17 @@
 import './repositories-table.css';
 import * as React from 'react';
-import { GithubRepoInterface } from '../../services/github-api';
+import { RepositoryInterface } from '../../services/github-api';
 
-//TODO change use any, any to use types
-class RepositoriesTable extends React.Component<any, any> {
+interface RepositoriesTableStateInterface {}
+interface RepositoriesTablePropsInterface {
+  hasMoreRepos: boolean,
+  getNextRepos: any,
+  repositories: Array<RepositoryInterface>
+}
 
-  constructor(props){
+class RepositoriesTable extends React.Component<RepositoriesTablePropsInterface, RepositoriesTableStateInterface> {
+
+  constructor(props: RepositoriesTablePropsInterface){
     super(props);
   }
 
@@ -24,19 +30,19 @@ class RepositoriesTable extends React.Component<any, any> {
           </tr>
           </thead>
           <tbody>
-          {this.props.repositories.map(function(repository: GithubRepoInterface, index: number){
-            return <tr key={index} className={repository.issues && repository.issues.hasAssignedIssues ? 'bg-danger' : ''}>
-              <td><a target="_blank" href={repository.details.html_url}>{(index + 1) + ') ' + repository.details.name}</a></td>
-              <td>{repository.issues ? repository.issues.count : ''} </td>
-              <td>{repository.issues ? repository.issues.pullRequests : ''}</td>
-              <td>{repository.issues ? repository.issues.openIssues : ''}</td>
+          {props.repositories.map(function(repository: RepositoryInterface, index: number){
+            return <tr key={index} className={repository.hasAssignedIssues ? 'bg-danger' : ''}>
+              <td><a target="_blank" href={repository.url}>{(index + 1) + ') ' + repository.name}</a></td>
+              <td>{repository.issues? repository.issues.length : 0} </td>
+              <td>{repository.pullRequests ? repository.pullRequests : 0}</td>
+              <td>{repository.openIssues ? repository.openIssues : 0}</td>
             </tr>
           })}
           </tbody>
         </table>
 
         {
-          this.props.hasMoreRepos
+          props.hasMoreRepos
             ? <button className="btn btn-primary" onClick={props.getNextRepos}>Load More</button>
             : ''
         }

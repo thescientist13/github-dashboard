@@ -1,4 +1,4 @@
-/* TODO quick hack to make sure highlight supersedes default bootstrap table row styles */
+/* quick hack to make sure highlight supersedes default bootstrap table row styles */
 .bg-danger {
   background-color: #f2dede!important;
 }

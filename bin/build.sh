@@ -15,4 +15,6 @@ yarn install
 yarn run setup
 
 # build
+yarn run clean
+yarn run test -- --coverage
 yarn run build
