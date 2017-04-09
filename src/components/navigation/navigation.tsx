@@ -1,13 +1,11 @@
+import './navigation.css';
 import * as React from 'react';
 import { Link } from 'react-router';
 
-import './navigation.css';
+interface NavigationPropsInterface {}
+interface NavigationStateInterface {}
 
-// TODO make this DRY?
-interface MyProps {}
-interface MyState {}
-
-class Navigation extends React.Component<MyProps, MyState> {
+class Navigation extends React.Component<NavigationPropsInterface, NavigationStateInterface> {
 
   render() {
     return (

@@ -1,17 +1,32 @@
 import { RepositoryInterface, UserInterface, IssueDetailsInterface } from '../services/github-api';
 
-const initialState = {
+interface StoreState {
+  userDetails: {
+    username: string,
+    avatar: string
+  },
+  userRepositories: {
+    repositories: Array<RepositoryInterface>,
+    nextReposUrl: string|undefined
+  },
+  userSubscriptions: {
+    repositories: Array<RepositoryInterface>,
+    nextReposUrl: string|undefined
+  }
+}
+
+const initialState: StoreState = {
   userDetails: {
     username: '',
     avatar: ''
   },
   userRepositories: {
     repositories: [],
-    nextReposUrl: null
+    nextReposUrl: undefined
   },
   userSubscriptions: {
     repositories: [],
-    nextReposUrl: null
+    nextReposUrl: undefined
   }
 };
 
@@ -27,7 +42,7 @@ export const GITHUB_STORE_ACTIONS = {
 };
 
 //TODO state should be immutable!
-const githubStoreReducer = function(state: any, action: any) {
+const githubStoreReducer = function(state: StoreState, action: any) {
 
   //TODO initialize default data in constructor?
   if(typeof state === 'undefined'){
@@ -225,7 +240,7 @@ export function getUserSubscriptions(repositories: Array<RepositoryInterface>, n
   }
 }
 
-export function getIssuesForUserRepository(issueDetails: IssueDetailsInterface, offsetIdx) {
+export function getIssuesForUserRepository(issueDetails: IssueDetailsInterface, offsetIdx: number) {
   return {
     type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_REPOSITORY,
     issues: issueDetails.issues,
@@ -237,7 +252,7 @@ export function getIssuesForUserRepository(issueDetails: IssueDetailsInterface, 
 }
 
 
-export function getIssuesForUserSubscription(issueDetails: IssueDetailsInterface, offsetIdx) {
+export function getIssuesForUserSubscription(issueDetails: IssueDetailsInterface, offsetIdx: number) {
   return {
     type: GITHUB_STORE_ACTIONS.GET_ISSUES_FOR_USER_SUBSCRIPTION,
     issues: issueDetails.issues,

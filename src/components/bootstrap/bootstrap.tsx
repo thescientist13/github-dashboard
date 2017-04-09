@@ -2,19 +2,25 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Credentials, CredentialsInterface } from '../../services/credentials';
-import { GithubApi, RepositoriesInterface, IssueDetailsInterface } from '../../services/github-api';
-import { getUserDetails, getUserSubscriptions , getUserRepositories, getIssuesForUserRepository, getIssuesForUserSubscription } from '../../stores/github-store';
+import { GithubApi, RepositoriesInterface, IssueDetailsInterface, UserInterface } from '../../services/github-api';
+import { getUserDetails, getUserSubscriptions, getUserRepositories, getIssuesForUserRepository, getIssuesForUserSubscription } from '../../stores/github-store';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import Navigation from '../navigation/navigation';
 import UserDetails from '../user-details/user-details';
 
-// TODO any
-export class Bootstrap extends React.Component<any, any> {
-  private credentials: CredentialsInterface;
-  private githubApi: any;
+interface BootstrapPropsInterface {
+  dispatch?: any
+}
+interface BootstrapStateInterface {}
 
-  constructor(props) {
+// TODO any
+export class Bootstrap extends React.Component<BootstrapPropsInterface, BootstrapStateInterface> {
+  private credentials: CredentialsInterface;
+  private githubApi: GithubApi;
+
+  constructor(props: BootstrapPropsInterface) {
+
     super(props);
 
     this.credentials = new Credentials().getCredentials();
@@ -25,15 +31,15 @@ export class Bootstrap extends React.Component<any, any> {
     this.getUserSubscriptionsWithIssues();
   }
 
-  private getUserDetails() {
+  private getUserDetails(): void {
     let dispatch = this.props.dispatch;
 
-    this.githubApi.getUserDetails().then((response) => {
+    this.githubApi.getUserDetails().then((response: UserInterface) => {
       dispatch(getUserDetails(response));
     });
   }
 
-  public getUserRepositoriesWithIssues(nextReposUrl?: string) {
+  public getUserRepositoriesWithIssues(nextReposUrl?: string): void {
     let dispatch = this.props.dispatch;
     let url: string = nextReposUrl ? nextReposUrl : null;
 
@@ -51,7 +57,7 @@ export class Bootstrap extends React.Component<any, any> {
     });
   }
 
-  public getUserSubscriptionsWithIssues(nextReposUrl?: string, length?: number) {
+  public getUserSubscriptionsWithIssues(nextReposUrl?: string, length?: number): void {
     let dispatch = this.props.dispatch;
     let url: string = nextReposUrl ? nextReposUrl : null;
 

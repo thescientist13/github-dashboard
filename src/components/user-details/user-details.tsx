@@ -3,29 +3,29 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { readUserDetails } from '../../stores/github-store';
 
-function mapStateToProps(state) {
+interface UserDetailsStateInterface {
+  userDetails: {
+    avatar: string,
+    username: string
+  }
+}
+interface UserDetailsPropsInterface {
+  username: string,
+  avatar: string
+  dispatch?: any
+}
+
+function mapStateToProps(state: UserDetailsStateInterface) {
   return {
     avatar: state.userDetails.avatar,
     username: state.userDetails.username
   };
 }
 
-//TODO any
-export class UserDetails extends React.Component<any, any> {
-  constructor(props) {
+export class UserDetails extends React.Component<UserDetailsPropsInterface, UserDetailsStateInterface> {
+
+  constructor(props: UserDetailsPropsInterface) {
     super(props);
-
-    this.state = {
-      avatar: '',
-      username: ''
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      avatar: nextProps.avatar,
-      username: nextProps.username
-    });
   }
 
   componentDidMount(){
@@ -35,8 +35,8 @@ export class UserDetails extends React.Component<any, any> {
   render() {
     return (
       <div className="user-details">
-        <img className="user-avatar img-responsive" src={this.state.avatar}/>
-        <h1><span className="user-name">{this.state.username}</span></h1>
+        <img className="user-avatar img-responsive" src={this.props.avatar}/>
+        <h1><span className="user-name">{this.props.username}</span></h1>
       </div>
     )
   }
