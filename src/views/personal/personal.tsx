@@ -24,7 +24,6 @@ function mapStateToProps(state: PersonalStateInterface) {
   };
 }
 
-//TODO change use any, any to use types
 export class PersonalRepositoriesView extends React.Component<PersonalPropsInterface, PersonalStateInterface>{
 
   constructor(props: PersonalPropsInterface) {

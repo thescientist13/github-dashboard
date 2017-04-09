@@ -69,7 +69,6 @@ export interface RepositoryInterface {
   hasAssignedIssues?: boolean|null
 }
 
-// TODO make nextReposUrl an array of all urls over time
 export interface RepositoriesInterface {
   repositories: Array<RepositoryInterface>,
   nextReposUrl: string|null
@@ -83,7 +82,7 @@ export class GithubApi {
   constructor(credentials: CredentialsInterface){
     this.credentials = credentials;
 
-    //TODO better way to DI axios??
+    // better way to DI axios??
     axios.defaults.headers.common['Accept'] = 'application/vnd.github.v3+json';
     axios.defaults.headers.common['Authorization'] = 'token ' + this.credentials.accessToken;
   }
@@ -127,7 +126,6 @@ export class GithubApi {
     };
   }
 
-  // TODO no good way to model this additional issues call (yet)
   private modelGitHubIssuesResponse(data: Array<GitHubApiIssueInterface>, currentUser: string): any {
     let modeledIssues: Array<IssueInterface> = [];
     let pullRequests: number = 0;
@@ -157,8 +155,6 @@ export class GithubApi {
     };
   }
 
-  // TODO type annotate these return values  (nice to have)
-  // TODO bind needed?
   getUserDetails() {
     return axios.get(this.baseUrl + 'user').then((response: GitHubApiResponse): UserInterface => {
       let data: GitHubApiUserInterface = response.data;
@@ -171,7 +167,6 @@ export class GithubApi {
     }).catch(this.handleGitHubApiError.bind(this));
   }
 
-  //TODO type annotate these return values  (nice to have)
   getUserRepositories (nextUrl?: string) {
     let url = nextUrl || this.baseUrl + 'users/' + this.credentials.username + '/repos';
 
