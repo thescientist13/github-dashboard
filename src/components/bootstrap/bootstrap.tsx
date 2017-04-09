@@ -42,7 +42,7 @@ export class Bootstrap extends React.Component<any, any> {
 
       //TODO move offsetIdx logic into a central place
       response.repositories.map((repo: any, index: number) => {
-        let offsetIdx = nextReposUrl ? (this.state.repositories.length - 30) + index : index;
+        let offsetIdx = nextReposUrl && length ? length + index : index;
 
         this.githubApi.getIssuesForRepository(repo.name, repo.owner).then((response: IssueDetailsInterface) => {
           dispatch(getIssuesForUserRepository(response, offsetIdx));
