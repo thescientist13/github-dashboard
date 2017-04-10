@@ -9,7 +9,7 @@ class Navigation extends React.Component<NavigationPropsInterface, NavigationSta
 
   render() {
     return (
-      <nav>
+      <nav className="tgh-navigation">
         <ul role="nav">
           <li><Link to="/personal">Personal</Link></li>
           <li><Link to="/following">Following</Link></li>

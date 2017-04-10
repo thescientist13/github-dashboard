@@ -1,44 +1,61 @@
 import * as React from 'react';
 import axios from 'axios';
 import configureStore from 'redux-mock-store';
-import MockAdapter from 'axios-mock-adapter';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { Bootstrap } from './bootstrap';
+import MockAdapter from 'axios-mock-adapter';
 
 describe('Bootstrap Component', () => {
   let store, mock, wrapper;
 
   const mockStore = configureStore();
   const initialState = {
-    userDetails: {},
-    userRepositories: {},
-    userSubscriptions: {}
+    userDetails: {
+      username: '',
+      avatar: ''
+    },
+    userRepositories: {
+      repositories: [],
+      nextReposUrl: undefined
+    },
+    userSubscriptions: {
+      repositories: [],
+      nextReposUrl: undefined
+    }
   };
 
   beforeEach(() => {
     store = mockStore(initialState);
-    wrapper = shallow(<Bootstrap store={ store }/>);
+
     mock = new MockAdapter(axios);
-  });
-
-  xit('renders without crashing', () => {
     mock.onGet('https://api.github.com/user').reply(200, {});
-    mock.onGet('https://api.github.com/users/thescientist13/subscriptions').reply(200, {});
-    mock.onGet('https://api.github.com/users/thescientist13/repos').reply(200, {});
-    expect(wrapper.length).toEqual(1);
+    mock.onGet('https://api.github.com/users/thescientist13/repos').reply(200, [], {});
+    mock.onGet('https://api.github.com/users/thescientist13/subscriptions').reply(200, [], {});
+
+    wrapper = mount(<Bootstrap store={ store }/>);
   });
 
-  xit('should render the shell of the page', () => {
-    const footer = shallow(<Bootstrap/>);
-
-    expect(footer.find('header').length).toEqual(1);
-    expect(footer.find('user-details').length).toEqual(1);
-    expect(footer.find('navigation').length).toEqual(1);
-    expect(footer.find('footer').length).toEqual(1);
+  it('renders without crashing', () => {
+    expect(wrapper.length).toBe(1);
   });
 
-  xit('should render with initial following tables view', () => {
+  it('should render the shell of the page with a header component', () => {
+    expect(wrapper.find('header').length).toEqual(1);
+    expect(wrapper.find('.tgh-header').length).toEqual(1);
+  });
 
+  it('should render the shell of the page with a footer component ', () => {
+    expect(wrapper.find('footer').length).toEqual(1);
+    expect(wrapper.find('.tgh-footer').length).toEqual(1);
+  });
+
+  it('should render the shell of the page with a navigation component', () => {
+    expect(wrapper.find('nav').length).toEqual(1);
+    expect(wrapper.find('.tgh-navigation').length).toEqual(1);
+  });
+
+  it('should render the shell of the page with a user details component', () => {
+    expect(wrapper.find('.tgh-user-details').length).toEqual(1);
   });
 
 });
