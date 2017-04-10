@@ -36,11 +36,11 @@ export class Bootstrap extends React.Component<BootstrapPropsInterface, Bootstra
     };
 
     this.getUserDetails();
-    //this.getUserRepositoriesWithIssues();
-    //this.getUserSubscriptionsWithIssues();
+    this.getUserRepositoriesWithIssues();
+    this.getUserSubscriptionsWithIssues();
   }
 
-  public getUserDetails(): void {
+  private getUserDetails(): void {
     const dispatch = this.props.dispatch;
 
     this.githubApi.getUserDetails().then((response: UserInterface) => {
@@ -55,7 +55,7 @@ export class Bootstrap extends React.Component<BootstrapPropsInterface, Bootstra
     });
   }
 
-  public getUserRepositoriesWithIssues(nextReposUrl?: string, length?: number): void {
+  private getUserRepositoriesWithIssues(nextReposUrl?: string, length?: number): void {
     const dispatch = this.props.dispatch;
     const url: string = nextReposUrl ? nextReposUrl : null;
 
@@ -72,7 +72,7 @@ export class Bootstrap extends React.Component<BootstrapPropsInterface, Bootstra
     });
   }
 
-  public getUserSubscriptionsWithIssues(nextReposUrl?: string, length?: number): void {
+  private getUserSubscriptionsWithIssues(nextReposUrl?: string, length?: number): void {
     const dispatch = this.props.dispatch;
     const url: string = nextReposUrl ? nextReposUrl : null;
 

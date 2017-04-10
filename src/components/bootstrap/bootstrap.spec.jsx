@@ -29,12 +29,8 @@ describe('Bootstrap Component', () => {
 
     mock = new MockAdapter(axios);
     mock.onGet('https://api.github.com/user').reply(200, {});
-    mock.onGet('https://api.github.com/users/thescientist13/repos').reply(200, {
-      data: []
-    }, {});
-    mock.onGet('https://api.github.com/users/thescientist13/subscriptions').reply(200, {
-      data: []
-    }, {});
+    mock.onGet('https://api.github.com/users/thescientist13/repos').reply(200, [], {});
+    mock.onGet('https://api.github.com/users/thescientist13/subscriptions').reply(200, [], {});
 
     wrapper = mount(<Bootstrap store={ store }/>);
   });
