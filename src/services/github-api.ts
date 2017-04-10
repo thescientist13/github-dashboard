@@ -170,7 +170,6 @@ export class GithubApi {
     let url = nextUrl || this.baseUrl + 'users/' + this.credentials.username + '/repos';
 
     return axios.get(url).then((response: GitHubApiResponse): RepositoriesInterface => {
-      // console.log('getUserRepositories', response);
       return this.modelGitHubRepositoriesResponse(response.data, response.headers)
     })
       .catch(this.handleGitHubApiError.bind(this));
