@@ -8,7 +8,7 @@ class Header extends React.Component<HeaderPropsInterface, HeaderStateInterface>
 
   render() {
     return (
-      <header>
+      <header className="tgh-header">
         <h1 className="header-text">Github Dashboard</h1>
       </header>
     )

@@ -12,22 +12,32 @@ import UserDetails from '../user-details/user-details';
 interface BootstrapPropsInterface {
   dispatch?: any
 }
-interface BootstrapStateInterface {}
+interface BootstrapStateInterface {
+  userDetails: {
+    username: string,
+    avatar: string
+  }
+}
 
 export class Bootstrap extends React.Component<BootstrapPropsInterface, BootstrapStateInterface> {
   private credentials: CredentialsInterface;
   private githubApi: GithubApi;
 
   constructor(props: BootstrapPropsInterface) {
-
     super(props);
 
     this.credentials = new Credentials().getCredentials();
     this.githubApi = new GithubApi(this.credentials);
+    this.state = {
+      userDetails: {
+        username: '',
+        avatar: ''
+      }
+    };
 
     this.getUserDetails();
-    this.getUserRepositoriesWithIssues();
-    this.getUserSubscriptionsWithIssues();
+    //this.getUserRepositoriesWithIssues();
+    //this.getUserSubscriptionsWithIssues();
   }
 
   public getUserDetails(): void {
@@ -35,6 +45,13 @@ export class Bootstrap extends React.Component<BootstrapPropsInterface, Bootstra
 
     this.githubApi.getUserDetails().then((response: UserInterface) => {
       dispatch(getUserDetails(response));
+
+      this.setState({
+        userDetails: {
+          username: response.username,
+          avatar: response.avatar
+        }
+      })
     });
   }
 
@@ -93,7 +110,7 @@ export class Bootstrap extends React.Component<BootstrapPropsInterface, Bootstra
         <section className="row">
 
           <div className="col-md-3">
-            <UserDetails/>
+            <UserDetails username={this.state.userDetails.username} avatar={this.state.userDetails.avatar}/>
             <Navigation/>
           </div>
 
