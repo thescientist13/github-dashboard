@@ -2,7 +2,9 @@ import './repositories-table.css';
 import * as React from 'react';
 import { RepositoryInterface } from '../../services/github-api';
 
-interface RepositoriesTableStateInterface {}
+interface RepositoriesTableStateInterface {
+  repoFilterText: string
+}
 interface RepositoriesTablePropsInterface {
   hasMoreRepos: boolean,
   getNextRepos: any,
@@ -13,13 +15,30 @@ class RepositoriesTable extends React.Component<RepositoriesTablePropsInterface,
 
   constructor(props: RepositoriesTablePropsInterface){
     super(props);
+
+    this.state = {
+      repoFilterText: ''
+    }
+  }
+
+  handleRepoNameFilterChange(event: React.FormEvent<HTMLInputElement>): void {
+    this.setState({
+      repoFilterText: event.currentTarget.value
+    });
+  }
+
+  matchRepositoryName(repositoryName: string): boolean {
+    let filter = this.state.repoFilterText;
+
+    return filter !== '' && repositoryName.indexOf(filter) < 0;
   }
 
   render() {
-    let props = this.props;
-
     return (
       <div>
+        <label>Filter by Repository Name</label>
+        <input placeholder="Repository Name" value={this.state.repoFilterText} onChange={this.handleRepoNameFilterChange.bind(this)}/>
+
         <table className="table table-bordered table-striped table-hover">
           <thead>
           <tr>
@@ -30,7 +49,13 @@ class RepositoriesTable extends React.Component<RepositoriesTablePropsInterface,
           </tr>
           </thead>
           <tbody>
-          {props.repositories.map(function(repository: RepositoryInterface, index: number){
+          {this.props.repositories.map((repository: RepositoryInterface, index: number) => {
+            const filter = this.state.repoFilterText;
+
+            if (this.matchRepositoryName(repository.name)) {
+              return;
+            }
+
             return <tr key={index} className={repository.hasAssignedIssues ? 'bg-danger' : ''}>
               <td><a target="_blank" href={repository.url}>{(index + 1) + ') ' + repository.name}</a></td>
               <td>{repository.issues? repository.issues.length : 0} </td>
@@ -42,8 +67,8 @@ class RepositoriesTable extends React.Component<RepositoriesTablePropsInterface,
         </table>
 
         {
-          props.hasMoreRepos
-            ? <button className="btn btn-primary" onClick={props.getNextRepos}>Load More</button>
+          this.props.hasMoreRepos
+            ? <button className="btn btn-primary" onClick={this.props.getNextRepos}>Load More</button>
             : ''
         }
       </div>
