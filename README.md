@@ -13,7 +13,7 @@ GitHub Dashboard is a locally running web application that aims to help streamli
 and issues in one place.  Browse all your repos (personal and subscribed), see open issues, see if any are assigned
 to you, and direct link directly to any repo.  You can check out a full product overview [here](https://github.com/thescientist13/github-dashboard/wiki/Product-Overview)
 
-![GitHub Dashboard](https://s3.amazonaws.com/hosted.thegreenhouse.io/oss-projects/github-dashboard/github-dashboard.png)
+![GitHub Dashboard](https://s3.amazonaws.com/hosted.thegreenhouse.io/oss-projects/github-dashboard/github-dashboard-v1.1.0.png)
 
 To run, all that is required is the latest LTS version of [Node][] installed (v6.x) and the package manager, [Yarn][]. A GitHub access token will also need to be generated.  The _Setup_ section below will cover all of this.
 
