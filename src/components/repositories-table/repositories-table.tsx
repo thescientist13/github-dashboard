@@ -37,7 +37,7 @@ class RepositoriesTable extends React.Component<RepositoriesTablePropsInterface,
     return (
       <div>
         <label>Filter by Repository Name</label>
-        <input placeholder="Repository Name" value={this.state.repoFilterText} onChange={this.handleRepoNameFilterChange.bind(this)}/>
+        <input ref="input" placeholder="Repository Name" value={this.state.repoFilterText} onChange={this.handleRepoNameFilterChange.bind(this)}/>
 
         <table className="table table-bordered table-striped table-hover">
           <thead>

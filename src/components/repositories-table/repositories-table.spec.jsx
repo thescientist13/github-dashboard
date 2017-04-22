@@ -1,13 +1,97 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import RepositoriesTable from './repositories-table';
 
 describe('RepositoriesTable Component', () => {
+
   it('renders without crashing', () => {
     let table = shallow(<RepositoriesTable repositories={[]} nextReposUrl={null}/>);
 
     expect(table.length).toEqual(1);
+  });
+
+  it('should test repository name filter when there is a match', () => {
+    const userInput = 'github';
+    const repositories = [{
+      name: 'xxx'
+    }, {
+      name: userInput
+    }, {
+      name: 'yyy'
+    }];
+    const wrapper = mount(<RepositoriesTable repositories={repositories} nextReposUrl={null}/>);
+    const label = wrapper.find('label');
+    const input = wrapper.find('input');
+    const rows = wrapper.find('tbody tr');
+
+    expect(input.length).toEqual(1);
+    expect(label.length).toEqual(1);
+    expect(rows.length).toEqual(3);
+
+    input.node.value = userInput;
+    wrapper.find('input').simulate('change', input);
+
+    let newRows = wrapper.find('tbody tr');
+
+    expect(newRows.length).toEqual(1);
+  });
+
+  it('should test repository name filter when there isnt a match', () => {
+    const userInput = 'github';
+    const repositories = [{
+      name: 'xxx'
+    }, {
+      name: 'yyy'
+    }];
+    const wrapper = mount(<RepositoriesTable repositories={repositories} nextReposUrl={null}/>);
+    const label = wrapper.find('label');
+    const input = wrapper.find('input');
+    const rows = wrapper.find('tbody tr');
+
+    expect(input.length).toEqual(1);
+    expect(label.length).toEqual(1);
+    expect(rows.length).toEqual(2);
+
+    input.node.value = userInput;
+    wrapper.find('input').simulate('change', input);
+
+    let newRows = wrapper.find('tbody tr');
+
+    expect(newRows.length).toEqual(0);
+  });
+
+  it('should test repository name filter does nothing when there is no input', () => {
+    const userInput = '';
+    const repositories = [{
+      name: 'xxx'
+    }, {
+      name: 'abc'
+    }, {
+      name: 'yyy'
+    }];
+    const wrapper = mount(<RepositoriesTable repositories={repositories} nextReposUrl={null}/>);
+    const label = wrapper.find('label');
+    const input = wrapper.find('input');
+    const rows = wrapper.find('tbody tr');
+
+    expect(input.length).toEqual(1);
+    expect(label.length).toEqual(1);
+    expect(rows.length).toEqual(3);
+
+    input.node.value = userInput;
+    wrapper.find('input').simulate('change', input);
+
+    let newRows = wrapper.find('tbody tr');
+
+    expect(newRows.length).toEqual(3);
+  });
+
+  it('should test that repo name filter controls exist', () => {
+    const table = shallow(<RepositoriesTable repositories={[]} nextReposUrl={null}/>);
+
+    expect(table.find('label').length).toEqual(1);
+    expect(table.find('input').length).toEqual(1);
   });
 
   it('should render a table with one repo', () => {
