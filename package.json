@@ -24,15 +24,17 @@
   "scripts": {
     "clean": "rimraf ./build && rimraf ./reports && mkdir ./reports && mkdir ./reports/test-results",
     "build": "webpack --config ./webpack.config.prod.js -p --progress --profile --bail",
-    "develop": "webpack-dev-server --config ./webpack.config.dev.js --inline --progress",
+    "develop": "webpack-dev-server --open --config ./webpack.config.dev.js --inline --progress",
     "serve": "webpack --config ./webpack.config.prod.js -p --progress --profile --bail && http-server ./build -o",
     "setup": "rimraf ./src/services/credentials.ts && cp ./src/services/credentials.ts.tmpl ./src/services/credentials.ts",
     "test": "export TEST_REPORT_PATH=./reports/test-results && eslint ./src/**/**/*.spec.jsx && jest --config ./jest.config.json"
   },
   "dependencies": {
+    "@types/react-addons-test-utils": "^0.14.18",
     "axios": "0.15.2",
     "bootstrap": "3.3.7",
     "react": "15.4.0",
+    "react-addons-test-utils": "^15.5.1",
     "react-dom": "15.4.0",
     "react-redux": "4.4.6",
     "react-router": "3.0.2",
@@ -61,7 +63,6 @@
     "jest": "19.0.2",
     "jest-junit-reporter": "1.0.1",
     "pipeline-validate-js": "1.0.4",
-    "react-addons-test-utils": "15.4.2",
     "react-test-renderer": "^15.4.2",
     "redux-mock-store": "^1.2.2",
     "rimraf": "2.5.4",

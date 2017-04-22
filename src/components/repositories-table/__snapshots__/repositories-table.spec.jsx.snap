@@ -2,6 +2,14 @@
 
 exports[`RepositoriesTable Component should render a table of repos with assignees, pull requests, and issues using snapshot testing 1`] = `
 <div>
+  <label>
+    Filter by Repository Name
+  </label>
+  <input
+    onChange={[Function]}
+    placeholder="Repository Name"
+    value=""
+  />
   <table
     className="table table-bordered table-striped table-hover"
   >
