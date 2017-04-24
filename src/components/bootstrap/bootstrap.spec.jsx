@@ -6,7 +6,7 @@ import { Bootstrap } from './bootstrap';
 import MockAdapter from 'axios-mock-adapter';
 
 describe('Bootstrap Component', () => {
-  let store, mock, wrapper;
+  let store, mock, wrapper, dispatch;
 
   const mockStore = configureStore();
   const initialState = {
@@ -26,13 +26,14 @@ describe('Bootstrap Component', () => {
 
   beforeEach(() => {
     store = mockStore(initialState);
+    dispatch = store.dispatch.bind(store);
 
     mock = new MockAdapter(axios);
     mock.onGet('https://api.github.com/user').reply(200, {});
     mock.onGet('https://api.github.com/users/thescientist13/repos').reply(200, [], {});
     mock.onGet('https://api.github.com/users/thescientist13/subscriptions').reply(200, [], {});
 
-    wrapper = mount(<Bootstrap store={ store }/>);
+    wrapper = mount(<Bootstrap store={ store } dispatch={ dispatch }/>);
   });
 
   it('renders without crashing', () => {
