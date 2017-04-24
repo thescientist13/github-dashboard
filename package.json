@@ -27,7 +27,7 @@
     "develop": "webpack-dev-server --open --config ./webpack.config.dev.js --inline --progress",
     "serve": "webpack --config ./webpack.config.prod.js -p --progress --profile --bail && http-server ./build -o",
     "setup": "rimraf ./src/services/credentials.ts && cp ./src/services/credentials.ts.tmpl ./src/services/credentials.ts",
-    "test": "export TEST_REPORT_PATH=./reports/test-results && eslint ./src/**/**/*.spec.jsx && jest --config ./jest.config.json"
+    "test": "npm run clean && export TEST_REPORT_PATH=./reports/test-results && eslint ./src/**/**/*.spec.jsx && jest --coverage --config ./jest.config.json"
   },
   "dependencies": {
     "@types/react-addons-test-utils": "^0.14.18",

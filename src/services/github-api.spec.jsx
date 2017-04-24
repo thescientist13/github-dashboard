@@ -82,7 +82,7 @@ describe('GitHub API Service', () => {
   it('should test getIssuesForRepository (personal) returns correctly modeled data', () => {
     const repoName = 'github-dashboard';
 
-    mockAxios.onGet(`https://api.github.com/users/${mockCredentials.username}/${repoName}/issues`).reply(200, MOCK_ISSUES_FOR_REPOSITORY);
+    mockAxios.onGet(`https://api.github.com/repos/${mockCredentials.username}/${repoName}/issues`).reply(200, MOCK_ISSUES_FOR_REPOSITORY);
 
     new GithubApi(mockCredentials).getIssuesForRepository(repoName).then((response) => {
       expect(response.pullRequests).toEqual(3);
@@ -95,7 +95,7 @@ describe('GitHub API Service', () => {
   it('should test getIssuesForRepository (subscribed) returns correctly modeled data', () => {
     const repoName = 'spinikube';
 
-    mockAxios.onGet(`https://api.github.com/users/${mockCredentials.username}/${repoName}/issues`).reply(200, MOCK_ISSUES_FOR_SUBSCRIPTION);
+    mockAxios.onGet(`https://api.github.com/repos/${mockCredentials.username}/${repoName}/issues`).reply(200, MOCK_ISSUES_FOR_SUBSCRIPTION);
 
     new GithubApi(mockCredentials).getIssuesForRepository(repoName).then((response) => {
       expect(response.pullRequests).toEqual(1);

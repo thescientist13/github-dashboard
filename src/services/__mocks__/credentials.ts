@@ -1,8 +1,8 @@
 export class Credentials {
 	getCredentials() {
 		return {
-			accessToken: 'mockUser',
-			username: 'mockToken'
+			accessToken: 'mockToken',
+			username: 'thescientist13'
 		}
 	}
 }
