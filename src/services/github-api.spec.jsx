@@ -1,44 +1,47 @@
 import { GithubApi } from './github-api';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import MOCK_USER_CREDENTIALS from  '../../test/mocks/user-credentials.json';
+import { Credentials } from './credentials';
 import MOCK_USER_DETAILS from '../../test/mocks/user-details.json';
 import MOCK_USER_REPOS from '../../test/mocks/user-repositories.json';
 import MOCK_USER_SUBSCRIPTIONS from '../../test/mocks/user-repositories.json';
 import MOCK_ISSUES_FOR_REPOSITORY from '../../test/mocks/issues-user-repository.json';
 import MOCK_ISSUES_FOR_SUBSCRIPTION from '../../test/mocks/issues-user-subscription.json';
 
+jest.mock('./credentials');
+
 describe('GitHub API Service', () => {
-  let mockAxios;
+  let mockAxios, mockCredentials;
 
   beforeEach(() => {
     mockAxios = new MockAdapter(axios);
+    mockCredentials = new Credentials().getCredentials();
   });
 
   it('should test getUserDetails returns correct user data', () => {
     mockAxios.onGet('https://api.github.com/user').reply(200, MOCK_USER_DETAILS);
 
-    const userDetails = new GithubApi(MOCK_USER_CREDENTIALS).getUserDetails().then((response) => {
+    const userDetails = new GithubApi(mockCredentials).getUserDetails().then((response) => {
       expect(response.username).toEqual(MOCK_USER_DETAILS.login);
       expect(response.avatar).toEqual(MOCK_USER_DETAILS.avatar_url);
     });
   });
 
   it('should test getUserRepositories returns correct user repositories data with no more repos', () => {
-    mockAxios.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/repos').reply(200, MOCK_USER_REPOS, {});
+    mockAxios.onGet(`https://api.github.com/users/${mockCredentials.username}/repos`).reply(200, MOCK_USER_REPOS, {});
 
-    new GithubApi(MOCK_USER_CREDENTIALS).getUserRepositories().then((response) => {
+    new GithubApi(mockCredentials).getUserRepositories().then((response) => {
       expect(response.repositories.length).toEqual(MOCK_USER_REPOS.length);
       expect(response.nextReposUrl).toEqual(undefined);
     });
   });
 
   it('should test getUserRepositories returns correct user repositories data with additional repos', () => {
-    mockAxios.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/repos').reply(200, MOCK_USER_REPOS,  {
+    mockAxios.onGet(`https://api.github.com/users/${mockCredentials.username}/repos`).reply(200, MOCK_USER_REPOS,  {
       link: '<https://api.github.com/user/895923/repos?page=2>; rel="next", <https://api.github.com/user/895923/repos?page=5>; rel="last"'
     });
 
-    new GithubApi(MOCK_USER_CREDENTIALS).getUserRepositories().then((response) => {
+    new GithubApi(mockCredentials).getUserRepositories().then((response) => {
       expect(response.repositories.length).toEqual(MOCK_USER_REPOS.length);
       expect(response.nextReposUrl).toEqual('https://api.github.com/user/895923/repos?page=2');
     });
@@ -46,31 +49,31 @@ describe('GitHub API Service', () => {
 
 
   it('should test getUserSubscriptions returns correct user subscriptions data with more repos', () => {
-    mockAxios.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/subscriptions').reply(200, MOCK_USER_SUBSCRIPTIONS, {
+    mockAxios.onGet(`https://api.github.com/users/${mockCredentials.username}/subscriptions`).reply(200, MOCK_USER_SUBSCRIPTIONS, {
       link: '<https://api.github.com/user/895923/subscriptions?page=2>; rel="next", <https://api.github.com/user/895923/subscriptions?page=5>; rel="last"'
     });
 
-    new GithubApi(MOCK_USER_CREDENTIALS).getUserSubscriptions().then((response) => {
+    new GithubApi(mockCredentials).getUserSubscriptions().then((response) => {
       expect(response.repositories.length).toEqual(MOCK_USER_SUBSCRIPTIONS.length);
       expect(response.nextReposUrl).toEqual('https://api.github.com/user/895923/subscriptions?page=2');
     });
   });
 
   it('should test getUserSubscriptions returns no user subscriptions with no more repos', () => {
-    mockAxios.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/subscriptions').reply(200, [], {});
+    mockAxios.onGet(`https://api.github.com/users/${mockCredentials.username}/subscriptions`).reply(200, [], {});
 
-    new GithubApi(MOCK_USER_CREDENTIALS).getUserSubscriptions().then((response) => {
+    new GithubApi(mockCredentials).getUserSubscriptions().then((response) => {
       expect(response.repositories.length).toEqual(0);
       expect(response.nextReposUrl).toBe(undefined);
     });
   });
 
   it('should test getUserRepositories returns correct user repositories data with no more repos', () => {
-    mockAxios.onGet('https://api.github.com/users/' + MOCK_USER_CREDENTIALS.username + '/subscriptions').reply(200, MOCK_USER_REPOS, {
+    mockAxios.onGet(`https://api.github.com/users/${mockCredentials.username}/subscriptions`).reply(200, MOCK_USER_REPOS, {
       link: '<https://api.github.com/user/895923/subscriptions?page=2>; rel="next", <https://api.github.com/user/895923/subscriptions?page=5>; rel="last"'
     });
 
-    new GithubApi(MOCK_USER_CREDENTIALS).getUserSubscriptions().then((response) => {
+    new GithubApi(mockCredentials).getUserSubscriptions().then((response) => {
       expect(response.repositories.length).toEqual(MOCK_USER_REPOS.length);
       expect(response.nextReposUrl).toEqual('https://api.github.com/user/895923/subscriptions?page=2');
     });
@@ -79,9 +82,9 @@ describe('GitHub API Service', () => {
   it('should test getIssuesForRepository (personal) returns correctly modeled data', () => {
     const repoName = 'github-dashboard';
 
-    mockAxios.onGet('https://api.github.com/repos/' + MOCK_USER_CREDENTIALS.username + '/' + repoName + '/issues').reply(200, MOCK_ISSUES_FOR_REPOSITORY);
+    mockAxios.onGet(`https://api.github.com/repos/${mockCredentials.username}/${repoName}/issues`).reply(200, MOCK_ISSUES_FOR_REPOSITORY);
 
-    new GithubApi(MOCK_USER_CREDENTIALS).getIssuesForRepository(repoName).then((response) => {
+    new GithubApi(mockCredentials).getIssuesForRepository(repoName).then((response) => {
       expect(response.pullRequests).toEqual(3);
       expect(response.issues.length).toEqual(18);
       expect(response.openIssues).toEqual(15);
@@ -92,9 +95,9 @@ describe('GitHub API Service', () => {
   it('should test getIssuesForRepository (subscribed) returns correctly modeled data', () => {
     const repoName = 'spinikube';
 
-    mockAxios.onGet('https://api.github.com/repos/' + MOCK_USER_CREDENTIALS.username + '/' + repoName + '/issues').reply(200, MOCK_ISSUES_FOR_SUBSCRIPTION);
+    mockAxios.onGet(`https://api.github.com/repos/${mockCredentials.username}/${repoName}/issues`).reply(200, MOCK_ISSUES_FOR_SUBSCRIPTION);
 
-    new GithubApi(MOCK_USER_CREDENTIALS).getIssuesForRepository(repoName).then((response) => {
+    new GithubApi(mockCredentials).getIssuesForRepository(repoName).then((response) => {
       expect(response.pullRequests).toEqual(1);
       expect(response.issues.length).toEqual(15);
       expect(response.openIssues).toEqual(14);

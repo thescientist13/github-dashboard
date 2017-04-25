@@ -4,9 +4,12 @@ import configureStore from 'redux-mock-store';
 import { mount } from 'enzyme';
 import { Bootstrap } from './bootstrap';
 import MockAdapter from 'axios-mock-adapter';
+import { Credentials } from '../../services/credentials';
+
+jest.mock('../../services/credentials');
 
 describe('Bootstrap Component', () => {
-  let store, mock, wrapper, dispatch;
+  let store, mock, wrapper, dispatch, mockCredentials;
 
   const mockStore = configureStore();
   const initialState = {
@@ -28,10 +31,12 @@ describe('Bootstrap Component', () => {
     store = mockStore(initialState);
     dispatch = store.dispatch.bind(store);
 
+    mockCredentials = new Credentials().getCredentials();
+
     mock = new MockAdapter(axios);
     mock.onGet('https://api.github.com/user').reply(200, {});
-    mock.onGet('https://api.github.com/users/thescientist13/repos').reply(200, [], {});
-    mock.onGet('https://api.github.com/users/thescientist13/subscriptions').reply(200, [], {});
+    mock.onGet(`https://api.github.com/users/${mockCredentials.username}/repos`).reply(200, [], {});
+    mock.onGet(`https://api.github.com/users/${mockCredentials.username}/subscriptions`).reply(200, [], {});
 
     wrapper = mount(<Bootstrap store={ store } dispatch={ dispatch }/>);
   });
