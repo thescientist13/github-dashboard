@@ -33,6 +33,12 @@ class RepositoriesTable extends React.Component<RepositoriesTablePropsInterface,
     return filter !== '' && repositoryName.indexOf(filter) < 0;
   }
 
+  isFork(fork: boolean): any {
+    if(fork) {
+      return <div className="fork-icon"></div>;
+    }
+  }
+
   render() {
     return (
       <div>
@@ -52,12 +58,15 @@ class RepositoriesTable extends React.Component<RepositoriesTablePropsInterface,
           {this.props.repositories.map((repository: RepositoryInterface, index: number) => {
             const filter = this.state.repoFilterText;
 
-            if (this.matchRepositoryName(repository.name)) {
+            if (this.matchRepositoryName(repository.fullName)) {
               return;
             }
 
             return <tr key={index} className={repository.hasAssignedIssues ? 'bg-danger' : ''}>
-              <td><a target="_blank" href={repository.url}>{(index + 1) + ') ' + repository.name}</a></td>
+              <td>
+                <a target="_blank" href={repository.url}>{(index + 1) + ') ' + repository.fullName}</a>
+                {this.isFork(repository.isFork)}
+              </td>
               <td>{repository.issues? repository.issues.length : 0} </td>
               <td>{repository.pullRequests ? repository.pullRequests : 0}</td>
               <td>{repository.openIssues ? repository.openIssues : 0}</td>

@@ -1,5 +1,88 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`RepositoriesTable Component should add a fork icon when repo is a fork 1`] = `
+<div>
+  <label>
+    Filter by Repository Name
+  </label>
+  <input
+    onChange={[Function]}
+    placeholder="Repository Name"
+    value=""
+  />
+  <table
+    className="table table-bordered table-striped table-hover"
+  >
+    <thead>
+      <tr>
+        <th>
+          Repo Name
+        </th>
+        <th>
+          Total Issues
+        </th>
+        <th>
+          Pull Requests
+        </th>
+        <th>
+          Open Issues
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo"
+            target="_blank"
+          >
+            1) test-forked-repo
+          </a>
+          <div
+            className="fork-icon"
+          />
+        </td>
+        <td>
+          0
+           
+        </td>
+        <td>
+          0
+        </td>
+        <td>
+          0
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td>
+          <a
+            href="http://api.github.com/my-org/my-repo"
+            target="_blank"
+          >
+            2) test-repo
+          </a>
+        </td>
+        <td>
+          0
+           
+        </td>
+        <td>
+          0
+        </td>
+        <td>
+          0
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>
+`;
+
 exports[`RepositoriesTable Component should render a table of repos with assignees, pull requests, and issues using snapshot testing 1`] = `
 <div>
   <label>

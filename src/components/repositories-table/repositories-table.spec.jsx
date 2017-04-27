@@ -11,14 +11,14 @@ describe('RepositoriesTable Component', () => {
     expect(table.length).toEqual(1);
   });
 
-  it('should test repository name filter when there is a match', () => {
+  it('should test repository fullName filter when there is a match', () => {
     const userInput = 'github';
     const repositories = [{
-      name: 'xxx'
+      fullName: 'xxx'
     }, {
-      name: userInput
+      fullName: userInput
     }, {
-      name: 'yyy'
+      fullName: 'yyy'
     }];
     const wrapper = mount(<RepositoriesTable repositories={repositories} nextReposUrl={null}/>);
     const label = wrapper.find('label');
@@ -37,12 +37,12 @@ describe('RepositoriesTable Component', () => {
     expect(newRows.length).toEqual(1);
   });
 
-  it('should test repository name filter when there isnt a match', () => {
+  it('should test repository fullName filter when there isnt a match', () => {
     const userInput = 'github';
     const repositories = [{
-      name: 'xxx'
+      fullName: 'xxx'
     }, {
-      name: 'yyy'
+      fullName: 'yyy'
     }];
     const wrapper = mount(<RepositoriesTable repositories={repositories} nextReposUrl={null}/>);
     const label = wrapper.find('label');
@@ -61,14 +61,14 @@ describe('RepositoriesTable Component', () => {
     expect(newRows.length).toEqual(0);
   });
 
-  it('should test repository name filter does nothing when there is no input', () => {
+  it('should test repository fullName filter does nothing when there is no input', () => {
     const userInput = '';
     const repositories = [{
-      name: 'xxx'
+      fullName: 'xxx'
     }, {
-      name: 'abc'
+      fullName: 'abc'
     }, {
-      name: 'yyy'
+      fullName: 'yyy'
     }];
     const wrapper = mount(<RepositoriesTable repositories={repositories} nextReposUrl={null}/>);
     const label = wrapper.find('label');
@@ -87,7 +87,7 @@ describe('RepositoriesTable Component', () => {
     expect(newRows.length).toEqual(3);
   });
 
-  it('should test that repo name filter controls exist', () => {
+  it('should test that repo fullName filter controls exist', () => {
     const table = shallow(<RepositoriesTable repositories={[]} nextReposUrl={null}/>);
 
     expect(table.find('label').length).toEqual(1);
@@ -97,7 +97,7 @@ describe('RepositoriesTable Component', () => {
   it('should render a table with one repo', () => {
     let repos = [{
       details: {
-        name: 'test-repo',
+        fullName: 'test-repo',
         html_url: 'http://api.github.com/my-org/my-repo' // eslint-disable-line camelcase
       },
       issues: [],
@@ -121,7 +121,7 @@ describe('RepositoriesTable Component', () => {
   it('should render a load more repos button', () => {
     let repos = [{
       id: new Date().getTime(),
-      name: 'test-repo',
+      fullName: 'test-repo',
       url: 'http://api.github.com/my-org/my-repo',  // eslint-disable-line camelcase
       hasAssignedIssues: true,
       issues: [],
@@ -147,7 +147,7 @@ describe('RepositoriesTable Component', () => {
 
       repos.push({
         id: nextInc,
-        name: 'test-repo' + nextInc,
+        fullName: 'test-repo' + nextInc,
         url: 'http://api.github.com/my-org/my-repo' + nextInc,
         hasAssignedIssues: i % 2 === 0 || i === 3,  // ensure we have a case where user is the assignee two consecutive row (test bootstrap style hack)
         issues: new Array(i + nextInc),  // intentionally empty, no issue meta data is shown in the UI at this time
@@ -162,6 +162,36 @@ describe('RepositoriesTable Component', () => {
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
+  });
+
+  it('should add a fork icon when repo is a fork', () => {
+    let repos = [{
+      id: 'mockForkId',
+      fullName: 'test-forked-repo',
+      isFork: true,
+      url: 'http://api.github.com/my-org/my-repo',
+      hasAssignedIssues: 0,
+      issues: [],
+      issueCount: 0,
+      pullRequests: 0,
+      openIssues: 0
+    },{
+      id: 'mockId',
+      fullName: 'test-repo',
+      isFork: false,
+      url: 'http://api.github.com/my-org/my-repo',
+      hasAssignedIssues: 0,
+      issues: [],
+      issueCount: 0,
+      pullRequests: 0,
+      openIssues: 0
+    }];
+
+    const table = renderer.create(
+      <RepositoriesTable repositories={repos}/>
+    ).toJSON();
+
+    expect(table).toMatchSnapshot();
   });
 
 });
