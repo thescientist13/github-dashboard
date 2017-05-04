@@ -65,7 +65,9 @@ function mapGitHubReposToStateRepos(repositories: Array<RepositoryInterface>, ac
         id: responseItem.id,
         name: responseItem.name,
         url: responseItem.url,
-        owner: responseItem.owner
+        owner: responseItem.owner,
+        fullName: responseItem.fullName,
+        isFork: responseItem.isFork,
       })
     }
   });

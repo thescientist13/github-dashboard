@@ -20,6 +20,8 @@ interface GitHubApiRepositoryInterface {
   id: number,
   html_url: string,
   name: string,
+  full_name: string,
+  fork: boolean,
   owner: {
     login: string
   }
@@ -62,6 +64,8 @@ export interface RepositoryInterface {
   name: string,
   url: string,
   owner: string,
+  fullName: string,
+  isFork: boolean,
   issues?: Array<IssueInterface>,
   openIssues?: number|null,
   pullRequests?: number|null,
@@ -113,6 +117,8 @@ export class GithubApi {
         name: repository.name,
         url: repository.html_url,
         owner: repository.owner.login,
+        fullName: repository.full_name,
+        isFork: repository.fork,
         issues: [],
         openIssues: null,
         pullRequests: null

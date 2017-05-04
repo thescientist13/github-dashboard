@@ -2,3 +2,13 @@
 .bg-danger {
   background-color: #f2dede!important;
 }
+
+.fork-icon {
+  background-image: url('./fork-icon.svg');
+  min-height: 10px;
+  min-width: 10px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: inline-block;
+  margin-left: 5px;
+}
