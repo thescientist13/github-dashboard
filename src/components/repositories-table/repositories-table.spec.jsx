@@ -175,7 +175,7 @@ describe('RepositoriesTable Component', () => {
       issueCount: 0,
       pullRequests: 0,
       openIssues: 0
-    },{
+    }, {
       id: 'mockId',
       fullName: 'test-repo',
       isFork: false,
