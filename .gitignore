@@ -3,6 +3,7 @@ npm-debug.log
 .vscode/
 src/services/credentials.ts
 build/
+dist/
 node_modules/
 reports/
 test-report.xml
