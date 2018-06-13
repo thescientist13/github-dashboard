@@ -1,25 +1,20 @@
-const webpack = require('webpack');
+const { CheckerPlugin } = require('awesome-typescript-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
+const path = require('path');
 
 module.exports = {
-  entry: {
-    main: './src/index.tsx'
-  },
-  output: {
-    filename: "./build/bundle.js",
-  },
+  context: path.join(__dirname, 'src'),
 
-  // Enable sourcemaps for debugging webpack's output.
-  devtool: "source-map",
+  entry: {
+    main: './index'
+  },
 
   resolve: {
-    // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ["", ".ts", ".tsx", ".js"]
+    extensions: [".ts", ".tsx", ".js"]
   },
 
   module: {
-    loaders: [{
+    rules: [{
       // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
       test: /\.tsx?$/,
       loader: "awesome-typescript-loader"
@@ -32,34 +27,22 @@ module.exports = {
       loader: "style-loader!css-loader"
     }, {
       test: /\.(jpg|png|gif)$/,
-      loader: 'file'
+      loader: 'file-loader'
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: "url-loader?limit=10000&mimetype=application/font-woff"
     }, {
       test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: "file-loader"
-    }],
-
-    preLoaders: [{
-      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      test: /\.js$/,
-      loader: "source-map-loader"
     }]
   },
 
   plugins: [
-    new ForkCheckerPlugin(),
+    new CheckerPlugin(),
 
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
+      template: './index.html',
       chunksSortMode: 'dependency'
-    }),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['vendor'].reverse()
-    }),
-
-    new webpack.optimize.OccurenceOrderPlugin(true)
+    })
   ]
 };

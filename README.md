@@ -9,9 +9,7 @@
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/thescientist13/github-dashboard/master/LICENSE.md)
 
 ## Overview
-GitHub Dashboard is a locally running web application that aims to help streamline the management of your GitHub repos
-and issues in one place.  Browse all your repos (personal and subscribed), see open issues, see if any are assigned
-to you, and direct link directly to any repo.  You can check out a full product overview [here](https://github.com/thescientist13/github-dashboard/wiki/Product-Overview)
+GitHub Dashboard is a locally running web application that aims to help streamline the management of your GitHub repos and issues in one place.  Browse all your repos (personal and subscribed), see open issues, see if any are assigned to you, and direct link directly to any repo.  You can check out a full product overview [here](https://github.com/thescientist13/github-dashboard/wiki/Product-Overview)
 
 ![GitHub Dashboard](https://s3.amazonaws.com/uploads.thegreenhouse.io/oss/github-dashboard-v1.2.0.png)
 
