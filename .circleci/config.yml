@@ -24,6 +24,11 @@ jobs:
       #     name: Run Tests
       #     command: yarn test
 
+
+      - run:
+          name: Run Setup
+          command: yarn setup
+
       - run:
           name: Run Build
           command: yarn build
