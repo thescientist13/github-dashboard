@@ -21,9 +21,9 @@ jobs:
           command: yarn install
 
       - run:
-        name: Run Tests
-        command: yarn test
+          name: Run Tests
+          command: yarn test
 
       - run:
-        name: Run Build
-        command: yarn build
+          name: Run Build
+          command: yarn build
