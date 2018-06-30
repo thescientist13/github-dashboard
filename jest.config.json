@@ -2,6 +2,7 @@
   "verbose": true,
 
   "setupFiles": [
+    "raf/polyfill",
     "<rootDir>/test/test-setup.js"
   ],
 
