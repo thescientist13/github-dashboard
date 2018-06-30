@@ -20,15 +20,14 @@ jobs:
           name: Install Project Dependencies
           command: yarn install
 
-      # - run:
-      #     name: Run Tests
-      #     command: yarn test
-
+      - run:
+          name: Run Tests
+          command: yarn test
 
       - run:
           name: Run Setup
           command: yarn setup
 
-      - run:
-          name: Run Build
-          command: yarn build
+      # - run:
+      #     name: Run Build
+      #     command: yarn build

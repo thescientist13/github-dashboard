@@ -1,9 +1,11 @@
-npm-debug.log
 .idea/
 .vscode/
-src/services/credentials.ts
 build/
 dist/
 node_modules/
 reports/
-test-report.xml
+coverage/
+*.log
+
+# DO NOT DELETE
+src/services/credentials.ts

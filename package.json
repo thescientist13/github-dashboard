@@ -27,7 +27,7 @@
     "develop": "webpack-dev-server --open --config ./webpack.config.develop.js --inline --progress",
     "serve": "webpack --config ./webpack.config.prod.js -p --progress --profile --bail && http-server ./build -o",
     "setup": "rimraf ./src/services/credentials.ts && cp ./src/services/credentials.ts.tmpl ./src/services/credentials.ts",
-    "test": "yarn clean && export TEST_REPORT_PATH=./reports/test-results && eslint ./src/**/**/*.spec.jsx && jest --coverage"
+    "test": "yarn clean && export TEST_REPORT_PATH=./reports/test-results && eslint ./src/**/**/*.spec.tsx && jest --config jest.config.json --coverage"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -40,7 +40,8 @@
   },
   "devDependencies": {
     "@types/axios": "^0.9.33",
-    "@types/react": "^16.3.17",
+    "@types/enzyme": "^3.1.11",
+    "@types/react": "^16.4.6",
     "@types/react-addons-test-utils": "^0.14.21",
     "@types/react-dom": "^16.0.6",
     "@types/react-redux": "^6.0.2",
@@ -52,7 +53,8 @@
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
     "css-loader": "^0.28.11",
-    "enzyme": "^2.7.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^3.18.0",
     "eslint-plugin-react": "^6.10.3",
     "file-loader": "^1.1.11",

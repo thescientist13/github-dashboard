@@ -2,8 +2,8 @@
   "compilerOptions": {
     "target": "es2015",
     "module": "commonjs",
-    "moduleResolution": "node",
     "sourceMap": true,
+    "skipLibCheck": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,

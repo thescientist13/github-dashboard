@@ -1,17 +1,24 @@
 {
   "verbose": true,
 
-  "coverageReporters": ["html", "json", "lcov", "cobertura"],
+  "setupFiles": [
+    "<rootDir>/test/test-setup.js"
+  ],
 
   "transform": {
-    "^.+\\.jsx$": "<rootDir>/node_modules/babel-jest",
-    ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    "^.+\\.(ts|tsx)$": "<rootDir>/test/test-preprocessor.js"
   },
 
-  "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js|jsx)$",
+  "testMatch": [
+    "<rootDir>/src/**/**/*.spec.(ts|tsx)"
+  ],
+
+  "coverageReporters": ["html", "json", "lcov", "cobertura"],
+
   "testResultsProcessor": "./node_modules/jest-junit-reporter",
 
-  "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
+  "moduleFileExtensions": ["js", "ts", "tsx"],
+
   "moduleNameMapper": {
     "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/mocks/file-mock.js",
     "\\.(css|less)$": "<rootDir>/test/mocks/style-mock.js"
