@@ -129,7 +129,7 @@ describe('RepositoriesTable Component', () => {
     expect(table.find('button').length).toEqual(1);
   });
 
-  xit('should render a table of repos with assignees, pull requests, and issues using snapshot testing', () => {
+  it('should render a table of repos with assignees, pull requests, and issues using snapshot testing', () => {
     let repos = [];
 
     function noop() {
@@ -158,7 +158,7 @@ describe('RepositoriesTable Component', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  xit('should add a fork icon when repo is a fork', () => {
+  it('should add a fork icon when repo is a fork', () => {
     let repos = [{
       id: 'mockForkId',
       fullName: 'test-forked-repo',
