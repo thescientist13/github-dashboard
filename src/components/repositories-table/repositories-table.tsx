@@ -22,6 +22,7 @@ class RepositoriesTable extends React.Component<RepositoriesTablePropsInterface,
   }
 
   handleRepoNameFilterChange(event: React.FormEvent<HTMLInputElement>): void {
+    console.log('handleRepoNameFilterChange!!!!!', event.currentTarget.value);
     this.setState({
       repoFilterText: event.currentTarget.value
     });

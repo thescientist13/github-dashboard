@@ -24,7 +24,7 @@ After cloning the repo, and making sure you have [Node LTS](https://nodejs.org/)
 1. Install Yarn globally
    ```bash
    # may need to run as sudo
-   $ npm install -g yarn@0.21.3
+   $ npm install -g yarn@^1.0.0
    ```
 1. Install application dependencies
    ```bash
