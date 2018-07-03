@@ -40,7 +40,7 @@
     "redux": "^4.0.0"
   },
   "devDependencies": {
-    "@types/axios": "^0.9.33",
+    "@types/axios": "^0.14.0",
     "@types/enzyme": "^3.1.11",
     "@types/react": "^16.4.6",
     "@types/react-addons-test-utils": "^0.14.21",
@@ -51,7 +51,7 @@
     "@types/react-test-renderer": "^16.0.1",
     "@types/redux": "^3.6.31",
     "awesome-typescript-loader": "^5.0.0",
-    "axios-mock-adapter": "^1.7.1",
+    "axios-mock-adapter": "^1.15.0",
     "babel-jest": "^19.0.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
