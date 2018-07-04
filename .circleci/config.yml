@@ -34,5 +34,5 @@ jobs:
           name: Run Build
           command: yarn build
       
-    - store_test_results:
-      path: reports/test-results
+  - store_test_results:
+    path: reports/test-results
