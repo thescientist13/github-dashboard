@@ -5,6 +5,12 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js']
   },
 
+  output: {
+    filename: '[name].[chunkhash].bundle.js',
+    sourceMapFilename: '[name].map',
+    chunkFilename: '[id].[chunkhash].js'
+  },
+
   module: {
     rules: [{
       test: /\.tsx?$/,

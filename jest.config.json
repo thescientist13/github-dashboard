@@ -14,8 +14,6 @@
     "<rootDir>/src/**/**/*.spec.(ts|tsx)"
   ],
 
-  "coverageReporters": ["html", "json", "lcov", "cobertura"],
-
   "testResultsProcessor": "./node_modules/jest-junit-reporter",
 
   "moduleFileExtensions": ["js", "ts", "tsx"],
@@ -25,6 +23,16 @@
     "\\.(css|less)$": "<rootDir>/test/mocks/style-mock.js"
   },
 
-  "coverageDirectory": "<rootDir>/reports/test-coverage"
+  "coverageReporters": ["html", "json", "lcov", "cobertura"],
+  "coverageDirectory": "<rootDir>/reports/test-coverage",
+
+  "coverageThreshold": {
+    "global": {
+      "branches": 85,
+      "functions": 85,
+      "lines": 90,
+      "statements": 90
+    }
+  }
 
 }

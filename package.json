@@ -22,12 +22,12 @@
   },
   "homepage": "https://github.com/thescientist13/github-dashboard#readme",
   "scripts": {
-    "clean": "rimraf ./build && rimraf ./reports && mkdir ./reports && mkdir ./reports/test-results",
-    "build": "webpack --config ./webpack.config.prod.js --progress --profile --bail",
+    "clean": "rimraf ./dist && rimraf ./reports && mkdir ./reports && mkdir ./reports/test-results",
+    "build": "eslint *.js && yarn clean && webpack --config ./webpack.config.prod.js --progress --profile --bail",
     "develop": "webpack-dev-server --open --config ./webpack.config.develop.js --inline --progress",
-    "serve": "webpack --config ./webpack.config.prod.js -p --progress --profile --bail && http-server ./dist -o",
+    "serve": "yarn build && http-server ./dist -o -g",
     "setup": "rimraf ./src/services/credentials.ts && cp ./src/services/credentials.ts.tmpl ./src/services/credentials.ts",
-    "test": "yarn clean && export TEST_REPORT_PATH=./reports/test-results && eslint ./src/**/**/*.spec.tsx && jest --config jest.config.json --coverage"
+    "test": "yarn clean && eslint ./src/**/**/*.spec.tsx && export TEST_REPORT_PATH=./reports/test-results && jest --config jest.config.json --coverage"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -35,7 +35,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
-    "react-router": "^3",
+    "react-router": "^3.2.1",
     "redux": "^4.0.0"
   },
   "devDependencies": {
@@ -60,12 +60,12 @@
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.9.0",
-    "jest": "19.0.2",
+    "jest": "^23.3.0",
     "jest-junit-reporter": "^1.0.1",
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^16.4.1",
     "redux-mock-store": "^1.5.3",
-    "rimraf": "2.5.4",
+    "rimraf": "^2.6.2",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.21.0",
     "ts-jest": "^19.0.0",
@@ -74,7 +74,7 @@
     "typescript": "^2.9.2",
     "url-loader": "^1.0.1",
     "webpack": "^4.12.0",
-    "webpack-cli": "^3.0.6",
+    "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4",
     "webpack-merge": "^0.14.1"
   }
