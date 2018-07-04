@@ -1,5 +1,5 @@
 import * as React from 'react';
-import renderer from 'react-test-renderer';
+import * as renderer from 'react-test-renderer';
 import { mount, shallow } from 'enzyme';
 import RepositoriesTable from './repositories-table';
 
@@ -29,12 +29,10 @@ describe('RepositoriesTable Component', () => {
     expect(label.length).toEqual(1);
     expect(rows.length).toEqual(3);
 
-    input.node.value = userInput;
-    wrapper.find('input').simulate('change', input);
+    input.instance().value = userInput;
+    wrapper.find('input').simulate('change', { target: { value: userInput } });
 
-    let newRows = wrapper.find('tbody tr');
-
-    expect(newRows.length).toEqual(1);
+    expect(wrapper.find('tbody tr').length).toEqual(1);
   });
 
   it('should test repository fullName filter when there isnt a match', () => {
@@ -53,12 +51,10 @@ describe('RepositoriesTable Component', () => {
     expect(label.length).toEqual(1);
     expect(rows.length).toEqual(2);
 
-    input.node.value = userInput;
-    wrapper.find('input').simulate('change', input);
+    input.instance().value = userInput;
+    wrapper.find('input').simulate('change', { target: { value: userInput } });
 
-    let newRows = wrapper.find('tbody tr');
-
-    expect(newRows.length).toEqual(0);
+    expect(wrapper.find('tbody tr').length).toEqual(0);
   });
 
   it('should test repository fullName filter does nothing when there is no input', () => {
@@ -79,12 +75,10 @@ describe('RepositoriesTable Component', () => {
     expect(label.length).toEqual(1);
     expect(rows.length).toEqual(3);
 
-    input.node.value = userInput;
-    wrapper.find('input').simulate('change', input);
+    input.instance().value = userInput;
+    wrapper.find('input').simulate('change', { target: { value: userInput } });
 
-    let newRows = wrapper.find('tbody tr');
-
-    expect(newRows.length).toEqual(3);
+    expect(wrapper.find('tbody tr').length).toEqual(3);
   });
 
   it('should test that repo fullName filter controls exist', () => {

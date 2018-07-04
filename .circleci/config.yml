@@ -20,9 +20,18 @@ jobs:
           name: Install Project Dependencies
           command: yarn install
 
+      # tests expect this to be done
+      # to ensure a credentials file is available
+      - run:
+          name: Run Setup
+          command: yarn setup
+
       - run:
           name: Run Tests
           command: yarn test
+        
+      - store_test_results:
+          path: reports/test-results
 
       - run:
           name: Run Build

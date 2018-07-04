@@ -1,4 +1,4 @@
-import * as axios from 'axios';
+import axios from 'axios';
 import { CredentialsInterface } from './credentials';
 
 // private interfaces to help model the GitHub API domain
@@ -162,8 +162,8 @@ export class GithubApi {
 
   getUserDetails() {
     return axios.get(this.baseUrl + 'user').then((response: GitHubApiResponse): UserInterface => {
-      let data: GitHubApiUserInterface = response.data;
-      let user: UserInterface = {
+      const data: GitHubApiUserInterface = response.data;
+      const user: UserInterface = {
         avatar: data.avatar_url,
         username: data.login
       };
@@ -173,7 +173,7 @@ export class GithubApi {
   }
 
   getUserRepositories (nextUrl?: string) {
-    let url = nextUrl || this.baseUrl + 'users/' + this.credentials.username + '/repos';
+    const url = nextUrl || this.baseUrl + 'users/' + this.credentials.username + '/repos';
 
     return axios.get(url).then((response: GitHubApiResponse): RepositoriesInterface => {
       return this.modelGitHubRepositoriesResponse(response.data, response.headers)
@@ -182,7 +182,7 @@ export class GithubApi {
   }
 
   getUserSubscriptions (nextUrl?: string) {
-    let url = nextUrl || this.baseUrl + 'users/' + this.credentials.username + '/subscriptions';
+    const url = nextUrl || this.baseUrl + 'users/' + this.credentials.username + '/subscriptions';
 
     return axios.get(url).then((response: GitHubApiResponse): RepositoriesInterface => {
       return this.modelGitHubRepositoriesResponse(response.data, response.headers)
@@ -191,8 +191,8 @@ export class GithubApi {
   }
 
   getIssuesForRepository(repositoryName: string, username?: string) {
-    let name: string = username || this.credentials.username;
-    let url: string = this.baseUrl + 'repos/' + name + '/' + repositoryName + '/issues';
+    const name: string = username || this.credentials.username;
+    const url: string = this.baseUrl + 'repos/' + name + '/' + repositoryName + '/issues';
 
     return axios.get(url).then((response: GitHubApiResponse): IssueDetailsInterface => {
       return this.modelGitHubIssuesResponse(response.data, this.credentials.username);

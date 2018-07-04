@@ -1,24 +1,23 @@
 const webpackMerge = require('webpack-merge');
 const commonConfig = require('./webpack.config.common.js');
-const DefinePlugin = require('webpack/lib/DefinePlugin');
 
 module.exports = webpackMerge(commonConfig, {
-  debug: true,
-  devtool: 'cheap-module-source-map',
 
-  output: {
-    path: __dirname + './build',
-    filename: '[name].bundle.js',
-    sourceMapFilename: '[name].map',
-    chunkFilename: '[id].chunk.js',
-    library: 'ac_[name]',
-    libraryTarget: 'var',
-  },
+  mode: 'development',
 
-  tslint: {
-    emitErrors: false,
-    failOnHint: false,
-    resourcePath: 'src'
+  module: {
+    rules: [{
+      test: /\.ts$/,
+      enforce: 'pre',
+      use: [{
+        loader: 'tslint-loader',
+        options: {
+          emitErrors: true,
+          failOnHint: true,
+          resourcePath: 'src'
+        }
+      }]
+    }]
   },
 
   devServer: {
@@ -29,8 +28,7 @@ module.exports = webpackMerge(commonConfig, {
       aggregateTimeout: 300,
       poll: 1000
     },
-    outputPath: __dirname + '/build',
-    proxy:{
+    proxy: {
       '/api.github.com/*': {
         target: 'http://api.github.com/',
         secure: false,

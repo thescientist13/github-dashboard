@@ -1,9 +1,9 @@
 import githubStoreReducer, { GITHUB_STORE_ACTIONS, getUserDetails, getUserRepositories, getUserSubscriptions, getIssuesForUserRepository, getIssuesForUserSubscription } from './github-store';
-import MOCK_ISSUES_USER_REPOSITORIES from '../../test/mocks/issues-user-repository.json';
-import MOCK_ISSUES_USER_SUBSCRIPTIONS from '../../test/mocks/issues-user-subscription.json';
-import MOCK_USER_DETAILS from '../../test/mocks/user-details.json';
-import MOCK_USER_REPOSITORIES from '../../test/mocks/user-repositories.json';
-import MOCK_USER_SUBSCRIPTIONS from '../../test/mocks/user-subscriptions.json';
+import * as MOCK_ISSUES_USER_REPOSITORIES from '../../test/mocks/issues-user-repository.json';
+import * as MOCK_ISSUES_USER_SUBSCRIPTIONS from '../../test/mocks/issues-user-subscription.json';
+import * as MOCK_USER_DETAILS from '../../test/mocks/user-details.json';
+import * as MOCK_USER_REPOSITORIES from '../../test/mocks/user-repositories.json';
+import * as MOCK_USER_SUBSCRIPTIONS from '../../test/mocks/user-subscriptions.json';
 
 const MOCK_INIT_STATE = {
   userDetails: {
