@@ -21,7 +21,7 @@ jobs:
           command: yarn install
 
       # tests expect this to be done
-      # to generate a credentials file
+      # to ensure a credentials file is available
       - run:
           name: Run Setup
           command: yarn setup
@@ -30,6 +30,6 @@ jobs:
           name: Run Tests
           command: yarn test
 
-      # - run:
-      #     name: Run Build
-      #     command: yarn build
+      - run:
+          name: Run Build
+          command: yarn build
