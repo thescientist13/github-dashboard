@@ -20,13 +20,15 @@ jobs:
           name: Install Project Dependencies
           command: yarn install
 
-      - run:
-          name: Run Tests
-          command: yarn test
-
+      # tests expect this to be done
+      # to generate a credentials file
       - run:
           name: Run Setup
           command: yarn setup
+
+      - run:
+          name: Run Tests
+          command: yarn test
 
       # - run:
       #     name: Run Build
