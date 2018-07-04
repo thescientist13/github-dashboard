@@ -81,6 +81,7 @@ export interface RepositoriesInterface {
 export class GithubApi {
   private baseUrl:string = 'https://api.github.com/';
   private credentials: CredentialsInterface;
+  private NEXT_KEY = 'rel="next"';
 
   constructor(credentials: CredentialsInterface){
     this.credentials = credentials;
@@ -91,10 +92,20 @@ export class GithubApi {
   }
 
   private parseNextReposUrl(linkHeader: string): string {
-    let url = linkHeader ? linkHeader.split(';')[0].replace('<', '').replace('>', '') : undefined;
+    // undefined signals the end of more repos
+    let nextReposUrl:string;
+    
+    if(linkHeader) {
+      linkHeader.split(',').forEach(section => {
+        const sectionPieces:Array<string> = section.split(';');
+  
+        if(sectionPieces[1].trim() === this.NEXT_KEY){
+          nextReposUrl = sectionPieces[0].replace('<', '').replace('>','');
+        }
+      });
+    }
 
-    // null tells us to "stop" paging if all repos have been requested
-    return url && url.search('page=1') >= 0 ? null : url;
+    return nextReposUrl;
   }
 
   private handleGitHubApiError(response: any, args: any): void {
