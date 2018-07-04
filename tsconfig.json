@@ -12,7 +12,8 @@
   },
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
-    "useWebpackText": true
+    "useWebpackText": true,
+    "useBabel": true
   },
   "files": [],
   "exclude": [
