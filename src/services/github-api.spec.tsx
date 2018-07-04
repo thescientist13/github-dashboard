@@ -76,17 +76,17 @@ describe('GitHub API Service', () => {
     });
   });
 
-  xit('should test getUserRepositories returns correct user repositories data and next URL', () => {
+  it('should test getUserRepositories returns correct user repositories data and next URL', () => {
     mockAxios.onGet(`https://api.github.com/users/${mockCredentials.username}/subscriptions`).reply(200, MOCK_USER_REPOS, {
       link: '<https://api.github.com/user/895923/subscriptions?page=2>; rel="next", <https://api.github.com/user/895923/subscriptions?page=5>; rel="last"'
-    }).catch(((error) => {
-      console.log(error);
-    }));
+    });
 
     new GithubApi(mockCredentials).getUserSubscriptions().then((response) => {
       expect(response.repositories.length).toEqual(MOCK_USER_REPOS.length);
       expect(response.nextReposUrl).toEqual('https://api.github.com/user/895923/subscriptions?page=2');
-    });
+    }).catch(((error) => {
+      console.log(error);
+    }));
   });
 
   it('should test getIssuesForRepository (personal) returns correctly modeled data', () => {
