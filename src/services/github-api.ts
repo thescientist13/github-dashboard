@@ -1,4 +1,4 @@
-import * as axios from 'axios';
+import axios from 'axios';
 import { CredentialsInterface } from './credentials';
 
 // private interfaces to help model the GitHub API domain
