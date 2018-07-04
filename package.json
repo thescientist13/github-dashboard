@@ -25,7 +25,7 @@
     "clean": "rimraf ./build && rimraf ./reports && mkdir ./reports && mkdir ./reports/test-results",
     "build": "webpack --config ./webpack.config.prod.js --progress --profile --bail",
     "develop": "webpack-dev-server --open --config ./webpack.config.develop.js --inline --progress",
-    "serve": "webpack --config ./webpack.config.prod.js -p --progress --profile --bail && http-server ./build -o",
+    "serve": "webpack --config ./webpack.config.prod.js -p --progress --profile --bail && http-server ./dist -o",
     "setup": "rimraf ./src/services/credentials.ts && cp ./src/services/credentials.ts.tmpl ./src/services/credentials.ts",
     "test": "yarn clean && export TEST_REPORT_PATH=./reports/test-results && eslint ./src/**/**/*.spec.tsx && jest --config jest.config.json --coverage"
   },
