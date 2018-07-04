@@ -1,6 +1,6 @@
 import './navigation.css';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 interface NavigationPropsInterface {}
 interface NavigationStateInterface {}

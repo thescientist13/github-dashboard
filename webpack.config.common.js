@@ -1,47 +1,53 @@
-const { CheckerPlugin } = require('awesome-typescript-loader')
+// const { CheckerPlugin } = require('awesome-typescript-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  context: path.join(__dirname, 'src'),
+  // context: path.join(__dirname, 'src'),
 
-  entry: {
-    main: './index'
-  },
+  // entry: {
+  //   main: './index'
+  // },
+
+  // output: {
+  //   path: path.join(__dirname, './build'),
+  //   filename: '[name].bundle.js',
+  //   sourceMapFilename: '[name].map',
+  //   chunkFilename: '[id].chunk.js',
+  //   library: 'ac_[name]',
+  //   libraryTarget: 'var',
+  // },
 
   resolve: {
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: ['.ts', '.tsx', '.js']
   },
 
   module: {
     rules: [{
-      // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
       test: /\.tsx?$/,
-      loader: "awesome-typescript-loader"
+      loader: 'awesome-typescript-loader'
     }, {
-      test: /\.html$/,
-      loader: 'html-loader',
-      exclude: [__dirname + './src/index.html']
-    }, {
+    //   test: /\.html$/,
+    //   loader: 'html-loader',
+    //   exclude: path.join(__dirnamem, './src/index.html')
+    // }, {
       test: /\.css$/,
-      loader: "style-loader!css-loader"
+      loader: 'style-loader!css-loader'
     }, {
       test: /\.(jpg|png|gif)$/,
       loader: 'file-loader'
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      loader: "url-loader?limit=10000&mimetype=application/font-woff"
+      loader: 'url-loader?limit=10000&mimetype=application/font-woff'
     }, {
       test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      loader: "file-loader"
+      loader: 'file-loader'
     }]
   },
 
   plugins: [
-    new CheckerPlugin(),
-
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: './src/index.html',
       chunksSortMode: 'dependency'
     })
   ]
