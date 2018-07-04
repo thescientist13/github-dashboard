@@ -30,7 +30,7 @@ jobs:
           name: Run Tests
           command: yarn test
         
-        - store_test_results:
+      - store_test_results:
           path: reports/test-results
 
       - run:
