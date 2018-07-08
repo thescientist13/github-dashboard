@@ -1,23 +1,29 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+
+  context: path.resolve(__dirname, 'src'),
+  
+  entry: {
+    index: './index.tsx'
   },
 
   output: {
     filename: '[name].[chunkhash].bundle.js',
     sourceMapFilename: '[name].map',
-    chunkFilename: '[id].[chunkhash].js'
+    chunkFilename: '[id].[chunkhash].js',
+    sourceMapFilename: '[name].map'
+  },
+
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
   },
 
   module: {
     rules: [{
       test: /\.tsx?$/,
       loader: 'awesome-typescript-loader'
-    }, {
-      test: /\.css$/,
-      loader: 'style-loader!css-loader'
     }, {
       test: /\.(jpg|png|gif)$/,
       loader: 'file-loader'
@@ -32,7 +38,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './index.html',
       chunksSortMode: 'dependency'
     })
   ]
