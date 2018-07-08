@@ -19,7 +19,7 @@ module.exports = webpackMerge(commonConfig, {
         cssProcessorOptions: { discardComments: { removeAll: true } }
       })
     ]
-    // seems to lower the Lighthouse performance score a lot
+    // seems to lower the Lighthouse performance score a lot (from 87 -> 78)
     // but if more CSS gets added the project, maybe this would be useful to add back in?
     // splitChunks: {
     //   cacheGroups: {
