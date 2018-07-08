@@ -17,6 +17,9 @@ module.exports = webpackMerge(commonConfig, {
           resourcePath: 'src'
         }
       }]
+    }, {
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader']
     }]
   },
 
