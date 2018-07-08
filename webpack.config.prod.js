@@ -1,6 +1,5 @@
 const commonConfig = require('./webpack.config.common');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const CompressionPlugin = require('compression-webpack-plugin');
 const HtmlCriticalPlugin = require('html-critical-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -18,19 +17,17 @@ module.exports = webpackMerge(commonConfig, {
       new OptimizeCssAssetsPlugin({
         cssProcessorOptions: { discardComments: { removeAll: true } }
       })
-    ]
-    // seems to lower the Lighthouse performance score a lot (from 87 -> 78)
-    // but if more CSS gets added the project, maybe this would be useful to add back in?
-    // splitChunks: {
-    //   cacheGroups: {
-    //     styles: {
-    //       name: 'styles',
-    //       test: /\.css$/,
-    //       chunks: 'all',
-    //       enforce: true
-    //     }
-    //   }
-    // }
+    ],
+    splitChunks: {
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true
+        }
+      }
+    }
   },
 
   module: {
@@ -65,10 +62,6 @@ module.exports = webpackMerge(commonConfig, {
       src: 'index.html',
       dest: 'index.html',
       inline: true
-    }),
-
-    new CompressionPlugin({
-      exclude: /\.html/
     }),
 
     new BundleAnalyzerPlugin({
