@@ -1,8 +1,12 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+
+  context: path.resolve(__dirname, 'src'),
+  
+  entry: {
+    index: './index.tsx'
   },
 
   output: {
@@ -10,6 +14,10 @@ module.exports = {
     sourceMapFilename: '[name].map',
     chunkFilename: '[id].[chunkhash].js',
     sourceMapFilename: '[name].map'
+  },
+
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
   },
 
   module: {
@@ -30,7 +38,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './index.html',
       chunksSortMode: 'dependency'
     })
   ]
