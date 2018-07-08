@@ -1,5 +1,6 @@
 const commonConfig = require('./webpack.config.common');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CompressionPlugin = require('compression-webpack-plugin');
 // const HtmlCriticalPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -53,6 +54,10 @@ module.exports = webpackMerge(commonConfig, {
     //   dest: 'index.html',
     //   inline: true
     // }),
+
+    new CompressionPlugin({
+      exclude: /\.html/
+    }),
 
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
