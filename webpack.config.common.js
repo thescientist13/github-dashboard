@@ -8,7 +8,8 @@ module.exports = {
   output: {
     filename: '[name].[chunkhash].bundle.js',
     sourceMapFilename: '[name].map',
-    chunkFilename: '[id].[chunkhash].js'
+    chunkFilename: '[id].[chunkhash].js',
+    sourceMapFilename: '[name].map'
   },
 
   module: {
