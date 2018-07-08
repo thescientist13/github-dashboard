@@ -48,7 +48,7 @@ module.exports = webpackMerge(commonConfig, {
     }),
 
     // new HtmlCriticalPlugin({
-    //   base: path.resolve(__dirname, 'build'),
+    //   base: path.resolve(__dirname, 'dist'),
     //   src: 'index.html',
     //   dest: 'index.html',
     //   inline: true
