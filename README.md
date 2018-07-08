@@ -11,7 +11,7 @@ GitHub Dashboard is a locally running web application that aims to help streamli
 
 ![GitHub Dashboard](https://s3.amazonaws.com/uploads.thegreenhouse.io/oss/github-dashboard-v1.2.0.png)
 
-To run, all that is required is the latest LTS version of [Node][] installed (v6.x) and the package manager, [Yarn][]. A GitHub access token will also need to be generated.  The _Setup_ section below will cover all of this.
+To run, all that is required is the latest LTS version of [Node][] installed and the package manager, [Yarn][]. A GitHub access token will also need to be generated.  The _Setup_ section below will cover all of this.
 
 [Node]: https://nodejs.org/
 [Yarn]: https://yarnpkg.com/
